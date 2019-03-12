@@ -1,5 +1,6 @@
 package com.qiu.keepaccount.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,14 +25,28 @@ public class EditAccountFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static volatile EditAccountFragment editAccountFragment = null;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public EditAccountFragment() {
+    @SuppressLint("ValidFragment")
+    private EditAccountFragment() {
         // Required empty public constructor
+    }
+
+    public static EditAccountFragment getInstance(){
+        if(editAccountFragment == null){
+            synchronized (EditAccountFragment.class){
+                if(editAccountFragment == null){
+                    editAccountFragment = new EditAccountFragment();
+                }
+            }
+        }
+        return editAccountFragment;
     }
 
     /**

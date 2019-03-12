@@ -1,5 +1,6 @@
 package com.qiu.keepaccount.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,10 +31,14 @@ public class ChartFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ChartFragment() {
+    @SuppressLint("ValidFragment")
+    private ChartFragment() {
         // Required empty public constructor
     }
 
+    public static ChartFragment getInstance(){
+        return Singleton.chartFragment;
+    }
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -106,4 +111,9 @@ public class ChartFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private static class Singleton{
+        private static ChartFragment chartFragment= new ChartFragment();
+    }
+
 }

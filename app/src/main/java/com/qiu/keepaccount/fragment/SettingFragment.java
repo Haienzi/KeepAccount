@@ -1,5 +1,6 @@
 package com.qiu.keepaccount.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qiu.keepaccount.R;
+
+import java.io.Serializable;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,8 +33,13 @@ public class SettingFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public SettingFragment() {
+    @SuppressLint("ValidFragment")
+    private SettingFragment() {
         // Required empty public constructor
+    }
+
+    public static SettingFragment getInstance(){
+        return Singleton.settingFragment;
     }
 
     /**
@@ -106,4 +114,9 @@ public class SettingFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private static class Singleton{
+        private static SettingFragment settingFragment= new SettingFragment();
+    }
+
 }
