@@ -6,7 +6,9 @@
     <string name="title_edit_account">记账</string>
     <string name="title_chart">报表</string>
     <string name="title_me">设置</string>
-    
+
+    <string name="ok_text">确定</string>
+
     <!--记账-->
     <string name="ea_date">2019/3/23</string>
     <string name="ea_total">总资产</string>
@@ -22,6 +24,14 @@
     <string name="zero">0.00</string>
     <string name="unit">元</string>
 
+    <!--账本-->
+    <string name="all_book">所有账本</string>
+    <string name="book_name">账本名称</string>
+    <string name="book_condition">记账场景</string>
+    <string name="book_name_text">请输入账本名称</string>
+    <string name="book_condition_text">请选择账本场景</string>
+    <string name="book_cover">账本封面</string>
+    <string name="add_book">添加账本</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

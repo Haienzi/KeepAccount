@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                   android:id="@+id/toolbar"
-                                   android:layout_width="match_parent"
-                                   android:layout_height="wrap_content"
-                                   android:background="?attr/colorPrimary"
-                                   android:minHeight="?attr/actionBarSize"
-                                   app:layout_collapseMode="pin"
-                                   app:titleTextAppearance="@style/Toolbar.TextAppearance"
-                                   app:popupTheme="@style/AppTheme.PopupOverlay">
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorPrimary"
+    android:minHeight="?attr/actionBarSize"
+    app:layout_collapseMode="pin"
+    app:titleTextAppearance="@style/Toolbar.TextAppearance"
+    app:popupTheme="@style/AppTheme.PopupOverlay">
+    <ImageView
+        android:id="@+id/back_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        app:srcCompat="@mipmap/ic_arrow_left"
+        />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:textSize="@dimen/text18"
+        android:textColor="@color/white"
+        android:text="@string/all_book"/>
 
 </android.support.v7.widget.Toolbar>
