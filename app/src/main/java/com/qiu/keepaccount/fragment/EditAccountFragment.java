@@ -19,17 +19,16 @@ import com.qiu.keepaccount.R;
  * Use the {@link EditAccountFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EditAccountFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class EditAccountFragment extends BaseFragment {
+    /**
+     * 标志位，标志已经初始化完成
+     */
+    private boolean isPrepared;
+    /**
+     * 是否已被加载过一次，第二次就不再去请求数据了
+     */
+    private boolean mHasLoadedOnce;
 
-    private static volatile EditAccountFragment editAccountFragment = null;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -38,49 +37,44 @@ public class EditAccountFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static EditAccountFragment getInstance(){
-        if(editAccountFragment == null){
-            synchronized (EditAccountFragment.class){
-                if(editAccountFragment == null){
-                    editAccountFragment = new EditAccountFragment();
-                }
-            }
-        }
-        return editAccountFragment;
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EditAccountFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EditAccountFragment newInstance(String param1, String param2) {
+    public static EditAccountFragment newInstance() {
         EditAccountFragment fragment = new EditAccountFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
+        //fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_account, container, false);
+        if (mView == null) {
+            //需要inflate一个布局文件 填充Fragment
+            mView = inflater.inflate(R.layout.fragment_edit_account, container, false);
+            initView();
+            isPrepared = true;
+            //实现懒加载
+            lazyLoad();
+        }
+        //缓存的mView需要判断是否已经被加过parent， 如果有parent需要从parent删除，要不然会发生这个mView已经有parent的错误。
+        ViewGroup parent = (ViewGroup) mView.getParent();
+        if (parent != null) {
+            parent.removeView(mView);
+        }
+
+        return mView;
+
+    }
+    public void initView(){
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -93,18 +87,27 @@ public class EditAccountFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    /**
+     * 延迟加载
+     * 子类必须重写此方法
+     */
+    @Override
+    public void lazyLoad() {
+        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+            return;
+        }
+        //填充各控件的数据
+        mHasLoadedOnce = true;
+
     }
 
     /**

@@ -2,13 +2,177 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              tools:context=".fragment.EditAccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_height="@dimen/about_page_header_height"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleTextAppearance="@style/AboutPage.Header.ToolbarTitleExpanded"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/choose_book"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        app:srcCompat="@drawable/ic_book_white"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text22"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"
+                        android:text="@string/ea_date"/>
+                    <ImageView
+                        android:id="@+id/choose_date"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        app:srcCompat="@drawable/ic_date_white"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:clickable="true"
+                    android:background="@drawable/ellipse">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text16"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"
+                        android:text="@string/add_budget"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_collapseMode="parallax">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/ea_today_pay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_marginTop="16dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="@dimen/text18"
+                            android:text="@string/zero"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="@dimen/text16"
+                            android:text="@string/ea_pay"/>
+
+                        <TextView
+                            android:id="@+id/ea_today_income"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="@dimen/text18"
+                            android:text="@string/zero"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="@dimen/text16"
+                            android:text="@string/ea_income"/>
+
+                    </LinearLayout>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/white">
+                    </View>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+                        <TextView
+                            android:id="@+id/ea_monthly_pay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_marginTop="16dp"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="@dimen/text18"
+                            android:text="@string/zero"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text16"
+                            android:text="@string/ea_monthly_pay"/>
+                        <TextView
+                            android:id="@+id/ea_monthly_income"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="4dp"
+                            android:textSize="@dimen/text18"
+                            android:text="@string/zero"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text16"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/ea_monthly_income"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
 
 </FrameLayout>
