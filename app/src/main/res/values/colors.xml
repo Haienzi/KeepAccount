@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#f36c60</color>
     <color name="colorPrimaryDark">#EDEDED</color>
-    <color name="colorAccent">#e51c23</color>
+    <color name="colorAccent">#f36c60</color>
     <color name="icon_grey">#bfbfbf</color>
     <color name="app_status">#f36c60</color>
 

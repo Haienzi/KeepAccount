@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -60,6 +61,8 @@ public class EditAccountFragment extends BaseFragment {
     ImageView mTipImg; //提示图片
     @BindView(R.id.ea_add_tip)
     TextView mTipText;//提示文本
+    @BindView(R.id.fab_add)
+    FloatingActionButton mFloatingActionButton;
 
     private AccountRecyclerAdapter mAccountRecyclerAdapter;
     private List<Account> mAccountList;
@@ -104,9 +107,10 @@ public class EditAccountFragment extends BaseFragment {
             //需要inflate一个布局文件 填充Fragment
             mView = inflater.inflate(R.layout.fragment_edit_account, container, false);
             ButterKnife.bind(this,mView);
-            mAccountList = new ArrayList<>(2);
-            mAccountList.add(new Account());
-            mAccountList.add(new Account());
+            mAccountList = new ArrayList<>();
+            for(int i=0;i<10;i++){
+                mAccountList.add(new Account());
+            }
             showAccountOrEmpty();
             setRecyclerData();
             isPrepared = true;
