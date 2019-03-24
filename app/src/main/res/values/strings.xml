@@ -16,6 +16,7 @@
     <string name="add_budget">添加预算</string>
     <string name="ea_monthly_income">本月收入</string>
     <string name="ea_monthly_pay">本月支出</string>
+    <string name="ea_add_tip">暂无内容，快来记上一笔</string>
 
     <string name="default_value">***</string>
     <string name="zero">0.00</string>

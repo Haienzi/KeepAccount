@@ -5,11 +5,25 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.qiu.keepaccount.R;
+import com.qiu.keepaccount.adapter.AccountRecyclerAdapter;
+import com.qiu.keepaccount.entity.Account;
+import com.qiu.keepaccount.listener.RecyclerItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +34,35 @@ import com.qiu.keepaccount.R;
  * create an instance of this fragment.
  */
 public class EditAccountFragment extends BaseFragment {
+    @BindView(R.id.ea_recycler_view)
+    RecyclerView mRecyclerView;//账单列表
+    @BindView(R.id.choose_book)
+    ImageView mChooseBookImg;//选择账本
+    @BindView(R.id.ea_date_txt)
+    TextView mDateText;//显示的日期
+    @BindView(R.id.choose_date)
+    ImageView mDateImg;//选择日期
+    @BindView(R.id.ea_edit_surplus)
+    LinearLayout mEditSurplusLayout;//添加预算
+    @BindView(R.id.ea_surplus_text)
+    TextView mSurplusText; // 预算详情
+    @BindView(R.id.ea_today_pay)
+    TextView mTodayPay;//今日支出金额
+    @BindView(R.id.ea_today_income)
+    TextView mTodayIncome;//今日收入
+    @BindView(R.id.ea_monthly_pay)
+    TextView mMonthlyPay;//本月支出
+    @BindView(R.id.ea_monthly_income)
+    TextView mMonthlyIncome;//本月收入
+    @BindView(R.id.ea_empty_tip)
+    LinearLayout mTipLayout;//空内容提示布局
+    @BindView(R.id.ea_tip_image)
+    ImageView mTipImg; //提示图片
+    @BindView(R.id.ea_add_tip)
+    TextView mTipText;//提示文本
+
+    private AccountRecyclerAdapter mAccountRecyclerAdapter;
+    private List<Account> mAccountList;
     /**
      * 标志位，标志已经初始化完成
      */
@@ -28,6 +71,7 @@ public class EditAccountFragment extends BaseFragment {
      * 是否已被加载过一次，第二次就不再去请求数据了
      */
     private boolean mHasLoadedOnce;
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -59,7 +103,12 @@ public class EditAccountFragment extends BaseFragment {
         if (mView == null) {
             //需要inflate一个布局文件 填充Fragment
             mView = inflater.inflate(R.layout.fragment_edit_account, container, false);
-            initView();
+            ButterKnife.bind(this,mView);
+            mAccountList = new ArrayList<>(2);
+            mAccountList.add(new Account());
+            mAccountList.add(new Account());
+            showAccountOrEmpty();
+            setRecyclerData();
             isPrepared = true;
             //实现懒加载
             lazyLoad();
@@ -69,12 +118,41 @@ public class EditAccountFragment extends BaseFragment {
         if (parent != null) {
             parent.removeView(mView);
         }
-
         return mView;
 
     }
-    public void initView(){
 
+    /**
+     * 没有记账数据的时候显示空内容的提示
+     */
+    public void showAccountOrEmpty(){
+        if(mAccountList.size() == 0)
+        {
+            mRecyclerView.setVisibility(View.GONE);
+            mTipLayout.setVisibility(View.VISIBLE);
+            mTipImg.setVisibility(View.VISIBLE);
+            mTipText.setVisibility(View.VISIBLE);
+        }else {
+            mTipLayout.setVisibility(View.GONE);
+            mTipImg.setVisibility(View.GONE);
+            mTipText.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+    /**
+     * 设置recyclerView的数据
+     */
+    public void setRecyclerData(){
+        mAccountRecyclerAdapter = new AccountRecyclerAdapter(getActivity(),mAccountList);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.
+                VERTICAL,false));
+        mRecyclerView.setAdapter(mAccountRecyclerAdapter);
+        mAccountRecyclerAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
+            @Override
+            public void onItemClick(View view) {
+
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+              android:orientation="vertical"
              xmlns:app="http://schemas.android.com/apk/res-auto"
              tools:context=".fragment.EditAccountFragment">
 
@@ -37,6 +38,7 @@
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/ic_book_white"/>
                     <TextView
+                        android:id="@+id/ea_date_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
@@ -54,19 +56,21 @@
                         app:srcCompat="@drawable/ic_date_white"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/ea_edit_surplus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:layout_gravity="center_horizontal"
                     android:orientation="horizontal"
                     android:clickable="true"
-                    android:background="@drawable/ellipse">
+                    android:background="@drawable/ellipse"
+                    android:focusable="true">
                     <TextView
+                        android:id="@+id/ea_surplus_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text16"
                         android:textAlignment="center"
                         android:layout_gravity="center"
                         android:text="@string/add_budget"/>
@@ -99,7 +103,6 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"
-                            android:textSize="@dimen/text16"
                             android:text="@string/ea_pay"/>
 
                         <TextView
@@ -116,7 +119,6 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:layout_gravity="center_horizontal"
-                            android:textSize="@dimen/text16"
                             android:text="@string/ea_income"/>
 
                     </LinearLayout>
@@ -147,7 +149,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/text16"
                             android:text="@string/ea_monthly_pay"/>
                         <TextView
                             android:id="@+id/ea_monthly_income"
@@ -162,7 +163,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/text16"
                             android:layout_gravity="center_horizontal"
                             android:text="@string/ea_monthly_income"/>
 
@@ -173,6 +173,36 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
+    <LinearLayout
+        android:id="@+id/ea_empty_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/ea_tip_image"
+            android:layout_marginTop="64dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_no_content_128"/>
+        <TextView
+            android:id="@+id/ea_add_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/ea_add_tip"
+            android:textAlignment="center"/>
+    </LinearLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:id="@+id/ea_recycler_view"
+        android:visibility="visible"
+        >
 
-</FrameLayout>
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
