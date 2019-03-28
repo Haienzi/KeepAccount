@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 28
@@ -34,4 +33,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.jakewharton:butterknife:8.8.0'
     implementation 'com.jakewharton:butterknife-compiler:8.8.0'
+    implementation 'org.litepal.android:java:3.0.0'
 }

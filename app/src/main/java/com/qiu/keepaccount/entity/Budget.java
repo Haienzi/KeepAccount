@@ -1,7 +1,6 @@
 package com.qiu.keepaccount.entity;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import org.litepal.crud.LitePalSupport;
 
 import java.util.Date;
 
@@ -10,10 +9,9 @@ import java.util.Date;
  * @Date 2019/3/27 14:10
  * @Description
  */
-public class Budget extends RealmObject {
+public class Budget extends LitePalSupport {
 
-    @PrimaryKey
-    private Integer id;
+    private int id;
 
     private Double budget; //预算
 

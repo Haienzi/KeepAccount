@@ -1,16 +1,15 @@
 package com.qiu.keepaccount.entity;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import org.litepal.crud.LitePalSupport;
 
 /**
  * @Author qiuhong.ma
  * @Date 2019/3/27 14:09
  * @Description
  */
-public class Scene extends RealmObject {
-    @PrimaryKey
-    private Integer id;
+public class Scene{
+
+    private int id;
 
     private String sceneName;
 

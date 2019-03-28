@@ -1,16 +1,15 @@
 package com.qiu.keepaccount.entity;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import org.litepal.crud.LitePalSupport;
 
 /**
  * @Author qiuhong.ma
  * @Date 2019/3/27 13:58
  * @Description
  */
-public class User extends RealmObject {
-    @PrimaryKey
-    private Integer id;
+public class User extends LitePalSupport {
+
+    private int id;
     private String nickName;
     private String phoneNumber;
 
