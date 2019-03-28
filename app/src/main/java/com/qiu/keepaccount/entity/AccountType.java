@@ -1,17 +1,16 @@
 package com.qiu.keepaccount.entity;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+
+import org.litepal.crud.LitePalSupport;
 
 /**
  * @Author qiuhong.ma
  * @Date 2019/3/27 14:09
  * @Description 记录分类
  */
-public class AccountType extends RealmObject {
+public class AccountType extends LitePalSupport {
 
-    @PrimaryKey
-    private Integer id;
+    private int id;
 
     private String name; // 分类名称
 

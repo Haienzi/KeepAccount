@@ -1,7 +1,6 @@
 package com.qiu.keepaccount.entity;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import org.litepal.crud.LitePalSupport;
 
 import java.util.Date;
 import java.util.jar.Attributes;
@@ -11,10 +10,9 @@ import java.util.jar.Attributes;
  * @Date 2019/3/27 14:09
  * @Description
  */
-public class Book extends RealmObject {
+public class Book extends LitePalSupport {
 
-    @PrimaryKey
-    private Integer id;
+    private int id;
 
     private String bookName;
 

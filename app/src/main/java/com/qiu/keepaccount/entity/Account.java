@@ -1,7 +1,6 @@
 package com.qiu.keepaccount.entity;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import org.litepal.crud.LitePalSupport;
 
 import java.util.Date;
 
@@ -10,10 +9,9 @@ import java.util.Date;
  * @Date 2019/3/27 14:09
  * @Description
  */
-public class Account extends RealmObject {
+public class Account extends LitePalSupport {
 
-    @PrimaryKey
-    private Integer id;
+    private int id;
 
     private String remark; //备注信息
 
