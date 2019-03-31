@@ -8,6 +8,7 @@
     <string name="title_me">设置</string>
 
     <string name="ok_text">确定</string>
+    <string name="date_picker_title">选择日期</string>
 
     <!--记账-->
     <string name="ea_date">2019/3/23</string>

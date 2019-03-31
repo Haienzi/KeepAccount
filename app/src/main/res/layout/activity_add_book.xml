@@ -6,7 +6,7 @@
               android:background="@color/colorBackground"
               android:orientation="vertical">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar_add_book"/>
 
 
 

@@ -28,14 +28,5 @@
             android:textColor="@color/white"
             android:text="@string/all_book"/>
 
-        <ImageView
-            android:id="@+id/add_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:layout_alignParentEnd="true"
-            app:srcCompat="@drawable/ic_add_white"
-            />
-
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
