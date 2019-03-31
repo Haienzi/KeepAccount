@@ -15,8 +15,8 @@ import android.widget.FrameLayout;
 
 import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.fragment.ChartFragment;
-import com.qiu.keepaccount.fragment.EditAccountFragment;
 import com.qiu.keepaccount.fragment.SettingFragment;
+import com.qiu.keepaccount.mvp.editaccount.EditAccountFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qiu.keepaccount.R;
+import com.qiu.keepaccount.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
