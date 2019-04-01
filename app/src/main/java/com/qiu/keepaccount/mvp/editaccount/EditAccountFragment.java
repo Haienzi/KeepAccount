@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qiu.keepaccount.R;
-import com.qiu.keepaccount.activity.BookActivity;
+import com.qiu.keepaccount.mvp.books.BookActivity;
 import com.qiu.keepaccount.adapter.AccountRecyclerAdapter;
 import com.qiu.keepaccount.base.BaseFragment;
 import com.qiu.keepaccount.entity.Account;

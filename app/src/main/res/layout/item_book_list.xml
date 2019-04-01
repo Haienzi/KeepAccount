@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp">
         <ImageView
-            android:id="@+id/img_cover"
+            android:id="@+id/book_cover"
             android:layout_width="125dp"
             android:layout_height="100dp"
             android:layout_centerVertical="true"
@@ -30,39 +30,39 @@
             android:layout_marginRight="10dp"/>
 
         <ImageView
-            android:id="@+id/img_scene"
+            android:id="@+id/book_scene"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             tools:src="@mipmap/book_scene1"/>
 
         <TextView
-            android:id="@+id/txt_name"
+            android:id="@+id/book_name"
             style="@style/Text.White"
-            android:layout_toEndOf="@id/img_cover"
+            android:layout_toEndOf="@id/book_cover"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/text16"
             android:text="账本名称"
             android:background="@drawable/bg_text_cur_book"
-            android:layout_toRightOf="@id/img_cover"
+            android:layout_toRightOf="@id/book_cover"
             tools:ignore="RtlCompat"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@id/txt_name"
-            android:layout_below="@id/txt_name"
+            android:layout_alignStart="@id/book_name"
+            android:layout_below="@id/book_name"
             android:orientation="vertical"
             android:layout_marginTop="8dp"
-            android:layout_alignLeft="@id/txt_name">
+            android:layout_alignLeft="@id/book_name">
             <TextView
-                android:id="@+id/txt_total_cost"
+                android:id="@+id/book_total_cost"
                 style="@style/Text.Maple"
                 android:textSize="@dimen/text16"
                 android:text="总支出：10000.00"/>
 
             <TextView
-                android:id="@+id/txt_total_income"
+                android:id="@+id/book_total_income"
                 style="@style/Text.Maple"
                 android:textSize="@dimen/text16"
                 android:text="总收入：10000.00"

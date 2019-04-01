@@ -14,7 +14,7 @@
         </activity>
         <activity android:name=".activity.AddBookActivity">
         </activity>
-        <activity android:name=".activity.BookActivity">
+        <activity android:name=".mvp.books.BookActivity">
         </activity>
         <activity
             android:name=".activity.MainActivity"
