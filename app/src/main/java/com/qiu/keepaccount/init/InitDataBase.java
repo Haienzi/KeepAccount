@@ -13,20 +13,23 @@ public class InitDataBase {
 
     public static void initAccountType(Context context){
         String[] costType = context.getResources().getStringArray(R.array.cost_type);
-        for(int i=0;i<11;i++){
+        for(int i=1;i<11;i++){
             AccountType accountType = new AccountType();
+            accountType.setId(i);
             accountType.setName(costType[i]);
             accountType.setType(1);
             accountType.saveOrUpdate("name=?",costType[i]);
         }
 
         String[] incomeType = context.getResources().getStringArray(R.array.income_type);
-        for(int i = 0;i<9;i++){
+        for(int i = 11;i<20;i++){
             AccountType accountType = new AccountType();
+            accountType.setId(i);
             accountType.setName(incomeType[i]);
             accountType.setType(1);
             accountType.saveOrUpdate("name=?",incomeType[i]);
         }
     }
+
 
 }

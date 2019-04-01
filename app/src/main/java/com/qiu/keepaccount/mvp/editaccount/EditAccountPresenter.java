@@ -3,6 +3,11 @@ package com.qiu.keepaccount.mvp.editaccount;
 import com.qiu.keepaccount.entity.Account;
 import com.qiu.keepaccount.entity.Budget;
 import com.qiu.keepaccount.entity.User;
+import org.litepal.LitePal;
+import org.litepal.crud.LitePalSupport;
+import org.litepal.exceptions.DataSupportException;
+
+import java.util.List;
 
 /**
  *
@@ -13,7 +18,7 @@ public class EditAccountPresenter implements EditAccountContract.Presenter {
      */
     @Override
     public void saveBudget(Budget budget) {
-
+        budget.save();
     }
 
     /**
@@ -23,7 +28,16 @@ public class EditAccountPresenter implements EditAccountContract.Presenter {
      * @param queryDate
      */
     @Override
-    public void queryAccount(User user, String queryDate) {
+    public List<Account> queryAccount(User user, String queryDate) {
+        List<Account> accountList = null;
+        try {
+            accountList = LitePal.where("createTime = ?",queryDate)
+                     .order("createTime desc")
+                     .find(Account.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return accountList;
 
     }
 
@@ -34,6 +48,6 @@ public class EditAccountPresenter implements EditAccountContract.Presenter {
      */
     @Override
     public void deleteAccount(Account account) {
-
+        LitePal.delete(Account.class,account.getId());
     }
 }

@@ -125,6 +125,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             showDateDialog();//日期对话框
             showEditBudgetDialog();//预算对话框
             jumpToBookActivity();//跳转到账本界面
+            addAccount();//添加记账记录
             showAccountOrEmpty();
             setRecyclerData();
             isPrepared = true;
@@ -138,6 +139,18 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
         }
         return mView;
 
+    }
+
+    /**
+     * 添加记录
+     */
+    public void addAccount(){
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToAccountInfo(null);
+            }
+        });
     }
 
     /**

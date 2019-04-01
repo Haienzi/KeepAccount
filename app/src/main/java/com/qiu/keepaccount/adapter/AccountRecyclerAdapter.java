@@ -11,8 +11,11 @@ import android.widget.TextView;
 
 import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.entity.Account;
+import com.qiu.keepaccount.entity.AccountType;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -80,20 +83,26 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
         ImageView mCreaterImage; //创建人头像
         @BindView(R.id.account_txt_username)
         TextView mUserText; //创建人昵称
+        public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+        private DateFormat mDateFormat;
 
         public AccountItemHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            mDateFormat = new SimpleDateFormat(DATE_FORMAT);
         }
 
         public void bindData(Account account){
-            mTypeImg.setImageResource(R.mipmap.ic_type_cost);
-            mMoneyText.setText("¥50.00");
-            mTypeText.setText("分类");
-            mDateText.setText("2019/3/24 14:44:07");
-            mNoteText.setText("备注信息");
+            AccountType accountType = account.getAccountType();
+            //获取支付类型
+            int type = account.getAccountType().getType();
+            mTypeImg.setImageResource(type==1 ? R.mipmap.ic_type_cost : R.mipmap.ic_type_income);
+            mMoneyText.setText(String.valueOf("¥"+account.getAmount()));
+            mTypeText.setText(accountType.getName());
+            mDateText.setText(mDateFormat.format(account.getCreateTime()));
+            mNoteText.setText(account.getRemark());
             mCreaterImage.setImageResource(R.mipmap.ic_def_icon);
-            mUserText.setText("昵称");
+            mUserText.setText(account.getUser().getNickName());
 
         }
     }
