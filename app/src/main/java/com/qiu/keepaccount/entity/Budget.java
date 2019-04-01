@@ -2,8 +2,6 @@ package com.qiu.keepaccount.entity;
 
 import org.litepal.crud.LitePalSupport;
 
-import java.util.Date;
-
 /**
  * @Author qiuhong.ma
  * @Date 2019/3/27 14:10
@@ -17,13 +15,23 @@ public class Budget extends LitePalSupport {
 
     private Double surplus; //剩余
 
-    private Date createTime;//创建日期
+    private String createTime;//创建日期
 
-    public Integer getId() {
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private User user;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -43,11 +51,11 @@ public class Budget extends LitePalSupport {
         this.surplus = surplus;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 }
