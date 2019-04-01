@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/view_margin"
+                android:background="@color/white"
+                android:elevation="1dp"
+                android:padding="@dimen/padding"
+                tools:targetApi="lollipop">
+
+    <ImageView
+        android:id="@+id/img_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="@dimen/view_margin"
+        android:src="@mipmap/book_list_scene1"
+        android:layout_marginRight="@dimen/view_margin"/>
+
+    <TextView
+        android:id="@+id/scene_name"
+        style="@style/Text.Brown"
+        android:layout_toEndOf="@id/img_avatar"
+        android:textSize="@dimen/text16"
+        tools:text="日常账本"
+        android:layout_toRightOf="@id/img_avatar"/>
+
+    <TextView
+        android:id="@+id/txt_book"
+        style="@style/Text.Maple"
+        android:layout_alignStart="@id/scene_name"
+        android:layout_below="@id/scene_name"
+        android:layout_marginEnd="@dimen/view_margin"
+        android:layout_marginTop="@dimen/view_margin"
+        android:lineSpacingExtra="2dp"
+        tools:text="记录生活点点滴滴"
+        android:layout_alignLeft="@id/scene_name"
+        android:layout_marginRight="@dimen/view_margin"/>
+
+    <android.support.v7.widget.AppCompatRadioButton
+        android:id="@+id/btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

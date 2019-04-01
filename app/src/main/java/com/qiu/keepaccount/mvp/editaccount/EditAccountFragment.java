@@ -1,11 +1,13 @@
-package com.qiu.keepaccount.fragment;
+package com.qiu.keepaccount.mvp.editaccount;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,25 +18,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qiu.keepaccount.R;
+import com.qiu.keepaccount.activity.BookActivity;
 import com.qiu.keepaccount.adapter.AccountRecyclerAdapter;
+import com.qiu.keepaccount.base.BaseFragment;
 import com.qiu.keepaccount.entity.Account;
+import com.qiu.keepaccount.entity.Budget;
+import com.qiu.keepaccount.fragment.BudgetPickerFragment;
+import com.qiu.keepaccount.fragment.DatePickerFragment;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
+import com.qiu.keepaccount.mvp.account.AccountInfoActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link EditAccountFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link EditAccountFragment#newInstance} factory method to
- * create an instance of this fragment.
  */
-public class EditAccountFragment extends BaseFragment {
+public class EditAccountFragment extends BaseFragment implements EditAccountContract.View{
     @BindView(R.id.ea_recycler_view)
     RecyclerView mRecyclerView;//账单列表
     @BindView(R.id.choose_book)
@@ -64,6 +68,12 @@ public class EditAccountFragment extends BaseFragment {
     @BindView(R.id.fab_add)
     FloatingActionButton mFloatingActionButton;
 
+    private static final String DIALOG_DATE = "DialogDate";//DatePickerFragment的tag
+    private static final String DIALOG_BUDGET = "DialogBudget";//BudgetPickerFragment的tag
+    private static final int REQUEST_DATE = 0;//DatePickerFragment的请求代码
+    private static final int REQUEST_BUDGET = 1;//BudgetPickerFragment的请求代码
+    public static String DATE_FORMAT = "yyyy-MM-dd";
+    private EditAccountContract.Presenter mPresenter;
     private AccountRecyclerAdapter mAccountRecyclerAdapter;
     private List<Account> mAccountList;
     /**
@@ -111,6 +121,10 @@ public class EditAccountFragment extends BaseFragment {
             for(int i=0;i<10;i++){
                 mAccountList.add(new Account());
             }
+            updateDate(new Date());//初始化日期
+            showDateDialog();//日期对话框
+            showEditBudgetDialog();//预算对话框
+            jumpToBookActivity();//跳转到账本界面
             showAccountOrEmpty();
             setRecyclerData();
             isPrepared = true;
@@ -154,7 +168,7 @@ public class EditAccountFragment extends BaseFragment {
         mAccountRecyclerAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
             @Override
             public void onItemClick(View view) {
-
+                jumpToAccountInfo(new Account());
             }
         });
     }
@@ -192,15 +206,122 @@ public class EditAccountFragment extends BaseFragment {
 
     }
 
+    @Override
+    public void querySuccess(List<Account> list) {
+
+    }
+
+    @Override
+    public void queryFail(Error e) {
+
+    }
+
+    @Override
+    public void deleteSuccess() {
+
+    }
+
+    @Override
+    public void deleteFail(Error e) {
+
+    }
+
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * 选择日期
+     */
+    @Override
+    public void showDateDialog() {
+        mDateImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager manager = getFragmentManager();
+                DatePickerFragment dialog = DatePickerFragment.newInstance(new Date());
+                //为DatePickerFragment设置目标Fragment
+                dialog.setTargetFragment(EditAccountFragment.this,0);
+                dialog.show(manager,DIALOG_DATE);//将DialogFragment添加给FragmentManager并显示到屏幕上
+            }
+        });
+    }
+
+    /**
+     * 添加预算
+     */
+    @Override
+    public void showEditBudgetDialog() {
+        mEditSurplusLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager manager = getFragmentManager();
+                BudgetPickerFragment dialog = BudgetPickerFragment.newInstance(1500);
+                //为DatePickerFragment设置目标Fragment
+                dialog.setTargetFragment(EditAccountFragment.this,1);
+                dialog.show(manager,DIALOG_BUDGET);//将DialogFragment添加给FragmentManager并显示到屏幕上
+            }
+        });
+
+    }
+
+    /**
+     * 跳转到账本界面
+     */
+    @Override
+    public void jumpToBookActivity() {
+        mChooseBookImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = BookActivity.newIntent(getActivity());
+                startActivity(intent);
+            }
+        });
+    }
+
+    /**
+     * 跳转到记账详情界面
+     *
+     * @param account 记录
+     */
+    @Override
+    public void jumpToAccountInfo(Account account) {
+        Intent intent = AccountInfoActivity.newIntent(getActivity());
+        startActivity(intent);
+    }
+
+    @Override
+    public void setPresenter(EditAccountContract.Presenter presenter) {
+
+    }
+
+    //设置日期
+    private void updateDate(Date date) {
+        java.text.DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        mDateText.setText(dateFormat.format(date));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != Activity.RESULT_OK)
+        {
+            return;
+        }
+        if(requestCode == REQUEST_DATE)
+        {
+            Date date = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+            //获取选择的日期
+            //为日期按钮设置日期
+            updateDate(date);
+        }
+        if(requestCode == REQUEST_BUDGET)
+        {
+            int budget = (int)data.getSerializableExtra(BudgetPickerFragment.EXTRA_BUDGET);
+            mSurplusText.setText(String.format(getString(R.string.budget_info),budget,budget));
+            Budget budgetObject = new Budget();
+            budgetObject.setBudget((double)budget);
+            java.text.DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+            budgetObject.setCreateTime(dateFormat.format(mDateText.getText().toString()));
+            mPresenter.saveBudget(budgetObject);
+        }
+    }
+    /**
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

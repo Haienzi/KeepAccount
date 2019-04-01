@@ -1,4 +1,4 @@
-package com.qiu.keepaccount.fragment;
+package com.qiu.keepaccount.base;
 
 import android.support.v4.app.Fragment;
 import android.view.View;
