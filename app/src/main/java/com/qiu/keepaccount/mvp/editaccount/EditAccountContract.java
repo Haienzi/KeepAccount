@@ -13,7 +13,7 @@ import java.util.List;
  * @Description 记账页面契约类用于约定统一的接口
  */
 public interface EditAccountContract {
-    interface View extends BaseView<Presenter> {
+    interface IEditAccountView extends BaseView<IEditAccountPresenter> {
         void querySuccess(List<Account> list);
         void queryFail(Error e);
         void deleteSuccess();
@@ -42,7 +42,7 @@ public interface EditAccountContract {
 
     }
 
-    interface Presenter{
+    interface IEditAccountPresenter{
         /**
          * 保存预算
          */

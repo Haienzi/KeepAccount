@@ -38,7 +38,7 @@ import butterknife.ButterKnife;
 
 /**
  */
-public class EditAccountFragment extends BaseFragment implements EditAccountContract.View{
+public class EditAccountFragment extends BaseFragment implements EditAccountContract.IEditAccountView {
     @BindView(R.id.ea_recycler_view)
     RecyclerView mRecyclerView;//账单列表
     @BindView(R.id.choose_book)
@@ -73,7 +73,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
     private static final int REQUEST_DATE = 0;//DatePickerFragment的请求代码
     private static final int REQUEST_BUDGET = 1;//BudgetPickerFragment的请求代码
     public static String DATE_FORMAT = "yyyy-MM-dd";
-    private EditAccountContract.Presenter mPresenter;
+    private EditAccountContract.IEditAccountPresenter mPresenter;
     private AccountRecyclerAdapter mAccountRecyclerAdapter;
     private List<Account> mAccountList;
     /**

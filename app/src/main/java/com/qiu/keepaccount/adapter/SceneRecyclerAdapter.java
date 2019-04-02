@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.qiu.keepaccount.entity.Account;
-import com.qiu.keepaccount.entity.Scene;
 import com.qiu.keepaccount.entity.SceneData;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 

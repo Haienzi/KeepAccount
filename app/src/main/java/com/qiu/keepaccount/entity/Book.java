@@ -3,6 +3,7 @@ package com.qiu.keepaccount.entity;
 import org.litepal.crud.LitePalSupport;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author qiuhong.ma
@@ -13,13 +14,20 @@ public class Book extends LitePalSupport {
 
     private int id;
 
-    private User user;
+    private int userId;
 
     private String bookName;
 
-    private Scene scene;
+    private String sceneName; //场景名称
+
+    private List<Account> accountList;//账目
 
     private Date createDate;
+
+    /** 该帐薄下所有账目总支出 */
+    public double totalCost = 0.00;
+    /** 该帐薄下所有账目总收入 */
+    public double totalIncome = 0.00;
 
     public int getId() {
         return id;
@@ -27,14 +35,6 @@ public class Book extends LitePalSupport {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getBookName() {
@@ -45,13 +45,6 @@ public class Book extends LitePalSupport {
         this.bookName = bookName;
     }
 
-    public Scene getScene() {
-        return scene;
-    }
-
-    public void setScene(Scene scene) {
-        this.scene = scene;
-    }
 
     public Date getCreateDate() {
         return createDate;
@@ -59,5 +52,45 @@ public class Book extends LitePalSupport {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
+    }
+
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
+    public double getTotalIncome() {
+        return totalIncome;
+    }
+
+    public void setTotalIncome(double totalIncome) {
+        this.totalIncome = totalIncome;
+    }
+
+    public String getSceneName() {
+        return sceneName;
+    }
+
+    public void setSceneName(String sceneName) {
+        this.sceneName = sceneName;
     }
 }

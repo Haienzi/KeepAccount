@@ -10,8 +10,10 @@ import org.litepal.crud.LitePalSupport;
 public class User extends LitePalSupport {
 
     private int id;
-    private String nickName;
-    private String phoneNumber;
+    private String nickName; //用户昵称
+    private String phoneNumber;//用户手机号码
+    private String email;//邮箱
+    private byte[] userImg; //用户头像
 
     public Integer getId() {
         return id;
@@ -35,5 +37,25 @@ public class User extends LitePalSupport {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public byte[] getUserImg() {
+        return userImg;
+    }
+
+    public void setUserImg(byte[] userImg) {
+        this.userImg = userImg;
     }
 }

@@ -17,15 +17,11 @@ public class Budget extends LitePalSupport {
 
     private String createTime;//创建日期
 
-    public User getUser() {
-        return user;
-    }
+    private int userId;
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    private int updateTimes;//更新次数 一个月只可以修改两次
 
-    private User user;
+    private int sign; //超出预警
 
     public int getId() {
         return id;
@@ -57,5 +53,29 @@ public class Budget extends LitePalSupport {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getUpdateTimes() {
+        return updateTimes;
+    }
+
+    public void setUpdateTimes(int updateTimes) {
+        this.updateTimes = updateTimes;
+    }
+
+    public int getSign() {
+        return sign;
+    }
+
+    public void setSign(int sign) {
+        this.sign = sign;
     }
 }
