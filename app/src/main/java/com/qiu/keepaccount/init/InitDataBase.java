@@ -1,7 +1,8 @@
 package com.qiu.keepaccount.init;
 
 import android.content.Context;
-import com.qiu.keepaccount.entity.Account;
+
+import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.entity.AccountType;
 
 /**

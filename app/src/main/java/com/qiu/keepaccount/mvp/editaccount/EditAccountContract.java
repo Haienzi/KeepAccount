@@ -14,11 +14,22 @@ import java.util.List;
  */
 public interface EditAccountContract {
     interface IEditAccountView extends BaseView<IEditAccountPresenter> {
-        void querySuccess(List<Account> list);
-        void queryFail(Error e);
-        void deleteSuccess();
-        void deleteFail(Error e);
+        /**
+         * 检索账目成功
+         * @param list
+         */
+        void queryAccount(List<Account> list);
 
+        /**
+         * 删除账目
+         */
+        void deleteAccount();
+
+        /**
+         * 编辑预算信息
+         * @param budget
+         */
+        void setBudget(Budget budget);
         /**
          * 选择日期
          */
@@ -35,10 +46,9 @@ public interface EditAccountContract {
         void jumpToBookActivity();
 
         /**
-         * 跳转到记账详情界面
-         * @param account 记录
+         * 添加记录
          */
-        void jumpToAccountInfo(Account account);
+        void jumpToAddAccount();
 
     }
 
@@ -46,8 +56,14 @@ public interface EditAccountContract {
         /**
          * 保存预算
          */
-        void saveBudget(Budget budget);
+        void saveBudget(int userId,Budget budget);
 
+        /**
+         * 检索预算信息
+         * @param userId
+         * @param date
+         */
+        void queryBudget(int userId,String date);
         /**
          * 检索记账记录
          * @param user

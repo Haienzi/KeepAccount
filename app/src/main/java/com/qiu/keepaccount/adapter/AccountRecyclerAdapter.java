@@ -13,6 +13,7 @@ import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.entity.Account;
 import com.qiu.keepaccount.entity.AccountType;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
+import com.qiu.keepaccount.model.type.AccountTypeModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -34,9 +35,12 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
     private LayoutInflater mInflater;
     private List<Account> mAccountsList;
 
-    public AccountRecyclerAdapter(Context context, List<Account> accountList){
+    public AccountRecyclerAdapter(Context context){
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext);
+    }
+
+    public void setData(List<Account> accountList){
         this.mAccountsList = accountList;
     }
 
@@ -85,24 +89,26 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
         TextView mUserText; //创建人昵称
         public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         private DateFormat mDateFormat;
+        private AccountTypeModel mAccountTypeModel;
 
         public AccountItemHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
             mDateFormat = new SimpleDateFormat(DATE_FORMAT);
+            mAccountTypeModel = new AccountTypeModel();
         }
 
         public void bindData(Account account){
-            AccountType accountType = account.getAccountType();
             //获取支付类型
-            int type = account.getAccountType().getType();
+            int type = account.getAccountType();
+            AccountType accountType = mAccountTypeModel.getAccountType(account.getTypeId());
             mTypeImg.setImageResource(type==1 ? R.mipmap.ic_type_cost : R.mipmap.ic_type_income);
             mMoneyText.setText(String.valueOf("¥"+account.getAmount()));
             mTypeText.setText(accountType.getName());
             mDateText.setText(mDateFormat.format(account.getCreateTime()));
             mNoteText.setText(account.getRemark());
             mCreaterImage.setImageResource(R.mipmap.ic_def_icon);
-            mUserText.setText(account.getUser().getNickName());
+            //mUserText.setText(account.getUser().getNickName());
 
         }
     }

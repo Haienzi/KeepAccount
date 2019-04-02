@@ -8,6 +8,8 @@ import com.qiu.keepaccount.model.account.IAccountModel;
 import com.qiu.keepaccount.model.budget.BudgetModel;
 import com.qiu.keepaccount.model.budget.IBudgetModel;
 
+import java.util.List;
+
 /**
  *
  */
@@ -30,9 +32,25 @@ public class EditAccountPresenterImpl implements EditAccountContract.IEditAccoun
      * 保存预算
      */
     @Override
-    public void saveBudget(Budget budget) {
-        mBudgetModel.addBudget(budget);
+    public void saveBudget(int userId,Budget budget) {
+        mBudgetModel.addBudget(userId,budget);
+
     }
+
+    /**
+     * 检索预算信息
+     *
+     * @param userId
+     * @param date
+     */
+    @Override
+    public void queryBudget(int userId, String date) {
+        List<Budget> budgets = mBudgetModel.queryBudget(userId,date);
+        if(budgets.size() != 0){
+            mView.setBudget(budgets.get(0));
+        }
+    }
+
 
     /**
      * 检索记账记录
@@ -42,9 +60,8 @@ public class EditAccountPresenterImpl implements EditAccountContract.IEditAccoun
      */
     @Override
     public void queryAccount(User user, String queryDate) {
-
-        mAccountModel.queryAccounts(user,queryDate,null,-1);
-
+        List<Account> accounts = mAccountModel.queryAccounts(user,queryDate,null,-1);
+        mView.queryAccount(accounts);
     }
 
     /**
@@ -55,5 +72,6 @@ public class EditAccountPresenterImpl implements EditAccountContract.IEditAccoun
     @Override
     public void deleteAccount(Account account) {
         mAccountModel.deleteAccount(account);
+        mView.deleteAccount();
     }
 }
