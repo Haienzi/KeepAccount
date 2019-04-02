@@ -14,20 +14,23 @@ public interface IBudgetModel {
     /**
      * 添加预算
      * @param budget 预算
+     * @param userId 用户id
      */
-    void addBudget(Budget budget);
+    void addBudget(int userId,Budget budget);
 
     /**
      * 修改预算
      * @param budget 预算
+     * @param userId 用户id
      */
-    void updateBudget(Budget budget);
+    void updateBudget(int userId,Budget budget);
 
     /**
      * 查询指定日期的预算信息
      * @param createDate 指定的日期
+     * @param userId 用户id
      * @return 预算信息
      */
-    List<Budget> queryBudget(String createDate);
+    List<Budget> queryBudget(int userId,String createDate);
 
 }

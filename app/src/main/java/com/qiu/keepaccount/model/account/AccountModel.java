@@ -122,17 +122,31 @@ public class AccountModel implements IAccountModel {
         List<Account> accountList = null;
         //用户未登录
         if(user != null){
-            accountList= LitePal.where("createTime <= ? and createTime >= ? and accountType = ?",
-                     startDate,endDate,String.valueOf(type))
-                    .order("createTime desc")
-                    .find(Account.class);
+            if(type == -1){
+                accountList= LitePal.where("createTime >= ? and createTime <= ?",
+                        startDate,endDate)
+                        .order("createTime desc")
+                        .find(Account.class);
+            }else{
+                accountList= LitePal.where("createTime >= ? and createTime <= ? and accountType = ?",
+                        startDate,endDate,String.valueOf(type))
+                        .order("createTime desc")
+                        .find(Account.class);
+            }
 
         }else{
             //用户已登录
-            accountList= LitePal.where("userId = ? and  createTime <= ? and createTime >= ? and accountType = ?",
-                     startDate,endDate,String.valueOf(type))
-                    .order("createTime desc")
-                    .find(Account.class);
+            if(type == -1){
+                accountList= LitePal.where("userId = ? and  createTime >= ? and createTime <= ?",
+                        startDate,endDate)
+                        .order("createTime desc")
+                        .find(Account.class);
+            }else{
+                accountList= LitePal.where("userId = ? and  createTime >= ? and createTime <= ? and accountType = ?",
+                        startDate,endDate,String.valueOf(type))
+                        .order("createTime desc")
+                        .find(Account.class);
+            }
         }
         return accountList;
     }
@@ -148,19 +162,45 @@ public class AccountModel implements IAccountModel {
     @Override
     public double queryTotalCostOrIncome(User user, String startDate, String endDate, int type) {
         double amount = 0.00;
-        if(type == -1){
-            double income = LitePal.where("type=?",String.valueOf(2))
-                                   .sum(Account.class,"amount",Double.class);
-            double cost = LitePal.where("type=?",String.valueOf(1))
-                    .sum(Account.class,"amount",Double.class);
-            amount = income + cost;
-        }else if(type == 2){
-            amount = LitePal.where("type=?",String.valueOf(2))
-                    .sum(Account.class,"amount",Double.class);
-        }else{
-            amount = LitePal.where("type=?",String.valueOf(1))
-                    .sum(Account.class,"amount",Double.class);
+        if(user == null){
+            //用户未登录
+            if(type == -1){
+                double income = LitePal.where(" accountType = ? and createTime >= ? and createTime <= ? ",
+                        String.valueOf(2),startDate,endDate)
+                        .sum(Account.class,"amount",Double.class);
+                double cost = LitePal.where(" accountType = ? and createTime >= ? and createTime <= ? ",
+                        String.valueOf(1),startDate,endDate)
+                        .sum(Account.class,"amount",Double.class);
+                amount = income + cost;
+            }else if(type == 2){
+                amount = LitePal.where(" accountType = ? and createTime >= ? and createTime <= ? ",
+                        String.valueOf(2),startDate,endDate)
+                        .sum(Account.class,"amount",Double.class);
+            }else{
+                amount = LitePal.where(" accountType = ? and createTime >= ? and createTime <= ? ",
+                        String.valueOf(1),startDate,endDate)
+                        .sum(Account.class,"amount",Double.class);
 
+            }
+        }else{
+            //用户已登录
+            if(type == -1){
+                double income = LitePal.where(" userId = ? and accountType = ? and createTime >= ? and createTime <= ?",
+                         user.getId().toString(),String.valueOf(2),startDate,endDate)
+                        .sum(Account.class," amount",Double.class);
+                double cost =  LitePal.where(" userId = ? and accountType = ? and createTime >= ? and createTime <= ?",
+                        user.getId().toString(),String.valueOf(1),startDate,endDate)
+                        .sum(Account.class,"amount",Double.class);
+                amount = income + cost;
+            }else if(type == 2){
+                amount =  LitePal.where(" userId = ? and accountType = ? and createTime >= ? and createTime <= ?",
+                        user.getId().toString(),String.valueOf(2),startDate,endDate)
+                        .sum(Account.class,"amount",Double.class);
+            }else{
+                amount =  LitePal.where(" userId = ? and accountType = ? and createTime >= ? and createTime <= ?",
+                        user.getId().toString(),String.valueOf(1),startDate,endDate)
+                        .sum(Account.class,"amount",Double.class);
+            }
         }
         return amount;
     }
