@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import com.qiu.keepaccount.entity.Book;
 import com.qiu.keepaccount.entity.SceneData;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
-import com.qiu.keepaccount.mvp.editaccount.EditAccountContract;
 
 import java.util.List;
 
