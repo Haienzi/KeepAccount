@@ -1,4 +1,4 @@
 package com.qiu.keepaccount.mvp.account;
 
-public class AccountInfoPresenter {
+public class AccountInfoPresenterImpl {
 }

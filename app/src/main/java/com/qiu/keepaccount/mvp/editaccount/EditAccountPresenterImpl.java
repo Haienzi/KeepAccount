@@ -7,7 +7,7 @@ import com.qiu.keepaccount.entity.User;
 /**
  *
  */
-public class EditAccountPresenter implements EditAccountContract.Presenter {
+public class EditAccountPresenterImpl implements EditAccountContract.Presenter {
     /**
      * 保存预算
      */
