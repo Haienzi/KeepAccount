@@ -77,18 +77,36 @@ public class AccountModel implements IAccountModel {
     @Override
     public List<Account> queryAccounts(User user, String startDate, int type) {
         List<Account> accountList = null;
-        if(user != null){ //用户未登录
-           accountList= LitePal.where("createTime = ?",startDate)
-                               .order("createTime desc")
-                               .find(Account.class);
+        if(user != null){
+            //用户未登录
+            if(type == -1){
+                accountList= LitePal.where("createTime = ?",startDate)
+                        .order("createTime desc")
+                        .find(Account.class);
+            }else{
+                accountList= LitePal.where("createTime = ? and accountType = ?",
+                         startDate,String.valueOf(type))
+                        .order("createTime desc")
+                        .find(Account.class);
+            }
 
-        }else{           //用户已登录
-            accountList= LitePal.where("userId = ? and createTime = ?",startDate)
-                    .order("createTime desc")
-                    .find(Account.class);
+        }else{
+            //用户已登录
+            if(type == -1){
+                accountList= LitePal.where("userId = ? and createTime = ?",
+                         user.getId().toString(),startDate)
+                        .order("createTime desc")
+                        .find(Account.class);
+            }else {
+                accountList= LitePal.where("userId = ? and createTime = ? and accountType = ?",
+                        user.getId().toString(),startDate,String.valueOf(type))
+                        .order("createTime desc")
+                        .find(Account.class);
+            }
+
         }
 
-        return null;
+        return accountList;
     }
 
     /**
@@ -102,20 +120,21 @@ public class AccountModel implements IAccountModel {
     @Override
     public List<Account> queryAccounts(User user, String startDate, String endDate, int type) {
         List<Account> accountList = null;
-        if(user != null){ //用户未登录
-            accountList= LitePal.where("createTime <= ? and createTime >= ?",
-                     startDate,endDate)
+        //用户未登录
+        if(user != null){
+            accountList= LitePal.where("createTime <= ? and createTime >= ? and accountType = ?",
+                     startDate,endDate,String.valueOf(type))
                     .order("createTime desc")
                     .find(Account.class);
 
-        }else{           //用户已登录
-            accountList= LitePal.where("userId = ? and  createTime <= ? and createTime >= ?",
-                     startDate,endDate)
+        }else{
+            //用户已登录
+            accountList= LitePal.where("userId = ? and  createTime <= ? and createTime >= ? and accountType = ?",
+                     startDate,endDate,String.valueOf(type))
                     .order("createTime desc")
                     .find(Account.class);
         }
-
-        return null;
+        return accountList;
     }
 
     /**
@@ -124,11 +143,26 @@ public class AccountModel implements IAccountModel {
      * @param user      用户
      * @param startDate 开始时间
      * @param endDate   结束时间
-     * @param type      类型 1、支出 2、收入 （-1 不分类型查找）
+     * @param type      类型 1、支出 2、收入 -1 支出加收入
      */
     @Override
     public double queryTotalCostOrIncome(User user, String startDate, String endDate, int type) {
-        return 0;
+        double amount = 0.00;
+        if(type == -1){
+            double income = LitePal.where("type=?",String.valueOf(2))
+                                   .sum(Account.class,"amount",Double.class);
+            double cost = LitePal.where("type=?",String.valueOf(1))
+                    .sum(Account.class,"amount",Double.class);
+            amount = income + cost;
+        }else if(type == 2){
+            amount = LitePal.where("type=?",String.valueOf(2))
+                    .sum(Account.class,"amount",Double.class);
+        }else{
+            amount = LitePal.where("type=?",String.valueOf(1))
+                    .sum(Account.class,"amount",Double.class);
+
+        }
+        return amount;
     }
 
 

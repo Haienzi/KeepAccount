@@ -23,7 +23,7 @@ public class Account extends LitePalSupport {
 
     private int bookId;//所属账本id
 
-    private AccountType accountType;//存储 支出/收入 支出类型/收入类型 信息
+    private int accountType;//1 支出 2 收入
 
     public Integer getId() {
         return id;
@@ -57,14 +57,6 @@ public class Account extends LitePalSupport {
         this.amount = amount;
     }
 
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -83,5 +75,13 @@ public class Account extends LitePalSupport {
 
     public void setBookId(int bookId) {
         this.bookId = bookId;
+    }
+
+    public int getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(int accountType) {
+        this.accountType = accountType;
     }
 }
