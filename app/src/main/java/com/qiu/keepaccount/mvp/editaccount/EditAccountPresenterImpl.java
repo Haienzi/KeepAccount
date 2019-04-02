@@ -42,7 +42,9 @@ public class EditAccountPresenterImpl implements EditAccountContract.IEditAccoun
      */
     @Override
     public void queryAccount(User user, String queryDate) {
+
         mAccountModel.queryAccounts(user,queryDate,null,-1);
+
     }
 
     /**

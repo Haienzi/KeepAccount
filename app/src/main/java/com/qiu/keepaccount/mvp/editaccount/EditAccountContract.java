@@ -53,7 +53,7 @@ public interface EditAccountContract {
          * @param user
          * @param queryDate
          */
-        List<Account> queryAccount(User user, String queryDate);
+        void queryAccount(User user, String queryDate);
 
         /**
          * 删除记账记录
