@@ -25,6 +25,8 @@ public class Account extends LitePalSupport {
 
     private int accountType;//1 支出 2 收入
 
+    private int typeId;//账目类型所属Id
+
     public Integer getId() {
         return id;
     }
@@ -83,5 +85,13 @@ public class Account extends LitePalSupport {
 
     public void setAccountType(int accountType) {
         this.accountType = accountType;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 }

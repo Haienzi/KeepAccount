@@ -18,18 +18,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qiu.keepaccount.R;
-import com.qiu.keepaccount.mvp.books.BookActivity;
 import com.qiu.keepaccount.adapter.AccountRecyclerAdapter;
 import com.qiu.keepaccount.base.BaseFragment;
 import com.qiu.keepaccount.entity.Account;
 import com.qiu.keepaccount.entity.Budget;
+import com.qiu.keepaccount.entity.User;
 import com.qiu.keepaccount.fragment.BudgetPickerFragment;
 import com.qiu.keepaccount.fragment.DatePickerFragment;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 import com.qiu.keepaccount.mvp.account.AccountInfoActivity;
+import com.qiu.keepaccount.mvp.books.BookActivity;
+import com.qiu.keepaccount.util.DateUtil;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -72,7 +72,6 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
     private static final String DIALOG_BUDGET = "DialogBudget";//BudgetPickerFragment的tag
     private static final int REQUEST_DATE = 0;//DatePickerFragment的请求代码
     private static final int REQUEST_BUDGET = 1;//BudgetPickerFragment的请求代码
-    public static String DATE_FORMAT = "yyyy-MM-dd";
     private EditAccountContract.IEditAccountPresenter mPresenter;
     private AccountRecyclerAdapter mAccountRecyclerAdapter;
     private List<Account> mAccountList;
@@ -117,15 +116,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             //需要inflate一个布局文件 填充Fragment
             mView = inflater.inflate(R.layout.fragment_edit_account, container, false);
             ButterKnife.bind(this,mView);
-            mAccountList = new ArrayList<>();
-            for(int i=0;i<10;i++){
-                mAccountList.add(new Account());
-            }
             updateDate(new Date());//初始化日期
-            showDateDialog();//日期对话框
-            showEditBudgetDialog();//预算对话框
-            jumpToBookActivity();//跳转到账本界面
-            showAccountOrEmpty();
             setRecyclerData();
             isPrepared = true;
             //实现懒加载
@@ -140,28 +131,22 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
 
     }
 
-    /**
-     * 没有记账数据的时候显示空内容的提示
-     */
-    public void showAccountOrEmpty(){
-        if(mAccountList.size() == 0)
-        {
-            mRecyclerView.setVisibility(View.GONE);
-            mTipLayout.setVisibility(View.VISIBLE);
-            mTipImg.setVisibility(View.VISIBLE);
-            mTipText.setVisibility(View.VISIBLE);
-        }else {
-            mTipLayout.setVisibility(View.GONE);
-            mTipImg.setVisibility(View.GONE);
-            mTipText.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.VISIBLE);
-        }
+    @Override
+    public void jumpToAddAccount() {
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToAccountInfo(null);
+            }
+        });
     }
+
+
     /**
      * 设置recyclerView的数据
      */
     public void setRecyclerData(){
-        mAccountRecyclerAdapter = new AccountRecyclerAdapter(getActivity(),mAccountList);
+        mAccountRecyclerAdapter = new AccountRecyclerAdapter(getActivity());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.
                 VERTICAL,false));
         mRecyclerView.setAdapter(mAccountRecyclerAdapter);
@@ -206,24 +191,48 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
 
     }
 
+    /**
+     * 检索账目信息
+     * @param list
+     */
     @Override
-    public void querySuccess(List<Account> list) {
-
+    public void queryAccount(List<Account> list) {
+        mAccountList = list;
+        if(list.size() == 0)
+        {
+            mRecyclerView.setVisibility(View.GONE);
+            mTipLayout.setVisibility(View.VISIBLE);
+            mTipImg.setVisibility(View.VISIBLE);
+            mTipText.setVisibility(View.VISIBLE);
+        }else {
+            mTipLayout.setVisibility(View.GONE);
+            mTipImg.setVisibility(View.GONE);
+            mTipText.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
+        mAccountRecyclerAdapter.setData(list);
     }
 
+    /**
+     * 删除账目信息后更新界面数据
+     */
     @Override
-    public void queryFail(Error e) {
-
+    public void deleteAccount() {
+        User user = new User();
+        user.setId(-1);
+        String queryDate = mDateText.getText().toString();
+        mPresenter.queryAccount(user,queryDate);
+        mPresenter.queryBudget(user.getId(),queryDate);
     }
 
+    /**
+     * 编辑预算信息
+     *
+     * @param budget
+     */
     @Override
-    public void deleteSuccess() {
-
-    }
-
-    @Override
-    public void deleteFail(Error e) {
-
+    public void setBudget(Budget budget) {
+        mSurplusText.setText(budget.getSurplus().toString());
     }
 
     /**
@@ -280,21 +289,15 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
      *
      * @param account 记录
      */
-    @Override
     public void jumpToAccountInfo(Account account) {
         Intent intent = AccountInfoActivity.newIntent(getActivity());
         startActivity(intent);
     }
 
-    @Override
-    public void setPresenter(EditAccountContract.Presenter presenter) {
-
-    }
 
     //设置日期
     private void updateDate(Date date) {
-        java.text.DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-        mDateText.setText(dateFormat.format(date));
+        mDateText.setText(DateUtil.dateYMDToString(date));
     }
 
     @Override
@@ -309,6 +312,9 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             //获取选择的日期
             //为日期按钮设置日期
             updateDate(date);
+            User user = new User();
+            user.setId(-1);
+            mPresenter.queryAccount(user, DateUtil.dateToString(date));
         }
         if(requestCode == REQUEST_BUDGET)
         {
@@ -316,11 +322,16 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             mSurplusText.setText(String.format(getString(R.string.budget_info),budget,budget));
             Budget budgetObject = new Budget();
             budgetObject.setBudget((double)budget);
-            java.text.DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-            budgetObject.setCreateTime(dateFormat.format(mDateText.getText().toString()));
-            mPresenter.saveBudget(budgetObject);
+            budgetObject.setCreateTime(mDateText.getText().toString());
+            mPresenter.saveBudget(-1,budgetObject);
         }
     }
+
+    @Override
+    public void setPresenter(EditAccountContract.IEditAccountPresenter presenter) {
+        mPresenter = new EditAccountPresenterImpl(this);
+    }
+
     /**
      */
     public interface OnFragmentInteractionListener {
