@@ -28,7 +28,7 @@ import com.qiu.keepaccount.fragment.DatePickerFragment;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 import com.qiu.keepaccount.mvp.account.AccountInfoActivity;
 import com.qiu.keepaccount.mvp.books.BookActivity;
-import com.qiu.keepaccount.util.DateUtil;
+import com.qiu.keepaccount.util.DateUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -106,6 +106,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
@@ -117,6 +118,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             mView = inflater.inflate(R.layout.fragment_edit_account, container, false);
             ButterKnife.bind(this,mView);
             updateDate(new Date());//初始化日期
+            mPresenter = new EditAccountPresenterImpl(this);
             setRecyclerData();
             isPrepared = true;
             //实现懒加载
@@ -297,7 +299,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
 
     //设置日期
     private void updateDate(Date date) {
-        mDateText.setText(DateUtil.dateYMDToString(date));
+        mDateText.setText(DateUtils.dateYMDToString(date));
     }
 
     @Override
@@ -314,7 +316,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             updateDate(date);
             User user = new User();
             user.setId(-1);
-            mPresenter.queryAccount(user, DateUtil.dateToString(date));
+            mPresenter.queryAccount(user, DateUtils.dateToString(date));
         }
         if(requestCode == REQUEST_BUDGET)
         {
@@ -329,7 +331,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
 
     @Override
     public void setPresenter(EditAccountContract.IEditAccountPresenter presenter) {
-        mPresenter = new EditAccountPresenterImpl(this);
+        mPresenter = presenter;
     }
 
     /**

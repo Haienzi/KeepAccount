@@ -36,6 +36,13 @@ public interface IBookModel {
     void deleteAccountBook(Book book);
 
     /**
+     * 根据id获取账本信息
+     * @param id
+     * @return
+     */
+    Book getBook(int id);
+
+    /**
      * 查询用户下的所有账本
      * @param user 指定的用户
      * @return

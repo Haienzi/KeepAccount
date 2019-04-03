@@ -5,11 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import android.support.v7.widget.RecyclerView;
 import com.qiu.keepaccount.R;
+import com.qiu.keepaccount.entity.Account;
+import com.qiu.keepaccount.util.ActivityUtils;
 
 public class AccountInfoActivity extends AppCompatActivity {
 
     private static final String EXTRA_ACCOUNT = "com.qiu.keepaccount.accountinfo.account";
+    private AccountFragment mAccountFragment;
 
     /**
      * 启动AccountInfoActivity时
@@ -32,7 +36,6 @@ public class AccountInfoActivity extends AppCompatActivity {
     public static Intent newIntent(Context packageContext, int id)
     {
         Intent intent = new Intent(packageContext, AccountInfoActivity.class);
-        intent.putExtra(EXTRA_ACCOUNT,id);//传递附加信息
         return intent;
     }
 
@@ -40,5 +43,13 @@ public class AccountInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_info);
+
+    }
+
+    public void initFragment(Account account,int typeId){
+        if(mAccountFragment == null){
+            mAccountFragment = AccountFragment.newInstance(account,typeId);
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),mAccountFragment, R.layout.fragment_account);
+        }
     }
 }

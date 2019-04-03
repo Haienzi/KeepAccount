@@ -39,6 +39,13 @@ public interface IAccountModel {
     void deleteAccount(Account account);
 
     /**
+     * 根据账目id获取账目信息
+     * @param id
+     * @return
+     */
+    Account getAccountById(int id);
+
+    /**
      * 查找指定用户指定日期内所有的账目信息
      *
      * @param user      用户
