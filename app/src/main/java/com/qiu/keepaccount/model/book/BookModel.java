@@ -52,6 +52,18 @@ public class BookModel implements IBookModel{
     }
 
     /**
+     * 根据id获取账本信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Book getBook(int id) {
+        Book book = LitePal.find(Book.class,id);
+        return book;
+    }
+
+    /**
      * 查询用户下的所有账本
      *
      * @param user 指定的用户
@@ -119,34 +131,17 @@ public class BookModel implements IBookModel{
     @Override
     public List<Account> queryBookAccounts(User user, Book book, String startDate, String endDate, int type) {
         List<Account> accountList = null;
-        if(user != null){
-            //用户未登录
-            if(type == -1){
-                accountList = LitePal.where("bookId = ? and createDate >= ? and createDate <= ? ",
-                        String.valueOf(book.getId()), startDate,endDate)
-                        .order("createDate desc")
-                        .find(Account.class);
-            }else{
-                accountList = LitePal.where("bookId = ? and createDate >= ? and createDate <= ? and accountType = ?",
-                        String.valueOf(book.getId()), startDate,endDate,String.valueOf(type))
-                        .order("createDate desc")
-                        .find(Account.class);
-            }
 
-        }else{
-            //用户已登录
-            if(type == -1){
-                accountList = LitePal.where("userId = ? and bookId = ? and createDate >= ? and createDate <= ?",
-                        user.getId().toString(),String.valueOf(book.getId()), startDate,endDate)
-                        .order("createDate desc")
-                        .find(Account.class);
-            }else {
-                accountList = LitePal.where("userId = ? and bookId = ? and createDate >= ? and createDate <= ? and accountType = ?",
-                        user.getId().toString(),String.valueOf(book.getId()), startDate,endDate,String.valueOf(type))
-                        .order("createDate desc")
-                        .find(Account.class);
-            }
-
+        if(type == -1){
+            accountList = LitePal.where("userId = ? and bookId = ? and createDate >= ? and createDate <= ?",
+                    user.getId().toString(),String.valueOf(book.getId()), startDate,endDate)
+                    .order("createDate desc")
+                    .find(Account.class);
+        }else {
+            accountList = LitePal.where("userId = ? and bookId = ? and createDate >= ? and createDate <= ? and accountType = ?",
+                    user.getId().toString(),String.valueOf(book.getId()), startDate,endDate,String.valueOf(type))
+                    .order("createDate desc")
+                    .find(Account.class);
         }
 
         return accountList;
@@ -163,11 +158,33 @@ public class BookModel implements IBookModel{
      */
     @Override
     public double queryBookCostOrIncome(User user, Book book, String startDate, String endDate, int type) {
-        return 0;
+        double amount = 0.00;
+        if(type == -1){
+            double income = LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
+                            "createTime >= ? and createTime <= ? ",
+                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(2),startDate,endDate)
+                    .sum(Account.class," amount",Double.class);
+            double cost = LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
+                            "createTime >= ? and createTime <= ? ",
+                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(1),startDate,endDate)
+                    .sum(Account.class,"amount",Double.class);
+            amount = income + cost;
+        }else if(type == 2){
+            amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
+                            "createTime >= ? and createTime <= ? ",
+                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(2),startDate,endDate)
+                    .sum(Account.class,"amount",Double.class);
+        }else{
+            amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
+                            "createTime >= ? and createTime <= ? ",
+                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(1),startDate,endDate)
+                    .sum(Account.class,"amount",Double.class);
+        }
+        return amount;
     }
 
     /**
-     * 查找指定帐薄里指定日期内的总支出
+     * 查找指定帐薄里的总支出
      *
      * @param user      用户
      * @param book      账本
@@ -176,45 +193,22 @@ public class BookModel implements IBookModel{
     @Override
     public double queryBookCostOrIncome(User user, Book book, int type) {
         double amount = 0.00;
-        if(user == null){
-            //用户未登录
-            if(type == -1){
-                double income = LitePal.where(" bookId = ? and accountType = ? ",
-                         String.valueOf(book.getId()),String.valueOf(2))
-                        .sum(Account.class,"amount",Double.class);
-                double cost = LitePal.where(" bookId = ? and accountType = ? ",
-                        String.valueOf(book.getId()),String.valueOf(1))
-                        .sum(Account.class,"amount",Double.class);
-                amount = income + cost;
-            }else if(type == 2){
-                amount = LitePal.where(" bookId = ? and accountType = ? ",
-                        String.valueOf(book.getId()),String.valueOf(2))
-                        .sum(Account.class,"amount",Double.class);
-            }else{
-                amount = LitePal.where(" bookId = ? and accountType = ? ",
-                        String.valueOf(book.getId()),String.valueOf(1))
-                        .sum(Account.class,"amount",Double.class);
-
-            }
+        if(type == -1){
+            double income = LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
+                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(2))
+                    .sum(Account.class," amount",Double.class);
+            double cost = LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
+                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(1))
+                    .sum(Account.class,"amount",Double.class);
+            amount = income + cost;
+        }else if(type == 2){
+            amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
+                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(2))
+                    .sum(Account.class,"amount",Double.class);
         }else{
-            //用户已登录
-            if(type == -1){
-                double income = LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                        user.getId().toString(),String.valueOf(book.getId()),String.valueOf(2))
-                        .sum(Account.class," amount",Double.class);
-                double cost = LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                        user.getId().toString(),String.valueOf(book.getId()),String.valueOf(1))
-                        .sum(Account.class,"amount",Double.class);
-                amount = income + cost;
-            }else if(type == 2){
-                amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                        user.getId().toString(),String.valueOf(book.getId()),String.valueOf(2))
-                        .sum(Account.class,"amount",Double.class);
-            }else{
-                amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                        user.getId().toString(),String.valueOf(book.getId()),String.valueOf(1))
-                        .sum(Account.class,"amount",Double.class);
-            }
+            amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
+                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(1))
+                    .sum(Account.class,"amount",Double.class);
         }
         return amount;
     }

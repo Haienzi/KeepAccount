@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +29,7 @@ import com.qiu.keepaccount.fragment.DatePickerFragment;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 import com.qiu.keepaccount.mvp.account.AccountInfoActivity;
 import com.qiu.keepaccount.mvp.books.BookActivity;
-import com.qiu.keepaccount.util.DateUtil;
+import com.qiu.keepaccount.util.DateUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -96,15 +97,13 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
 
     public static EditAccountFragment newInstance() {
         EditAccountFragment fragment = new EditAccountFragment();
-        Bundle args = new Bundle();
-
-        //fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -117,6 +116,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             mView = inflater.inflate(R.layout.fragment_edit_account, container, false);
             ButterKnife.bind(this,mView);
             updateDate(new Date());//初始化日期
+            mPresenter = new EditAccountPresenterImpl(this);
             setRecyclerData();
             isPrepared = true;
             //实现懒加载
@@ -131,12 +131,27 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
 
     }
 
+    /**
+     * 获取 Layout 布局
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     */
+    @Override
+    public View getLayout(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return null;
+    }
+
+    /**
+     * 添加笔记
+     */
     @Override
     public void jumpToAddAccount() {
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jumpToAccountInfo(null);
+                jumpToAccountInfo(true,-1,null);
             }
         });
     }
@@ -152,8 +167,8 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
         mRecyclerView.setAdapter(mAccountRecyclerAdapter);
         mAccountRecyclerAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
             @Override
-            public void onItemClick(View view) {
-                jumpToAccountInfo(new Account());
+            public void onItemClick(View view,int i) {
+                jumpToAccountInfo(false,mAccountList.get(i).getAccountType(),mAccountList.get(i));
             }
         });
     }
@@ -188,6 +203,11 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
         }
         //填充各控件的数据
         mHasLoadedOnce = true;
+
+    }
+
+    @Override
+    public void onCreateFragment(@Nullable Bundle savedInstanceState) {
 
     }
 
@@ -288,16 +308,18 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
      * 跳转到记账详情界面
      *
      * @param account 记录
+     * @param isEdit 是否是编辑账目
+     * @param type 账目类型
      */
-    public void jumpToAccountInfo(Account account) {
-        Intent intent = AccountInfoActivity.newIntent(getActivity());
+    public void jumpToAccountInfo(boolean isEdit,int type,Account account) {
+        Intent intent = AccountInfoActivity.newIntent(getActivity(),isEdit,type,account);
         startActivity(intent);
     }
 
 
     //设置日期
     private void updateDate(Date date) {
-        mDateText.setText(DateUtil.dateYMDToString(date));
+        mDateText.setText(DateUtils.dateYMDToString(date));
     }
 
     @Override
@@ -314,7 +336,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             updateDate(date);
             User user = new User();
             user.setId(-1);
-            mPresenter.queryAccount(user, DateUtil.dateToString(date));
+            mPresenter.queryAccount(user, DateUtils.dateToString(date));
         }
         if(requestCode == REQUEST_BUDGET)
         {
@@ -329,7 +351,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
 
     @Override
     public void setPresenter(EditAccountContract.IEditAccountPresenter presenter) {
-        mPresenter = new EditAccountPresenterImpl(this);
+        mPresenter = presenter;
     }
 
     /**

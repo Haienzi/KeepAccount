@@ -2,6 +2,7 @@ package com.qiu.keepaccount.entity;
 
 import org.litepal.crud.LitePalSupport;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @Date 2019/3/27 14:09
  * @Description
  */
-public class Account extends LitePalSupport {
+public class Account extends LitePalSupport implements Serializable {
 
     private int id;
 

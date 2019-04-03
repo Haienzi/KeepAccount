@@ -50,13 +50,13 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
 
     @NonNull
     @Override
-    public AccountItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AccountItemHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, final int i) {
         View view = mInflater.inflate(R.layout.item_account_list,viewGroup,false);
         AccountItemHolder accountItemHolder = new AccountItemHolder(view);
         accountItemHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mOnItemClickListener.onItemClick(view);
+                mOnItemClickListener.onItemClick(view,i);
             }
         });
         return accountItemHolder;

@@ -12,5 +12,5 @@ public interface RecyclerItemClickListener {
     /**
      * 点击事件
      */
-    void onItemClick(View view);
+    void onItemClick(View view,int position);
 }
