@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -96,9 +97,6 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
 
     public static EditAccountFragment newInstance() {
         EditAccountFragment fragment = new EditAccountFragment();
-        Bundle args = new Bundle();
-
-        //fragment.setArguments(args);
         return fragment;
     }
 
@@ -133,12 +131,27 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
 
     }
 
+    /**
+     * 获取 Layout 布局
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     */
+    @Override
+    public View getLayout(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return null;
+    }
+
+    /**
+     * 添加笔记
+     */
     @Override
     public void jumpToAddAccount() {
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jumpToAccountInfo(null);
+                jumpToAccountInfo(true,-1,null);
             }
         });
     }
@@ -154,8 +167,8 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
         mRecyclerView.setAdapter(mAccountRecyclerAdapter);
         mAccountRecyclerAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
             @Override
-            public void onItemClick(View view) {
-                jumpToAccountInfo(new Account());
+            public void onItemClick(View view,int i) {
+                jumpToAccountInfo(false,mAccountList.get(i).getAccountType(),mAccountList.get(i));
             }
         });
     }
@@ -190,6 +203,11 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
         }
         //填充各控件的数据
         mHasLoadedOnce = true;
+
+    }
+
+    @Override
+    public void onCreateFragment(@Nullable Bundle savedInstanceState) {
 
     }
 
@@ -290,9 +308,11 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
      * 跳转到记账详情界面
      *
      * @param account 记录
+     * @param isEdit 是否是编辑账目
+     * @param type 账目类型
      */
-    public void jumpToAccountInfo(Account account) {
-        Intent intent = AccountInfoActivity.newIntent(getActivity());
+    public void jumpToAccountInfo(boolean isEdit,int type,Account account) {
+        Intent intent = AccountInfoActivity.newIntent(getActivity(),isEdit,type,account);
         startActivity(intent);
     }
 

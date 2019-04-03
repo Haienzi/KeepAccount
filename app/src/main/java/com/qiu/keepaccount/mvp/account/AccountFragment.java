@@ -3,18 +3,20 @@ package com.qiu.keepaccount.mvp.account;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.qiu.keepaccount.R;
+import com.qiu.keepaccount.base.BaseFragment;
 import com.qiu.keepaccount.entity.Account;
 
 /**
  *
  */
-public class AccountFragment extends Fragment {
+public class AccountFragment extends BaseFragment {
     //账目数据
     private static final String ARG_ACCOUNT = "account";
     //账目类型id
@@ -53,6 +55,32 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account, container, false);
+    }
+
+    /**
+     * 获取 Layout 布局
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     */
+    @Override
+    public View getLayout(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return R.layout.fragment_account;
+    }
+
+    /**
+     * 延迟加载
+     * 子类必须重写此方法
+     */
+    @Override
+    public void lazyLoad() {
+
+    }
+
+    @Override
+    public void onCreateFragment(@Nullable Bundle savedInstanceState) {
+
     }
 
 

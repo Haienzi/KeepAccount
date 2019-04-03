@@ -43,13 +43,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         this.mContext = this;
 
-
         // 设置布局
         setContentView(getView());
 
         // 绑定依赖注入框架
         ButterKnife.bind(this);
-
+        //设置状态栏颜色和主题一致
+        initSystemBar(false);
         onCreateActivity(savedInstanceState);
         // 将当前 Activity 推入栈中
         ActivityManager.getInstance().pushActivity(this);

@@ -45,7 +45,7 @@ public class AccountTypeRecyclerAdapter extends RecyclerView.Adapter<AccountType
         typeItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClickListener.onItemClick(v);
+                mOnItemClickListener.onItemClick(v,i);
             }
         });
 
