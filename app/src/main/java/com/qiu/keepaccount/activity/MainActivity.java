@@ -1,17 +1,12 @@
 package com.qiu.keepaccount.activity;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.qiu.keepaccount.R;
@@ -21,7 +16,6 @@ import com.qiu.keepaccount.fragment.SettingFragment;
 import com.qiu.keepaccount.mvp.editaccount.EditAccountFragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.navigation)
@@ -33,15 +27,6 @@ public class MainActivity extends BaseActivity {
     private ChartFragment mChartFragment;
     private SettingFragment mSettingFragment;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setDefaultFragment();
-        setListener();
-    }
-
-
     /**
      * 获取布局
      */
@@ -52,7 +37,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onCreateActivity(@Nullable Bundle savedInstanceState) {
-
+        setDefaultFragment();
+        setListener();
     }
 
     //设置初始界面

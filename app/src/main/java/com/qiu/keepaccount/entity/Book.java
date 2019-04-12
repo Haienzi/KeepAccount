@@ -3,7 +3,6 @@ package com.qiu.keepaccount.entity;
 import org.litepal.crud.LitePalSupport;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @Author qiuhong.ma
@@ -20,7 +19,6 @@ public class Book extends LitePalSupport {
 
     private String sceneName; //场景名称
 
-    private List<Account> accountList;//账目
 
     private Date createDate;
 
@@ -60,14 +58,6 @@ public class Book extends LitePalSupport {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public List<Account> getAccountList() {
-        return accountList;
-    }
-
-    public void setAccountList(List<Account> accountList) {
-        this.accountList = accountList;
     }
 
     public double getTotalCost() {

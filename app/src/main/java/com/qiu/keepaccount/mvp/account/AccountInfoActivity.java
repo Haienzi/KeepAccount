@@ -4,15 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-
-import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
-import butterknife.BindView;
+
 import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.base.BaseActivity;
 import com.qiu.keepaccount.entity.Account;
 import com.qiu.keepaccount.util.ActivityUtils;
+
+import butterknife.BindView;
 
 public class AccountInfoActivity extends BaseActivity {
 
@@ -52,11 +51,7 @@ public class AccountInfoActivity extends BaseActivity {
         return intent;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-    }
 
     public void initFragment(Account account,int typeId){
         if(mAccountFragment == null){

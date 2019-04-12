@@ -25,7 +25,7 @@ public class EditAccountPresenterImpl implements EditAccountContract.IEditAccoun
         this.mView = view;
         mAccountModel = new AccountModel();
         mBudgetModel = new BudgetModel();
-
+        view.setPresenter(this);
     }
 
     /**

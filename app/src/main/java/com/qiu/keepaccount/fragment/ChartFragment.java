@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +76,19 @@ public class ChartFragment extends BaseFragment {
         return mView;
 
     }
+
+    /**
+     * 获取 Layout 布局
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     */
+    @Override
+    public View getLayout(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_chart,null);
+    }
+
     public void initView(){
 
     }
@@ -109,6 +123,11 @@ public class ChartFragment extends BaseFragment {
         }
         //填充各控件的数据
         mHasLoadedOnce = true;
+
+    }
+
+    @Override
+    public void onCreateFragment(@Nullable Bundle savedInstanceState) {
 
     }
 
