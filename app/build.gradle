@@ -37,4 +37,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife-compiler:8.8.0'
     implementation 'org.litepal.android:java:3.0.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
+    // 转场动画库
+    implementation 'me.immortalz:transitionhelper:1.0.6'
+
 }

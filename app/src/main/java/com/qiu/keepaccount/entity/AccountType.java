@@ -18,7 +18,7 @@ public class AccountType extends LitePalSupport {
 
     private int userId; //用户id
 
-    private byte[] typeIcon; //分类图片
+    private int typeIcon; //分类图片
 
     public void setId(int id) {
         this.id = id;
@@ -56,11 +56,11 @@ public class AccountType extends LitePalSupport {
         this.type = type;
     }
 
-    public byte[] getTypeIcon() {
+    public int getTypeIcon() {
         return typeIcon;
     }
 
-    public void setTypeIcon(byte[] typeIcon) {
+    public void setTypeIcon(int typeIcon) {
         this.typeIcon = typeIcon;
     }
 }

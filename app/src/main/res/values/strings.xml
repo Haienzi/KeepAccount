@@ -26,6 +26,10 @@
     <string name="zero">0.00</string>
     <string name="unit">元</string>
 
+    <string name="income_txt">收入</string>
+    <string name="cost_txt">支出</string>
+    <string name="toast_save_success">保存成功</string>
+    <string name="toast_save_failure">信息不全，请继续完善</string>
     <!--账本-->
     <string name="all_book">所有账本</string>
     <string name="book_name">账本名称</string>

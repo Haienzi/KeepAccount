@@ -3,11 +3,12 @@ package com.qiu.keepaccount.mvp.books;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 
 import com.qiu.keepaccount.R;
+import com.qiu.keepaccount.base.BaseActivity;
 
-public class AddBookActivity extends AppCompatActivity {
+public class AddBookActivity extends BaseActivity {
 
     /**
      * 启动AddBookActivity时
@@ -20,9 +21,17 @@ public class AddBookActivity extends AppCompatActivity {
         //intent.putExtra(EXTRA_CRIME_ID,id);//传递附加信息
         return intent;
     }
+
+    /**
+     * 获取布局
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_book);
+    public int getLayoutRes() {
+        return R.layout.activity_add_book;
+    }
+
+    @Override
+    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+
     }
 }

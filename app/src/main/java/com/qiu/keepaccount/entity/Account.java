@@ -24,9 +24,27 @@ public class Account extends LitePalSupport implements Serializable {
 
     private int bookId;//所属账本id
 
-    private int accountType;//1 支出 2 收入
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    private int type;//1 支出 2 收入
 
     private int typeId;//账目类型所属Id
+
+    public void setType(AccountType type) {
+        mAccountType = type;
+    }
+
+    public AccountType getAccountType() {
+        return mAccountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        mAccountType = accountType;
+    }
+
+    private AccountType mAccountType;
 
     public Integer getId() {
         return id;
@@ -80,12 +98,12 @@ public class Account extends LitePalSupport implements Serializable {
         this.bookId = bookId;
     }
 
-    public int getAccountType() {
-        return accountType;
+    public int getType() {
+        return type;
     }
 
     public void setAccountType(int accountType) {
-        this.accountType = accountType;
+        this.type = accountType;
     }
 
     public int getTypeId() {

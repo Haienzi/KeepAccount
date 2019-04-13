@@ -10,48 +10,50 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qiu.keepaccount.R;
-import com.qiu.keepaccount.entity.Type;
+import com.qiu.keepaccount.entity.AccountType;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @Author qiuhong.ma
  * @Date 2019/4/1 10:43
  * @Description
  */
-public class AccountTypeRecyclerAdapter extends RecyclerView.Adapter<AccountTypeRecyclerAdapter.TypeItemViewHolder> {
+public class AccountTypeAdapter extends RecyclerView.Adapter<AccountTypeAdapter.TypeItemViewHolder> {
 
 
     private RecyclerItemClickListener mOnItemClickListener;//点击事件
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<Type> mAccountType;
+    private List<AccountType> mAccountType;
 
-    public AccountTypeRecyclerAdapter(Context context, List<Type> mAccountType){
+    public AccountTypeAdapter(Context context){
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext);
-        this.mAccountType = mAccountType;
     }
 
+    public void setTypeList(List<AccountType> typeList ){
+        mAccountType = typeList;
+    }
     public void setOnItemClickListener(RecyclerItemClickListener itemClickListener){
         mOnItemClickListener = itemClickListener;
     }
 
     @NonNull
     @Override
-    public TypeItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, final int i) {
+    public TypeItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,  int i) {
         View view = mInflater.inflate(R.layout.item_account_type,viewGroup,false);
         TypeItemViewHolder typeItemViewHolder = new TypeItemViewHolder(view);
 
-        typeItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mOnItemClickListener.onItemClick(v,i);
-            }
-        });
-
         return typeItemViewHolder;
+    }
+
+    public AccountType getData(int position){
+        return mAccountType.get(position);
     }
 
     /**
@@ -60,8 +62,14 @@ public class AccountTypeRecyclerAdapter extends RecyclerView.Adapter<AccountType
      * @param i
      */
     @Override
-    public void onBindViewHolder(@NonNull TypeItemViewHolder typeItemViewHolder, int i) {
-        typeItemViewHolder.bindData(mAccountType.get(i));
+    public void onBindViewHolder(@NonNull TypeItemViewHolder typeItemViewHolder, final int i) {
+        typeItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mOnItemClickListener.onItemClick(v,i);
+            }
+        });
+        typeItemViewHolder.bindData(mAccountType.get(i),mContext);
     }
 
     @Override
@@ -71,17 +79,20 @@ public class AccountTypeRecyclerAdapter extends RecyclerView.Adapter<AccountType
 
     public static class TypeItemViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.account_type_img)
         ImageView mTypeImg;
-
+        @BindView(R.id.account_type_text)
         TextView mTypeText;
 
         public TypeItemViewHolder(@NonNull View itemView) {
             super(itemView);
+            ButterKnife.bind(this,itemView);
+
         }
 
-        public void bindData(Type type){
-            mTypeImg.setImageResource(type.getResid());
-            mTypeText.setText(type.getDesc());
+        public void bindData(AccountType type,Context context){
+            mTypeImg.setImageDrawable(context.getResources().getDrawable(type.getTypeIcon()));
+            mTypeText.setText(type.getName());
         }
     }
 }

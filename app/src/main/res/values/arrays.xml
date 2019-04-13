@@ -13,6 +13,32 @@
         <item>投资</item>
         <item>其他</item>
     </string-array>
+    <integer-array name="cost_icon">
+        <item>@drawable/ic_cost_type_1</item>
+        <item>@drawable/ic_cost_type_2</item>
+        <item>@drawable/ic_cost_type_3</item>
+        <item>@drawable/ic_cost_type_4</item>
+        <item>@drawable/ic_cost_type_5</item>
+        <item>@drawable/ic_cost_type_11</item>
+        <item>@drawable/ic_cost_type_6</item>
+        <item>@drawable/ic_cost_type_7</item>
+        <item>@drawable/ic_cost_type_8</item>
+        <item>@drawable/ic_cost_type_9</item>
+        <item>@drawable/ic_cost_type_10</item>
+    </integer-array>
+
+    <integer-array name="income_icon">
+        <item>@drawable/ic_income</item>
+        <item>@drawable/ic_cost_type_2</item>
+        <item>@drawable/ic_cost_type_3</item>
+        <item>@drawable/ic_cost_type_4</item>
+        <item>@drawable/ic_cost_type_5</item>
+        <item>@drawable/ic_cost_type_6</item>
+        <item>@drawable/ic_cost_type_7</item>
+        <item>@drawable/ic_cost_type_8</item>
+        <item>@drawable/ic_cost_type_9</item>
+        <item>@drawable/ic_cost_type_10</item>
+    </integer-array>
 
     <string-array name="income_type">
         <item>工资</item>

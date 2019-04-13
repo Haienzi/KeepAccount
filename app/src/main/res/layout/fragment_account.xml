@@ -25,7 +25,7 @@
             android:maxLines="1"
             android:textColor="@color/textBrown"
             android:textSize="@dimen/text16"
-            tools:text="请选择账本"/>
+            android:text="选择账本"/>
 
         <TextView
             android:id="@+id/book_name"
@@ -34,7 +34,7 @@
             android:gravity="end|center_vertical"
             android:text="账本名称"
             android:textColor="@color/textPink"
-            android:textSize="@dimen/text20"/>
+            android:textSize="@dimen/text18"/>
     </LinearLayout>
     <View style="@style/Divide.Default"/>
     <LinearLayout
@@ -53,13 +53,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:drawablePadding="5dp"
-            android:drawableStart="@mipmap/ic_cost_type_0"
+            android:drawableStart="@drawable/ic_cost"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
             android:textColor="@color/textBrown"
             android:textSize="@dimen/text16"
-            tools:text="分类名称"/>
+            tools:text="@string/cost_txt"/>
 
         <TextView
             android:id="@+id/txt_money"
@@ -68,7 +68,38 @@
             android:gravity="end|center_vertical"
             android:text="@string/zero"
             android:textColor="@color/textPink"
-            android:textSize="@dimen/text20"/>
+            android:textSize="@dimen/text18"/>
+    </LinearLayout>
+    <View style="@style/Divide.Default"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="@dimen/elevation_height"
+        android:outlineProvider="paddedBounds"
+        android:padding="15dp"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:drawablePadding="5dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textColor="@color/textBrown"
+            android:textSize="@dimen/text16"
+            android:text="选择分类"/>
+
+        <TextView
+            android:id="@+id/account_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end|center_vertical"
+            android:text="分类"
+            android:textColor="@color/textPink"
+            android:textSize="@dimen/text18"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

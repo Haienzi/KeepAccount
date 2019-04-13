@@ -120,7 +120,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jumpToAccountInfo(true,-1,null);
+                jumpToAccountInfo(-1,null);
             }
         });
     }
@@ -137,7 +137,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
         mAccountRecyclerAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
             @Override
             public void onItemClick(View view,int i) {
-                jumpToAccountInfo(false,mAccountList.get(i).getAccountType(),mAccountList.get(i));
+                jumpToAccountInfo(mAccountList.get(i).getType(),mAccountList.get(i));
             }
         });
     }
@@ -210,6 +210,8 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             mRecyclerView.setVisibility(View.VISIBLE);
         }
         mAccountRecyclerAdapter.setData(list);
+        mAccountRecyclerAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAccountRecyclerAdapter);
     }
 
     /**
@@ -287,11 +289,10 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
      * 跳转到记账详情界面
      *
      * @param account 记录
-     * @param isEdit 是否是编辑账目
      * @param type 账目类型
      */
-    public void jumpToAccountInfo(boolean isEdit,int type,Account account) {
-        Intent intent = AccountInfoActivity.newIntent(getActivity(),isEdit,type,account);
+    public void jumpToAccountInfo(int type,Account account) {
+        Intent intent = AccountInfoActivity.newIntent(getActivity(),type,account);
         startActivity(intent);
     }
 

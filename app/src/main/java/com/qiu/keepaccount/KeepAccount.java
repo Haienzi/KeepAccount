@@ -1,6 +1,7 @@
 package com.qiu.keepaccount;
 
 import android.app.Application;
+import android.content.Context;
 
 import org.litepal.LitePal;
 import org.litepal.tablemanager.callback.DatabaseListener;
@@ -9,11 +10,15 @@ import org.litepal.tablemanager.callback.DatabaseListener;
  * @author mqh 2019/3/27
  */
 public class KeepAccount extends Application {
+    private static KeepAccount mInstance;
+    private static Context mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
         LitePal.initialize(this);
+        mContext = getApplicationContext();
+        mInstance = this;
         //监听数据库的创建和升级
         LitePal.registerDatabaseListener(new DatabaseListener() {
             @Override
@@ -31,5 +36,12 @@ public class KeepAccount extends Application {
 
     }
 
+    /**
+     * 获取上下文
+     * @return
+     */
+    public static Context getContext(){
+        return mContext;
+    }
 
 }

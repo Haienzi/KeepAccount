@@ -3,16 +3,17 @@ package com.qiu.keepaccount.mvp.books;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 
 import com.qiu.keepaccount.R;
+import com.qiu.keepaccount.base.BaseActivity;
 
 /**
  * @Author qiuhong.ma
  * @Date 2019/3/24 16:07
  * @Description 账本页面
  */
-public class BookActivity extends AppCompatActivity {
+public class BookActivity extends BaseActivity {
 
 
     /**
@@ -27,9 +28,17 @@ public class BookActivity extends AppCompatActivity {
         return intent;
     }
 
+
+    /**
+     * 获取布局
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book);
+    public int getLayoutRes() {
+        return R.layout.activity_book;
+    }
+
+    @Override
+    public void onCreateActivity(@Nullable Bundle savedInstanceState) {
+
     }
 }

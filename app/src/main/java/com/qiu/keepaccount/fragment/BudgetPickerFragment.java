@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -63,10 +64,12 @@ public class BudgetPickerFragment extends DialogFragment {
                     //点击OK按钮将DatePicker中获取的日期传递给CrimeFragment
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        int budgetMoney = Integer.valueOf(mEditText.getText().toString());
+                        int budgetMoney = 1500;
+                        if(!TextUtils.isEmpty(mEditText.getText().toString())){
+                             budgetMoney  = Integer.valueOf(mEditText.getText().toString());
+                        }
                         //阳历
                         sendResult(budgetMoney);
-
                     }
                 })
                 .create();

@@ -124,7 +124,7 @@ public class AccountModel implements IAccountModel {
                     .order("createTime desc")
                     .find(Account.class);
         }else{
-            accountList= LitePal.where("userId = ? and  createTime >= ? and createTime <= ? and accountType = ?",
+            accountList= LitePal.where("userId = ? and  createTime >= ? and createTime <= ? and type = ?",
                     startDate,endDate,String.valueOf(type))
                     .order("createTime desc")
                     .find(Account.class);
@@ -146,19 +146,19 @@ public class AccountModel implements IAccountModel {
         double amount = 0.00;
 
         if(type == -1){
-            double income = LitePal.where(" userId = ? and accountType = ? and createTime >= ? and createTime <= ?",
+            double income = LitePal.where(" userId = ? and type = ? and createTime >= ? and createTime <= ?",
                      user.getId().toString(),String.valueOf(2),startDate,endDate)
                     .sum(Account.class," amount",Double.class);
-            double cost =  LitePal.where(" userId = ? and accountType = ? and createTime >= ? and createTime <= ?",
+            double cost =  LitePal.where(" userId = ? and type = ? and createTime >= ? and createTime <= ?",
                     user.getId().toString(),String.valueOf(1),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
             amount = income + cost;
         }else if(type == 2){
-            amount =  LitePal.where(" userId = ? and accountType = ? and createTime >= ? and createTime <= ?",
+            amount =  LitePal.where(" userId = ? and type = ? and createTime >= ? and createTime <= ?",
                     user.getId().toString(),String.valueOf(2),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
         }else{
-            amount =  LitePal.where(" userId = ? and accountType = ? and createTime >= ? and createTime <= ?",
+            amount =  LitePal.where(" userId = ? and type = ? and createTime >= ? and createTime <= ?",
                     user.getId().toString(),String.valueOf(1),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
         }

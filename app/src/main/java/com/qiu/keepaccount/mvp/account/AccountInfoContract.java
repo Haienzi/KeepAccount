@@ -11,7 +11,7 @@ import com.qiu.keepaccount.entity.User;
  */
 public interface AccountInfoContract {
 
-    interface IAccountInfoView extends BaseView<BasePresenter>{
+    interface IAccountInfoView extends BaseView<IAccountInfoPresenter>{
         /**
          * 保存
          */
