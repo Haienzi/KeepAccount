@@ -15,19 +15,15 @@ public interface IBookModel {
 
     /**
      * 添加账本
-     * @param user 用户
-     * @param sceneName 场景名称
      * @param book 账本
      */
-    void addAccountBook(User user, String sceneName, Book book);
+    void addAccountBook(Book book);
 
     /**
      * 更新账本
-     * @param user 用户
-     * @param sceneName 场景名称
      * @param book 账本
      */
-    void updateAccountBook(User user, String sceneName, Book book);
+    void updateAccountBook(Book book);
 
     /**
      * 删除账本
@@ -60,41 +56,36 @@ public interface IBookModel {
     /**
      * 查找指定帐薄里所有账目信息
      *
-     * @param user      用户
      * @param book      账本
      * @param type      类型 1、支出 2、收入 （-1 不分类型查找）
      */
-    List<Account> queryBookAccounts(User user, Book book,int type);
+    List<Account> queryBookAccounts(Book book,int type);
 
 
     /**
      * 查找指定帐薄里指定日期内的账目信息
      *
-     * @param user      用户
      * @param startDate 开始时间
      * @param endDate   结束时间
      * @param type      类型 1、支出 2、收入 （-1 不分类型查找）
      */
-    List<Account> queryBookAccounts(User user, Book book, String startDate, String endDate, int type);
+    List<Account> queryBookAccounts(Book book, String startDate, String endDate, int type);
 
     /**
      * 查找指定帐薄里指定日期内的总支出
      *
-     * @param user      用户
      * @param startDate 开始时间
      * @param endDate   结束时间
      * @param type      类型 1、支出 2、收入 （-1 不分类型查找）
      */
-    double queryBookCostOrIncome(User user,Book book,String startDate, String endDate, int type);
+    double queryBookCostOrIncome(Book book,String startDate, String endDate, int type);
 
 
     /**
      * 查找指定帐薄里指定日期内的总支出
-     *
-     * @param user      用户
      * @param type      类型 1、支出 2、收入 （-1 不分类型查找）
      */
-    double queryBookCostOrIncome(User user,Book book, int type);
+    double queryBookCostOrIncome(Book book, int type);
 
 
 

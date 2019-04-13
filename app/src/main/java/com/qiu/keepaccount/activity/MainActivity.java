@@ -11,8 +11,8 @@ import android.widget.FrameLayout;
 
 import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.base.BaseActivity;
-import com.qiu.keepaccount.fragment.ChartFragment;
-import com.qiu.keepaccount.fragment.SettingFragment;
+import com.qiu.keepaccount.mvp.chart.ChartFragment;
+import com.qiu.keepaccount.mvp.settings.SettingFragment;
 import com.qiu.keepaccount.mvp.editaccount.EditAccountFragment;
 
 import butterknife.BindView;
@@ -65,6 +65,7 @@ public class MainActivity extends BaseActivity {
                     case R.id.navigation_edit_account:
                         if (mEditAccountFragment == null) {
                             mEditAccountFragment = EditAccountFragment.newInstance();
+
                         }
                         transaction.replace(R.id.main_frame, mEditAccountFragment);
                         break;

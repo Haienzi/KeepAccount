@@ -1,4 +1,4 @@
-package com.qiu.keepaccount.fragment;
+package com.qiu.keepaccount.mvp.settings;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

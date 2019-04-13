@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".mvp.books.BookActivity">
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/toolbar_add_account"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/book_recycler_view"

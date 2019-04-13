@@ -31,6 +31,9 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
         this.mBookList = bookList;
     }
 
+    public void setData(List<Book> books){
+        mBookList = books;
+    }
     public void setOnItemClickListener(RecyclerItemClickListener itemClickListener){
         mOnItemClickListener = itemClickListener;
     }

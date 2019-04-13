@@ -71,4 +71,14 @@
         <item>操办婚礼井井有条，要浪漫也要务实</item>
         <item>学生党必备，生活支出精打细算</item>
     </string-array>
+
+    <integer-array name="scene_icon">
+        <item>@mipmap/book_list_scene1</item>
+        <item>@mipmap/book_list_scene2</item>
+        <item>@mipmap/book_list_scene3</item>
+        <item>@mipmap/book_list_scene4</item>
+        <item>@mipmap/book_list_scene5</item>
+        <item>@mipmap/book_list_scene6</item>
+        <item>@mipmap/book_list_scene7</item>
+    </integer-array>
 </resources>

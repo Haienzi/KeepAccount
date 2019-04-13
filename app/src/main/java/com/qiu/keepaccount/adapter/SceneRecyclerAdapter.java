@@ -2,18 +2,19 @@ package com.qiu.keepaccount.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.entity.SceneData;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +31,8 @@ public class SceneRecyclerAdapter extends RecyclerView.Adapter<SceneRecyclerAdap
     private Context mContext;
     private LayoutInflater mInflater;
     private List<SceneData> mSceneList;
+    private ArrayList<Integer> mCheckedList = new ArrayList<>();
+
 
     public SceneRecyclerAdapter(Context context, List<SceneData> sceneDataList){
         this.mContext = context;
@@ -52,7 +55,7 @@ public class SceneRecyclerAdapter extends RecyclerView.Adapter<SceneRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull SceneItemViewHolder sceneItemViewHolder, int i) {
-        sceneItemViewHolder.bindData(mSceneList.get(i),mOnItemClickListener,i);
+        sceneItemViewHolder.bindData(mSceneList.get(i),mOnItemClickListener,i,mCheckedList);
     }
 
     @Override
@@ -68,23 +71,32 @@ public class SceneRecyclerAdapter extends RecyclerView.Adapter<SceneRecyclerAdap
         @BindView(R.id.scene_desc)
         TextView mSceneDesc;
         @BindView(R.id.btn_ok)
-        AppCompatRadioButton mOkBtn;
+        RadioButton mOkBtn;
 
         public SceneItemViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
 
-        public void bindData(SceneData scene, final RecyclerItemClickListener itemClickListener, final int position){
+        public void bindData(SceneData scene, final RecyclerItemClickListener itemClickListener,
+                             final int position, final ArrayList<Integer> checkedList){
             mSceneImg.setImageResource(scene.getResid());
             mSceneTitle.setText(scene.getTitle());
             mSceneDesc.setText(scene.getDesc());
             mOkBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    itemClickListener.onItemClick(v,position);
+                public void onClick(View view) {
+                    if(checkedList.contains(position)){
+                        mOkBtn.setChecked(false);
+                        checkedList.remove((Object)position);
+                    }else {
+                        checkedList.add(position);
+                        itemClickListener.onItemClick(mOkBtn,position);
+                        mOkBtn.setChecked(true);
+                    }
                 }
             });
+
         }
     }
 }

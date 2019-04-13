@@ -15,29 +15,20 @@ import java.util.List;
 public class BookModel implements IBookModel{
     /**
      * 添加账本
-     *
-     * @param user      用户
-     * @param sceneName 场景名称
      * @param book      账本
      */
     @Override
-    public void addAccountBook(User user, String sceneName, Book book) {
-        book.setSceneName(sceneName);
-        book.setUserId(user.getId());
+    public void addAccountBook(Book book) {
         book.saveAsync();
     }
 
     /**
      * 更新账本
      *
-     * @param user      用户
-     * @param sceneName 场景名称
      * @param book      账本
      */
     @Override
-    public void updateAccountBook(User user, String sceneName, Book book) {
-        book.setSceneName(sceneName);
-        book.setUserId(user.getId());
+    public void updateAccountBook( Book book) {
         book.updateAsync(book.getId());
     }
 
@@ -110,36 +101,33 @@ public class BookModel implements IBookModel{
     /**
      * 查找指定帐薄里所有账目信息
      *
-     * @param user 用户
      * @param book 账本
      * @param type 类型 1、支出 2、收入 （-1 不分类型查找）
      */
     @Override
-    public List<Account> queryBookAccounts(User user, Book book, int type) {
+    public List<Account> queryBookAccounts(Book book, int type) {
         return null;
     }
 
     /**
      * 查找指定帐薄里指定日期内的账目信息
-     *
-     * @param user      用户
      * @param book
      * @param startDate 开始时间
      * @param endDate   结束时间
      * @param type      类型 1、支出 2、收入 （-1 不分类型查找）
      */
     @Override
-    public List<Account> queryBookAccounts(User user, Book book, String startDate, String endDate, int type) {
+    public List<Account> queryBookAccounts( Book book, String startDate, String endDate, int type) {
         List<Account> accountList = null;
 
         if(type == -1){
             accountList = LitePal.where("userId = ? and bookId = ? and createDate >= ? and createDate <= ?",
-                    user.getId().toString(),String.valueOf(book.getId()), startDate,endDate)
+                    String.valueOf(book.getUserId()),String.valueOf(book.getId()), startDate,endDate)
                     .order("createDate desc")
                     .find(Account.class);
         }else {
             accountList = LitePal.where("userId = ? and bookId = ? and createDate >= ? and createDate <= ? and accountType = ?",
-                    user.getId().toString(),String.valueOf(book.getId()), startDate,endDate,String.valueOf(type))
+                    String.valueOf(book.getUserId()),String.valueOf(book.getId()), startDate,endDate,String.valueOf(type))
                     .order("createDate desc")
                     .find(Account.class);
         }
@@ -150,34 +138,33 @@ public class BookModel implements IBookModel{
     /**
      * 查找指定帐薄里指定日期内的总支出
      *
-     * @param user      用户
      * @param book
      * @param startDate 开始时间
      * @param endDate   结束时间
      * @param type      类型 1、支出 2、收入 （-1 不分类型查找）
      */
     @Override
-    public double queryBookCostOrIncome(User user, Book book, String startDate, String endDate, int type) {
+    public double queryBookCostOrIncome(Book book, String startDate, String endDate, int type) {
         double amount = 0.00;
         if(type == -1){
             double income = LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
                             "createTime >= ? and createTime <= ? ",
-                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(2),startDate,endDate)
+                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(2),startDate,endDate)
                     .sum(Account.class," amount",Double.class);
             double cost = LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
                             "createTime >= ? and createTime <= ? ",
-                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(1),startDate,endDate)
+                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(1),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
             amount = income + cost;
         }else if(type == 2){
             amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
                             "createTime >= ? and createTime <= ? ",
-                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(2),startDate,endDate)
+                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(2),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
         }else{
             amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
                             "createTime >= ? and createTime <= ? ",
-                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(1),startDate,endDate)
+                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(1),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
         }
         return amount;
@@ -185,29 +172,27 @@ public class BookModel implements IBookModel{
 
     /**
      * 查找指定帐薄里的总支出
-     *
-     * @param user      用户
      * @param book      账本
      * @param type      类型 1、支出 2、收入 （-1 不分类型查找）
      */
     @Override
-    public double queryBookCostOrIncome(User user, Book book, int type) {
+    public double queryBookCostOrIncome(Book book, int type) {
         double amount = 0.00;
         if(type == -1){
             double income = LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(2))
+                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(2))
                     .sum(Account.class," amount",Double.class);
             double cost = LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(1))
+                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(1))
                     .sum(Account.class,"amount",Double.class);
             amount = income + cost;
         }else if(type == 2){
             amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(2))
+                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(2))
                     .sum(Account.class,"amount",Double.class);
         }else{
             amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                    user.getId().toString(),String.valueOf(book.getId()),String.valueOf(1))
+                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(1))
                     .sum(Account.class,"amount",Double.class);
         }
         return amount;

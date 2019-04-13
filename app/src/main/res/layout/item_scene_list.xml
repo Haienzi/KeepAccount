@@ -37,11 +37,13 @@
         android:layout_alignLeft="@id/scene_title"
         android:layout_marginRight="@dimen/view_margin"/>
 
-    <android.support.v7.widget.AppCompatRadioButton
+    <RadioButton
         android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:buttonTint="@color/colorPrimary"
         android:layout_alignParentRight="true"/>
+
 </RelativeLayout>

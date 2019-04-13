@@ -26,7 +26,17 @@
             android:layout_toEndOf="@id/back_img"
             android:textSize="@dimen/text18"
             android:textColor="@color/white"
-            android:text="@string/all_book"/>
+            android:text="添加账本"/>
+
+        <ImageView
+            android:id="@+id/back_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            app:srcCompat="@drawable/ic_save"
+            />
 
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
