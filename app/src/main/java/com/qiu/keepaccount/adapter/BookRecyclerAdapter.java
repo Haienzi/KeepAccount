@@ -6,8 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.entity.Book;
-import com.qiu.keepaccount.entity.SceneData;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 
 import java.util.List;

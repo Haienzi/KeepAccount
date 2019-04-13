@@ -9,12 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
+import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.entity.SceneData;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @Author qiuhong.ma
@@ -49,7 +52,7 @@ public class SceneRecyclerAdapter extends RecyclerView.Adapter<SceneRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull SceneItemViewHolder sceneItemViewHolder, int i) {
-        sceneItemViewHolder.bindData(mSceneList.get(i),mOnItemClickListener);
+        sceneItemViewHolder.bindData(mSceneList.get(i),mOnItemClickListener,i);
     }
 
     @Override
@@ -72,14 +75,14 @@ public class SceneRecyclerAdapter extends RecyclerView.Adapter<SceneRecyclerAdap
             ButterKnife.bind(this,itemView);
         }
 
-        public void bindData(SceneData scene, final RecyclerItemClickListener itemClickListener){
+        public void bindData(SceneData scene, final RecyclerItemClickListener itemClickListener, final int position){
             mSceneImg.setImageResource(scene.getResid());
             mSceneTitle.setText(scene.getTitle());
             mSceneDesc.setText(scene.getDesc());
             mOkBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    itemClickListener.onItemClick(v);
+                    itemClickListener.onItemClick(v,position);
                 }
             });
         }

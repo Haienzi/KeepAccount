@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,6 @@ import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  */
@@ -100,37 +100,6 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        if (mView == null) {
-            //需要inflate一个布局文件 填充Fragment
-            mView = inflater.inflate(R.layout.fragment_edit_account, container, false);
-            ButterKnife.bind(this,mView);
-            updateDate(new Date());//初始化日期
-            mPresenter = new EditAccountPresenterImpl(this);
-            setRecyclerData();
-            isPrepared = true;
-            //实现懒加载
-            lazyLoad();
-        }
-        //缓存的mView需要判断是否已经被加过parent， 如果有parent需要从parent删除，要不然会发生这个mView已经有parent的错误。
-        ViewGroup parent = (ViewGroup) mView.getParent();
-        if (parent != null) {
-            parent.removeView(mView);
-        }
-        return mView;
-
-    }
-
     /**
      * 获取 Layout 布局
      *
@@ -140,7 +109,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
      */
     @Override
     public View getLayout(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return null;
+        return inflater.inflate(R.layout.fragment_edit_account,null);
     }
 
     /**
@@ -208,9 +177,19 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
 
     @Override
     public void onCreateFragment(@Nullable Bundle savedInstanceState) {
-
+        Log.d(TAG, "onCreateFragment: is called");
+        updateDate(new Date());//初始化日期
+        new EditAccountPresenterImpl(this);
+        initData();
+        setRecyclerData();
     }
 
+    public void initData(){
+        showDateDialog();
+        showEditBudgetDialog();
+        jumpToBookActivity();
+        jumpToAddAccount();
+    }
     /**
      * 检索账目信息
      * @param list
@@ -341,7 +320,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
         if(requestCode == REQUEST_BUDGET)
         {
             int budget = (int)data.getSerializableExtra(BudgetPickerFragment.EXTRA_BUDGET);
-            mSurplusText.setText(String.format(getString(R.string.budget_info),budget,budget));
+            mSurplusText.setText(String.format(getString(R.string.budget_info),(double)budget,(double)budget));
             Budget budgetObject = new Budget();
             budgetObject.setBudget((double)budget);
             budgetObject.setCreateTime(mDateText.getText().toString());

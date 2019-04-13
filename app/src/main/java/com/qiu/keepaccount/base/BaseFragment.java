@@ -1,6 +1,5 @@
 package com.qiu.keepaccount.base;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +12,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.qiu.keepaccount.R;
+
 import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
@@ -45,11 +47,10 @@ public abstract class BaseFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    @SuppressLint("RestrictedApi")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mLayoutInflater = getLayoutInflater(savedInstanceState);
+        mLayoutInflater =getActivity().getLayoutInflater();
         mView = getLayout(inflater, container, savedInstanceState);
         return mView;
     }

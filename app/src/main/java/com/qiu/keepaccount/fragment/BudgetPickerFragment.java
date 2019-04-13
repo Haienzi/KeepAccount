@@ -53,7 +53,7 @@ public class BudgetPickerFragment extends DialogFragment {
 
         //设置默认值
         mEditText = v.findViewById(R.id.edit_budget);
-        mEditText.setHint(budgetDefault);
+        mEditText.setHint(String.valueOf(budgetDefault));
 
         //注意使用的时v7.app中的
         return new AlertDialog.Builder(Objects.requireNonNull(getActivity()))

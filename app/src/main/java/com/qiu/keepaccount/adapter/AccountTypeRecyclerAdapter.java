@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.entity.Type;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 
@@ -38,7 +40,7 @@ public class AccountTypeRecyclerAdapter extends RecyclerView.Adapter<AccountType
 
     @NonNull
     @Override
-    public TypeItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public TypeItemViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, final int i) {
         View view = mInflater.inflate(R.layout.item_account_type,viewGroup,false);
         TypeItemViewHolder typeItemViewHolder = new TypeItemViewHolder(view);
 

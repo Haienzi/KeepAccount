@@ -4,19 +4,22 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import butterknife.ButterKnife;
+
+import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.util.ActivityManager;
+
+import butterknife.ButterKnife;
 
 /**
  * @Author qiuhong.ma
@@ -29,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Toolbar mToolbar;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         // 设置 Activity 屏幕方向
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // 设置不自动弹出软键盘
@@ -39,7 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         // 设置 TAG
         TAG = this.getClass().getSimpleName();
 
-        super.onCreate(savedInstanceState, persistentState);
+        super.onCreate(savedInstanceState);
 
         this.mContext = this;
 
@@ -56,6 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private View getView(){
+        Log.d(TAG, "getView: getView" + getLayoutRes());
         return getLayoutInflater().inflate(getLayoutRes(), null, true);
     }
 
@@ -125,7 +129,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         // 设置左侧图标
-        mToolbar.setNavigationIcon(android.R.drawable.ic_back);
+        mToolbar.setNavigationIcon(R.drawable.ic_back);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

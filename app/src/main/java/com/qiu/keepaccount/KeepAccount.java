@@ -1,9 +1,8 @@
 package com.qiu.keepaccount;
 
 import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
+
 import org.litepal.LitePal;
-import org.litepal.tablemanager.Connector;
 import org.litepal.tablemanager.callback.DatabaseListener;
 
 /**
@@ -15,9 +14,6 @@ public class KeepAccount extends Application {
     public void onCreate() {
         super.onCreate();
         LitePal.initialize(this);
-
-        SQLiteDatabase database = Connector.getDatabase();
-
         //监听数据库的创建和升级
         LitePal.registerDatabaseListener(new DatabaseListener() {
             @Override

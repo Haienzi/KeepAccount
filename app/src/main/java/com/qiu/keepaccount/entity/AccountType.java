@@ -14,7 +14,7 @@ public class AccountType extends LitePalSupport {
 
     private String name; // 分类名称
 
-    private Integer Type; // 1 支出  2 收入
+    private Integer type; // 1 支出  2 收入
 
     private int userId; //用户id
 
@@ -49,11 +49,11 @@ public class AccountType extends LitePalSupport {
     }
 
     public Integer getType() {
-        return Type;
+        return type;
     }
 
     public void setType(Integer type) {
-        Type = type;
+        this.type = type;
     }
 
     public byte[] getTypeIcon() {
