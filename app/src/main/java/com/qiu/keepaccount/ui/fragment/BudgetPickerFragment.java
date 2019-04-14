@@ -1,4 +1,4 @@
-package com.qiu.keepaccount.fragment;
+package com.qiu.keepaccount.ui.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -20,7 +20,7 @@ import java.util.Objects;
 public class BudgetPickerFragment extends DialogFragment {
     private static final String ARG_BUDGET = "budget";
     //传递的日期数据
-    public static final String EXTRA_BUDGET ="com.qiu.keepaccount.fragment.budget";
+    public static final String EXTRA_BUDGET ="com.qiu.keepaccount.ui.fragment.budget";
     private EditText mEditText;
 
     /**

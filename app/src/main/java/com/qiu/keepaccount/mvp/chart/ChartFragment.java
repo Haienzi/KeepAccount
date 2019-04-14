@@ -12,6 +12,10 @@ import android.view.ViewGroup;
 
 import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.base.BaseFragment;
+import com.qiu.keepaccount.ui.dialog.DateDoubleDialog;
+import com.qiu.keepaccount.ui.dialog.DateTimeDialog;
+
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,6 +26,7 @@ import com.qiu.keepaccount.base.BaseFragment;
  * create an instance of this fragment.
  */
 public class ChartFragment extends BaseFragment {
+    private DateDoubleDialog mDateDoubleDialog;
 
     /**
      * 标志位，标志已经初始化完成
@@ -54,6 +59,35 @@ public class ChartFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
 
     }
+    /**
+     * 初始化日期时间选择框
+     *
+     * @param view 按钮
+     */
+    public void initDateTimeDialog( long dateTime) {
+        DateDoubleDialog.MyOnDateSetListener myOnDateSetListener = new DateDoubleDialog.MyOnDateSetListener() {
+
+            /**
+             * 为传入的view设置开始日期和结束日期
+             *
+             * @param startDate
+             * @param endDate
+             */
+            @Override
+            public void onDateSet(Date startDate, Date endDate) {
+
+            }
+        };
+        //如果设置的日期时间为空就获取当前的日期时间传入对话框
+        if (dateTime == 0) {
+            mDateDoubleDialog = new DateDoubleDialog(getActivity(), myOnDateSetListener);
+        } else {
+            mDateDoubleDialog = new DateDoubleDialog(getActivity(), new Date(dateTime), myOnDateSetListener);
+        }
+
+        mDateDoubleDialog.hideOrShow();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -1,4 +1,4 @@
-package com.qiu.keepaccount.fragment;
+package com.qiu.keepaccount.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -26,7 +26,7 @@ import java.util.Objects;
 public class DatePickerFragment extends DialogFragment {
     private static final String ARG_DATE = "date";
     //传递的日期数据
-    public static final String EXTRA_DATE ="com.qiu.keepaccount.fragment.date";
+    public static final String EXTRA_DATE ="com.qiu.keepaccount.ui.fragment.date";
     private DatePicker mDatePicker;
 
     /**
@@ -62,7 +62,7 @@ public class DatePickerFragment extends DialogFragment {
         //获取DatePicker
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_date_picker,null);
 
-        mDatePicker = (DatePicker)v.findViewById(R.id.dialog_date_date_picker);
+        mDatePicker = (DatePicker)v.findViewById(R.id.dialog_date_picker);
         mDatePicker.init(year,month,day,null);
 
         //注意使用的时v7.app中的

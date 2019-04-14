@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/content_layout"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
+        <RadioGroup
+            android:id="@+id/title_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/date_button"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/date_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/dialog_title_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:text="开始日期"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"/>
+
+            <View
+                android:layout_width="0.5px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#464646"/>
+
+            <RadioButton
+                android:id="@+id/time_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:text="结束日期"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"/>
+        </RadioGroup>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/content_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_group"/>
+
+        <View
+            android:id="@+id/button_horizontal_divider"
+            android:layout_width="match_parent"
+            android:layout_height="0.5px"
+            android:layout_below="@+id/content_view_pager"
+            android:background="#464646"/>
+
+        <LinearLayout
+            android:id="@+id/buttonGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_horizontal_divider"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/cancel_button"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="取消"/>
+
+            <View
+                android:id="@+id/button_vertical_divider"
+                android:layout_width="0.5px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#464646"/>
+
+            <Button
+                android:id="@+id/ok_button"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="确定"/>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
