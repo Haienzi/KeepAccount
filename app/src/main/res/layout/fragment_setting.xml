@@ -1,16 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".mvp.settings.SettingFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/colorBackground"
+              android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <include layout="@layout/toolbar_setting"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:gravity="center"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        app:layout_collapseMode="parallax">
+
+        <ImageView
+            android:id="@+id/img_icon"
+            style="@style/AboutPage.Header.Icon"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/ic_me"
+            tools:ignore="ContentDescription"/>
+
+        <TextView
+            android:id="@+id/user_name_txt"
+            style="@style/AboutPage.Header.Slogan"
+            android:text="用户昵称"/>
+
+        <TextView
+            android:id="@+id/txt_version"
+            style="@style/AboutPage.Header.Version"
+            tools:text="Version 1.2.3"/>
+    </LinearLayout>
+    <View style="@style/Divide.Default"/>
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:text="setting"/>
+        android:layout_marginTop="16dp"
+        android:elevation="1dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBaseline="@id/budget_notify_switch"
+            android:text="预算不足提醒"/>
+        <Switch
+            android:id="@+id/budget_notify_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"/>
+    </RelativeLayout>
+    <View style="@style/Divide.Default"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:elevation="1dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBaseline="@id/budget_min_set"
+            android:text="设置预算提醒金额"/>
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/budget_min_set"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="请输入预算提醒金额"
+            android:maxLength="21"
+            android:padding="@dimen/view_padding"
+            android:textSize="@dimen/text16"/>
+    </RelativeLayout>
+    <View style="@style/Divide.Default"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:elevation="1dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBaseline="@id/account_notify_switch"
+            android:text="记账提醒"/>
+        <Switch
+            android:id="@+id/account_notify_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"/>
+    </RelativeLayout>
+    <View style="@style/Divide.Default"/>
+    <RelativeLayout
+        android:id="@+id/account_time_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:elevation="1dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBaseline="@id/account_time_img"
+            android:text="提醒时间"/>
+        <ImageView
+            android:id="@+id/account_time_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_time"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"/>
+    </RelativeLayout>
+    <View style="@style/Divide.Default"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:elevation="1dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBaseline="@id/data_back"
+            android:text="数据备份"/>
+        <ImageView
+            android:id="@+id/data_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_right"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"/>
+    </RelativeLayout>
+    <View style="@style/Divide.Default"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:elevation="1dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBaseline="@id/data_recover"
+            android:text="数据还原"/>
+        <ImageView
+            android:id="@+id/data_recover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/ic_right"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"/>
+    </RelativeLayout>
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/llt_login_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:padding="@dimen/padding"
+            android:text="退出"/>
+    </LinearLayout>
+</LinearLayout>
