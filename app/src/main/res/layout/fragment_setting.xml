@@ -4,7 +4,6 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/colorBackground"
               android:orientation="vertical">
 
     <include layout="@layout/toolbar_setting"/>
@@ -25,26 +24,26 @@
 
         <TextView
             android:id="@+id/user_name_txt"
+            android:layout_marginTop="8dp"
             style="@style/AboutPage.Header.Slogan"
             android:text="用户昵称"/>
 
-        <TextView
-            android:id="@+id/txt_version"
-            style="@style/AboutPage.Header.Version"
-            tools:text="Version 1.2.3"/>
     </LinearLayout>
-    <View style="@style/Divide.Default"/>
+    <View style="@style/Divide.Default.Margin"/>
     <RelativeLayout
+        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
         android:elevation="1dp">
         <TextView
+            style="@style/Text.Maple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
+            android:textSize="@dimen/text16"
             android:layout_alignBaseline="@id/budget_notify_switch"
             android:text="预算不足提醒"/>
         <Switch
@@ -52,22 +51,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"/>
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
-    <View style="@style/Divide.Default"/>
+    <View style="@style/Divide.Default.Margin"/>
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:elevation="1dp">
         <TextView
+            style="@style/Text.Maple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignBaseline="@id/budget_min_set"
+            android:textSize="@dimen/text16"
             android:text="设置预算提醒金额"/>
         <android.support.v7.widget.AppCompatEditText
             android:id="@+id/budget_min_set"
@@ -80,18 +82,21 @@
             android:padding="@dimen/view_padding"
             android:textSize="@dimen/text16"/>
     </RelativeLayout>
-    <View style="@style/Divide.Default"/>
+    <View style="@style/Divide.Default.Margin"/>
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
+        android:padding="10dp"
         android:elevation="1dp">
         <TextView
+            style="@style/Text.Maple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
+            android:textSize="@dimen/text16"
             android:layout_alignBaseline="@id/account_notify_switch"
             android:text="记账提醒"/>
         <Switch
@@ -99,22 +104,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"/>
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
-    <View style="@style/Divide.Default"/>
+    <View style="@style/Divide.Default.Margin"/>
     <RelativeLayout
+        android:background="@color/white"
         android:id="@+id/account_time_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
         android:elevation="1dp">
         <TextView
+            style="@style/Text.Maple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
+            android:textSize="@dimen/text16"
             android:layout_alignBaseline="@id/account_time_img"
             android:text="提醒时间"/>
         <ImageView
@@ -123,21 +130,23 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/ic_time"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"/>
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
-    <View style="@style/Divide.Default"/>
+    <View style="@style/Divide.Default.Margin"/>
     <RelativeLayout
+        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
         android:elevation="1dp">
         <TextView
+            style="@style/Text.Maple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
+            android:textSize="@dimen/text16"
             android:layout_alignBaseline="@id/data_back"
             android:text="数据备份"/>
         <ImageView
@@ -146,22 +155,24 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:background="@drawable/ic_right"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"/>
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
-    <View style="@style/Divide.Default"/>
+    <View style="@style/Divide.Default.Margin"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:padding="10dp"
+        android:background="?attr/selectableItemBackground"
         android:elevation="1dp">
         <TextView
+            style="@style/Text.Maple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignBaseline="@id/data_recover"
+            android:textSize="@dimen/text16"
             android:text="数据还原"/>
         <ImageView
             android:id="@+id/data_recover"
@@ -169,25 +180,22 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:background="@drawable/ic_right"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"/>
+            android:textSize="@dimen/text16"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/llt_login_out"
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/logout_btn"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text16"
+        android:gravity="center"
+        android:padding="@dimen/padding"
+        android:text="退出"/>
 
-        <android.support.v7.widget.AppCompatButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:padding="@dimen/padding"
-            android:text="退出"/>
-    </LinearLayout>
 </LinearLayout>

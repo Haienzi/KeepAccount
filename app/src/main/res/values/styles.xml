@@ -87,6 +87,7 @@
     </style>
 
     <style name="Divide.Default.Margin">
+        <item name="android:background">@color/grayish</item>
         <item name="android:layout_marginLeft">@dimen/view_margin</item>
         <item name="android:layout_marginRight">@dimen/view_margin</item>
     </style>
