@@ -38,6 +38,7 @@
     <string name="book_condition_text">请选择账本场景</string>
     <string name="book_cover">账本封面</string>
     <string name="add_book">添加账本</string>
+    <string name="account_amount_info_string">总计：%1$.2f 支出:%2$.2f 收入:%3$.2f</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

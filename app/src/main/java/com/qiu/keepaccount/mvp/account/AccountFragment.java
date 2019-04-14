@@ -31,6 +31,8 @@ import com.qiu.keepaccount.util.ArithUtils;
 import com.qiu.keepaccount.util.DateUtils;
 import com.qiu.keepaccount.util.RegexUtils;
 import com.qiu.keepaccount.util.ToastUtils;
+import com.sbgapps.simplenumberpicker.decimal.DecimalPickerDialog;
+import com.sbgapps.simplenumberpicker.decimal.DecimalPickerHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ import butterknife.OnClick;
 /**
  *
  */
-public class AccountFragment extends BaseFragment implements AccountInfoContract.IAccountInfoView{
+public class AccountFragment extends BaseFragment implements AccountInfoContract.IAccountInfoView, DecimalPickerHandler {
     @BindView(R.id.book_type)
     TextView mBookType;
     @BindView(R.id.book_name)
@@ -347,10 +349,17 @@ public class AccountFragment extends BaseFragment implements AccountInfoContract
      */
     @Override
     public void showInputMoneyDialog() {
-
+        new DecimalPickerDialog.Builder()
+                .setReference(1)
+                .setNatural(false)
+                .setRelative(false)
+                .setTheme(R.style.DecimalPickerTheme)
+                .create()
+                .show(getChildFragmentManager(), "TAG_DEC_DIALOG");
     }
 
 
+    @Override
     public void onDecimalNumberPicked(int i, float v) {
         Double money = Double.valueOf(Float.toString(v));
         String moneyStr = ArithUtils.formatMoney(money);
@@ -360,6 +369,7 @@ public class AccountFragment extends BaseFragment implements AccountInfoContract
             AnimUtils.startVibrateAnim(mTxtMoney, -1);
         }
     }
+
     /**
      * 设置选择的日期
      */

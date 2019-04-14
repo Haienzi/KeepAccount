@@ -39,5 +39,8 @@ dependencies {
     implementation 'org.jetbrains:annotations-java5:15.0'
     // 转场动画库
     implementation 'me.immortalz:transitionhelper:1.0.6'
+    // MD 风格输入 Dialog
+    implementation 'com.github.StephaneBg:SimpleNumberPicker:1.3'
+
 
 }
