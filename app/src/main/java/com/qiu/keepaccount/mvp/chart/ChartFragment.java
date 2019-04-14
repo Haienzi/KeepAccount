@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.base.BaseFragment;
 import com.qiu.keepaccount.ui.dialog.DateDoubleDialog;
-import com.qiu.keepaccount.ui.dialog.DateTimeDialog;
 
 import java.util.Date;
 
@@ -61,8 +60,6 @@ public class ChartFragment extends BaseFragment {
     }
     /**
      * 初始化日期时间选择框
-     *
-     * @param view 按钮
      */
     public void initDateTimeDialog( long dateTime) {
         DateDoubleDialog.MyOnDateSetListener myOnDateSetListener = new DateDoubleDialog.MyOnDateSetListener() {
