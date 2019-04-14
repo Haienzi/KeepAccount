@@ -90,6 +90,7 @@ public class SceneRecyclerAdapter extends RecyclerView.Adapter<SceneRecyclerAdap
                         mOkBtn.setChecked(false);
                         checkedList.remove((Object)position);
                     }else {
+                        checkedList.clear();
                         checkedList.add(position);
                         itemClickListener.onItemClick(mOkBtn,position);
                         mOkBtn.setChecked(true);
