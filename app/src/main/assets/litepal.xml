@@ -3,7 +3,7 @@
     <dbname value="keepaccount"/> //数据库名称
 
     <version value="1"/> //数据库版本
-
+    <cases value="keep" ></cases>
     <list>   //指定的映射模型
         <mapping class="com.qiu.keepaccount.entity.User"></mapping>
         <mapping class="com.qiu.keepaccount.entity.AccountType"></mapping>

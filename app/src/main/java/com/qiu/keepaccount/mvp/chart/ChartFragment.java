@@ -6,15 +6,27 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.qiu.keepaccount.R;
+import com.qiu.keepaccount.adapter.AccountRecyclerAdapter;
 import com.qiu.keepaccount.base.BaseFragment;
+import com.qiu.keepaccount.entity.Account;
 import com.qiu.keepaccount.ui.dialog.DateDoubleDialog;
 
 import java.util.Date;
+import java.util.List;
+
+import butterknife.BindView;
+import lecho.lib.hellocharts.view.LineChartView;
+import lecho.lib.hellocharts.view.PieChartView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,9 +36,36 @@ import java.util.Date;
  * Use the {@link ChartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ChartFragment extends BaseFragment {
-    private DateDoubleDialog mDateDoubleDialog;
+public class ChartFragment extends BaseFragment implements ChartContract.ChartView {
+    @BindView(R.id.chart_linear_txt)
+    TextView mLinearText;
+    @BindView(R.id.chart_circle_txt)
+    TextView mCircleText;
+    @BindView(R.id.chart_frame)
+    FrameLayout mFrameLayout;
+    @BindView(R.id.chart_account_count)
+    TextView mAccountCountText;
+    @BindView(R.id.btn_export)
+    Button mExportButton;
+    @BindView(R.id.chart_account_recycler)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.chart_date)
+    TextView mDateText;
+    @BindView(R.id.chart_back_img)
+    ImageView mBackImg;
+    @BindView(R.id.date_last)
+    ImageView mDateLast;
+    @BindView(R.id.date_next)
+    ImageView mDateNext;
+    @BindView(R.id.chart_choose_date)
+    ImageView mChooseDate;
 
+    private DateDoubleDialog mDateDoubleDialog;
+    private AccountRecyclerAdapter mAccountRecyclerAdapter;
+    private List<Account> mAccountList;
+    private ChartContract.IChartPresenter mPresenter;
+    private LineChartView mLineChartView;//线性图
+    private PieChartView mPieChartView;//饼图
     /**
      * 标志位，标志已经初始化完成
      */
@@ -159,6 +198,64 @@ public class ChartFragment extends BaseFragment {
 
     @Override
     public void onCreateFragment(@Nullable Bundle savedInstanceState) {
+
+    }
+
+    /**
+     * 切换为线性
+     *
+     * @param accountList
+     */
+    @Override
+    public void setLinerData(List<Account> accountList) {
+
+    }
+
+    /**
+     * 切换为饼图
+     *
+     * @param accountList
+     */
+    @Override
+    public void setCircleData(List<Account> accountList) {
+
+    }
+
+    /**
+     * 导出为excel文件
+     *
+     * @param accountList
+     */
+    @Override
+    public void exportToExcel(List<Account> accountList) {
+
+    }
+
+    /**
+     * 弹出选择时间对话框
+     */
+    @Override
+    public void showDateDoubleDialog() {
+
+    }
+
+    /**
+     * 填充List中的数据
+     *
+     * @param accountList
+     */
+    @Override
+    public void setListData(List<Account> accountList) {
+
+    }
+
+    /**
+     * 在view层获取相应的Presenter实例进行交互
+     *
+     * @param presenter
+     */
+    @Override
+    public void setPresenter(ChartContract.IChartPresenter presenter) {
 
     }
 

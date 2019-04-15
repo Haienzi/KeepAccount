@@ -324,7 +324,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             mSurplusText.setText(String.format(getString(R.string.budget_info),(double)budget,(double)budget));
             Budget budgetObject = new Budget();
             budgetObject.setBudget((double)budget);
-            budgetObject.setCreateTime(mDateText.getText().toString());
+            budgetObject.setCreateDate(mDateText.getText().toString());
             mPresenter.saveBudget(-1,budgetObject);
         }
     }

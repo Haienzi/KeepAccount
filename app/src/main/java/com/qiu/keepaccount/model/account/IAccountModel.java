@@ -2,6 +2,7 @@ package com.qiu.keepaccount.model.account;
 
 
 import com.qiu.keepaccount.entity.Account;
+import com.qiu.keepaccount.entity.LinearPointData;
 import com.qiu.keepaccount.entity.User;
 
 import java.util.List;
@@ -64,6 +65,15 @@ public interface IAccountModel {
      * @param type      类型 1、支出 2、收入 （-1 不分类型查找）
      */
     double queryTotalCostOrIncome(User user, String startDate, String endDate,int type);
+
+    /**
+     * 返回图表需要的数据
+     * @param user
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    public List<LinearPointData> queryChartData(User user, String startDate, String endDate);
 
 
 

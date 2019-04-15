@@ -21,7 +21,7 @@ public class Book extends LitePalSupport implements Serializable {
     private String sceneName; //场景名称
 
 
-    private Date createDate;
+    private Date createTime;
 
     /** 该帐薄下所有账目总支出 */
     public double totalCost = 0.00;
@@ -45,12 +45,12 @@ public class Book extends LitePalSupport implements Serializable {
     }
 
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public int getUserId() {

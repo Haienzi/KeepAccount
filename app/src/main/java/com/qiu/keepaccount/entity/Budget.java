@@ -15,7 +15,7 @@ public class Budget extends LitePalSupport {
 
     private Double surplus; //剩余
 
-    private String createTime;//创建日期
+    private String createDate;//创建日期
 
     private int userId;
 
@@ -47,12 +47,12 @@ public class Budget extends LitePalSupport {
         this.surplus = surplus;
     }
 
-    public String getCreateTime() {
-        return createTime;
+    public String getCreateDate() {
+        return createDate;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
     }
 
     public int getUserId() {

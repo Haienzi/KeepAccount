@@ -1,9 +1,14 @@
 package com.qiu.keepaccount.model.account;
 
+import android.database.Cursor;
+
 import com.qiu.keepaccount.entity.Account;
+import com.qiu.keepaccount.entity.LinearPointData;
 import com.qiu.keepaccount.entity.User;
+
 import org.litepal.LitePal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -144,6 +149,28 @@ public class AccountModel implements IAccountModel {
                     .sum(Account.class,"amount",Double.class);
         }
         return amount;
+    }
+
+    /**
+     * 返回图表需要的数据
+     *
+     * @param user
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    @Override
+    public List<LinearPointData> queryChartData(User user, String startDate, String endDate) {
+        Cursor cursor = LitePal.findBySQL("select createDate,sum(Amount) from Account where " +
+                " createTime >= ? and createTime <= ? group by createDate",startDate,endDate);
+        cursor.moveToFirst();
+        List<LinearPointData> pointDataList = new ArrayList<>();
+        for(int i=0;i<cursor.getCount();i++){
+            LinearPointData pointData = new LinearPointData(cursor);
+            pointDataList.add(pointData);
+            cursor.moveToNext();
+        }
+        return pointDataList;
     }
 
 

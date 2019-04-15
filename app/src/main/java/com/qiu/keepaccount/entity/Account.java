@@ -18,6 +18,16 @@ public class Account extends LitePalSupport implements Serializable {
 
     private Date createTime; // 创建时间/修改时间
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    private Date createDate; // 创建时间年月日格式
+
     private Double amount;//金额数
 
     private int userId; //创建人
