@@ -18,20 +18,12 @@ public interface IAccountModel {
      */
     void saveAccount(User user, Account account);
 
-    /**
-     * 用户未登录时 保存账目信息
-     */
-    void saveAccount(Account account);
 
     /**
-     * 用户已登录时 更新账目信息
+     * 更新账目信息
      */
     void updateAccount(User user, Account account);
 
-    /**
-     * 用户未登录时 更新账目信息
-     */
-    void updateAccount(Account account);
 
     /**
      * 删除一条账目数据

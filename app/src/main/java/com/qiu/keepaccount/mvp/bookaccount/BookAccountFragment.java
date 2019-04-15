@@ -1,109 +1,217 @@
 package com.qiu.keepaccount.mvp.bookaccount;
 
-import android.content.Context;
-import android.net.Uri;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.qiu.keepaccount.R;
+import com.qiu.keepaccount.adapter.AccountRecyclerAdapter;
+import com.qiu.keepaccount.base.BaseFragment;
+import com.qiu.keepaccount.entity.Account;
+import com.qiu.keepaccount.entity.AccountType;
+import com.qiu.keepaccount.entity.Book;
+import com.qiu.keepaccount.listener.RecyclerItemClickListener;
+import com.qiu.keepaccount.mvp.account.AccountInfoActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link BookAccountFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link BookAccountFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BookAccountFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class BookAccountFragment extends BaseFragment implements BookAccountContract.BookAccountView {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @BindView(R.id.account_amount_info)
+    TextView mAmountInfo;
+    @BindView(R.id.book_account_recycler_view)
+    RecyclerView mRecyclerView;
 
-    private OnFragmentInteractionListener mListener;
+    private List<Account> mAccountList = new ArrayList<>();
+    private AccountRecyclerAdapter mAccountRecyclerAdapter;
+    private BookAccountContract.IBookAccountPresenter mPresenter;
+    private Book mBook;
 
-    public BookAccountFragment() {
-        // Required empty public constructor
+    public BookAccountFragment(){
+
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BookAccountFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BookAccountFragment newInstance(String param1, String param2) {
+    public static BookAccountFragment newInstance(Bundle args) {
         BookAccountFragment fragment = new BookAccountFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
 
+    /**
+     * 获取 Layout 布局
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_book_account, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    public View getLayout(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_book_account,null);
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * 延迟加载
+     * 子类必须重写此方法
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void lazyLoad() {
+
+    }
+
+    @Override
+    public void onCreateFragment(@Nullable Bundle savedInstanceState) {
+        initAdapter();
+        if(getArguments()!=null){
+            Bundle bundle = getArguments();
+            mBook = (Book)bundle.getSerializable(BookAccountActivity.EXTRA_BOOK);
+        }
+
+
+    }
+
+    /**
+     * 初始化Adapter
+     */
+    public void initAdapter(){
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.
+                VERTICAL,false));
+        mAccountRecyclerAdapter = new AccountRecyclerAdapter(getContext());
+        mRecyclerView.setAdapter(mAccountRecyclerAdapter);
+        mAccountRecyclerAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Account account = mAccountRecyclerAdapter.getData(position);
+                jumpToEditAccount(account);
+            }
+        });
+    }
+
+    /**
+     * 显示支出记录
+     */
+    @Override
+    public void selectCost() {
+        mPresenter.selectAccountByBook(mBook,1);
+        mPresenter.selectTotalCost(mBook);
+    }
+
+    /**
+     * 显示收入记录
+     */
+    @Override
+    public void selectIncome() {
+        mPresenter.selectAccountByBook(mBook,2);
+        mPresenter.selectTotalIncome(mBook);
+    }
+
+    /**
+     * 显示所有记录
+     */
+    @Override
+    public void selectAll() {
+        mPresenter.selectAccountByBook(mBook,-1);
+        mPresenter.selectTotalMoney(mBook);
+    }
+
+    /**
+     * 设置支出记录
+     *
+     * @param accountList
+     */
+    @Override
+    public void setListData(List<Account> accountList) {
+        mAccountList.clear();
+        mAccountList=accountList;
+        mAccountRecyclerAdapter.setData(mAccountList);
+        mAccountRecyclerAdapter.notifyDataSetChanged();
+        mRecyclerView.setAdapter(mAccountRecyclerAdapter);
+    }
+
+    /**
+     * 设置总收入
+     *
+     * @param income
+     */
+    @Override
+    public void setTotalIncome(double income) {
+        mAmountInfo.setText(String.format(getString(R.string.account_income_info_string),income));
+    }
+
+    /**
+     * 设置总支出
+     *
+     * @param cost
+     */
+    @Override
+    public void setTotalCost(double cost) {
+        mAmountInfo.setText(String.format(getString(R.string.account_cost_info_string),cost));
+    }
+
+    /**
+     * 设置总金额
+     *
+     * @param totalMoney
+     * @param income
+     * @param cost
+     */
+    @Override
+    public void setTotalMoney(double totalMoney, double income, double cost) {
+        mAmountInfo.setText(String.format(getString(R.string.account_amount_info_string),totalMoney,income,cost));
+    }
+
+    /**
+     * 弹出删除对话框
+     *
+     * @param account
+     */
+    @Override
+    public void showDeleteDialog(final Account account) {
+        new AlertDialog.Builder(mContext)
+                .setTitle(getContext().getString(R.string.dialog_title))
+                .setMessage(getContext().getString(R.string.dialog_content_delete))
+                .setNegativeButton(getContext().getString(R.string.dialog_cancel), null)
+                .setPositiveButton(getContext().getString(R.string.dialog_sure), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.deleteAccountById(account);
+                    }
+                }).create().show();
+    }
+
+    /**
+     * 跳转到编辑记录界面
+     *
+     * @param account
+     */
+    @Override
+    public void jumpToEditAccount(Account account) {
+        AccountType accountType = account.getAccountType();
+        Intent intent = AccountInfoActivity.newIntent(getContext(),accountType.getType(),account);
+        startActivity(intent);
+    }
+
+
+    /**
+     * 在view层获取相应的Presenter实例进行交互
+     *
+     * @param presenter
+     */
+    @Override
+    public void setPresenter(BookAccountContract.IBookAccountPresenter presenter) {
+        mPresenter = presenter;
     }
 }

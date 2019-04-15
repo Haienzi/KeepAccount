@@ -44,6 +44,10 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
         this.mAccountsList = accountList;
     }
 
+    public Account getData(int position){
+        return mAccountsList.get(position);
+    }
+
     public void setOnItemClickListener(RecyclerItemClickListener itemClickListener){
         mOnItemClickListener = itemClickListener;
     }

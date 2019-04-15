@@ -25,15 +25,6 @@ public class AccountModel implements IAccountModel {
         account.save();
     }
 
-    /**
-     * 用户未登录时 保存账目信息
-     *
-     * @param account
-     */
-    @Override
-    public void saveAccount(Account account) {
-        account.save();
-    }
 
     /**
      * 用户已登录时 更新账目信息
@@ -44,16 +35,6 @@ public class AccountModel implements IAccountModel {
     @Override
     public void updateAccount(User user, Account account) {
         account.setUserId(user.getId());
-        account.update(account.getId());
-    }
-
-    /**
-     * 用户未登录时 更新账目信息
-     *
-     * @param account
-     */
-    @Override
-    public void updateAccount(Account account) {
         account.update(account.getId());
     }
 

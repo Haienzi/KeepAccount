@@ -10,6 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".mvp.databackup.recover.RecoverActivity">
+        </activity>
+        <activity android:name=".mvp.databackup.backup.BackUpActivity">
+        </activity>
         <activity android:name=".mvp.bookaccount.BookAccountActivity">
         </activity>
         <activity android:name=".mvp.account.AccountInfoActivity">

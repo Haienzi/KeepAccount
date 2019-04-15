@@ -106,7 +106,21 @@ public class BookModel implements IBookModel{
      */
     @Override
     public List<Account> queryBookAccounts(Book book, int type) {
-        return null;
+        List<Account> accountList = null;
+
+        if(type == -1){
+            accountList = LitePal.where("bookId = ? ",
+                    String.valueOf(book.getId()))
+                    .order("createDate desc")
+                    .find(Account.class);
+        }else {
+            accountList = LitePal.where("bookId = ? and accountType = ?",
+                    String.valueOf(book.getId()),String.valueOf(type))
+                    .order("createDate desc")
+                    .find(Account.class);
+        }
+        return accountList;
+
     }
 
     /**
@@ -121,13 +135,13 @@ public class BookModel implements IBookModel{
         List<Account> accountList = null;
 
         if(type == -1){
-            accountList = LitePal.where("userId = ? and bookId = ? and createDate >= ? and createDate <= ?",
-                    String.valueOf(book.getUserId()),String.valueOf(book.getId()), startDate,endDate)
+            accountList = LitePal.where(" bookId = ? and createDate >= ? and createDate <= ?",
+                    String.valueOf(book.getId()), startDate,endDate)
                     .order("createDate desc")
                     .find(Account.class);
         }else {
-            accountList = LitePal.where("userId = ? and bookId = ? and createDate >= ? and createDate <= ? and accountType = ?",
-                    String.valueOf(book.getUserId()),String.valueOf(book.getId()), startDate,endDate,String.valueOf(type))
+            accountList = LitePal.where(" bookId = ? and createDate >= ? and createDate <= ? and accountType = ?",
+                    String.valueOf(book.getId()), startDate,endDate,String.valueOf(type))
                     .order("createDate desc")
                     .find(Account.class);
         }
@@ -147,24 +161,24 @@ public class BookModel implements IBookModel{
     public double queryBookCostOrIncome(Book book, String startDate, String endDate, int type) {
         double amount = 0.00;
         if(type == -1){
-            double income = LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
+            double income = LitePal.where(" bookId = ? and accountType = ? and " +
                             "createTime >= ? and createTime <= ? ",
-                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(2),startDate,endDate)
+                    String.valueOf(book.getId()),String.valueOf(2),startDate,endDate)
                     .sum(Account.class," amount",Double.class);
-            double cost = LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
+            double cost = LitePal.where("  bookId = ? and accountType = ? and " +
                             "createTime >= ? and createTime <= ? ",
-                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(1),startDate,endDate)
+                    String.valueOf(book.getId()),String.valueOf(1),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
             amount = income + cost;
         }else if(type == 2){
-            amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
+            amount =  LitePal.where("  bookId = ? and accountType = ? and " +
                             "createTime >= ? and createTime <= ? ",
-                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(2),startDate,endDate)
+                    String.valueOf(book.getId()),String.valueOf(2),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
         }else{
-            amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? and " +
+            amount =  LitePal.where("  bookId = ? and accountType = ? and " +
                             "createTime >= ? and createTime <= ? ",
-                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(1),startDate,endDate)
+                    String.valueOf(book.getId()),String.valueOf(1),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
         }
         return amount;
@@ -179,20 +193,20 @@ public class BookModel implements IBookModel{
     public double queryBookCostOrIncome(Book book, int type) {
         double amount = 0.00;
         if(type == -1){
-            double income = LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(2))
+            double income = LitePal.where(" bookId = ? and accountType = ? ",
+                   String.valueOf(book.getId()),String.valueOf(2))
                     .sum(Account.class," amount",Double.class);
-            double cost = LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(1))
+            double cost = LitePal.where("  bookId = ? and accountType = ? ",
+                    String.valueOf(book.getId()),String.valueOf(1))
                     .sum(Account.class,"amount",Double.class);
             amount = income + cost;
         }else if(type == 2){
-            amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(2))
+            amount =  LitePal.where(" bookId = ? and accountType = ? ",
+                    String.valueOf(book.getId()),String.valueOf(2))
                     .sum(Account.class,"amount",Double.class);
         }else{
-            amount =  LitePal.where(" userId = ? and bookId = ? and accountType = ? ",
-                    String.valueOf(book.getUserId()),String.valueOf(book.getId()),String.valueOf(1))
+            amount =  LitePal.where("  bookId = ? and accountType = ? ",
+                   String.valueOf(book.getId()),String.valueOf(1))
                     .sum(Account.class,"amount",Double.class);
         }
         return amount;
