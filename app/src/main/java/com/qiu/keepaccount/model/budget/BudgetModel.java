@@ -16,46 +16,33 @@ public class BudgetModel implements IBudgetModel {
     /**
      * 添加预算
      *
-     * @param userId 用户id
      * @param budget 预算
      */
     @Override
-    public void addBudget(int userId, Budget budget) {
-        if(userId != -1){
-            budget.saveAsync();
-        }else{
-            budget.setUserId(userId);
-            budget.saveAsync();
-        }
+    public void addBudget(Budget budget) {
+        budget.saveAsync();
     }
 
     /**
      * 修改预算
      *
-     * @param userId 用户id
      * @param budget 预算
      */
     @Override
-    public void updateBudget(int userId, Budget budget) {
-        if(userId != -1){
-            budget.updateAsync(budget.getId());
-        }else{
-            budget.setUserId(userId);
-            budget.updateAsync(budget.getId());
-        }
+    public void updateBudget(Budget budget) {
+        budget.updateAsync(budget.getId());
     }
 
     /**
      * 查询指定日期的预算信息
      *
-     * @param userId     用户id
      * @param createDate 指定的日期
      * @return 预算信息
      */
     @Override
-    public List<Budget> queryBudget(int userId, String createDate) {
+    public List<Budget> queryBudget(String createDate) {
         List<Budget> budgets = null;
-        budgets = LitePal.where("userId = ? and createDate = ? ",String.valueOf(userId),createDate)
+        budgets = LitePal.where("createDate = ? ",createDate)
                          .find(Budget.class);
         return budgets;
     }

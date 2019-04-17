@@ -1,7 +1,6 @@
 package com.qiu.keepaccount.mvp.account;
 
 import com.qiu.keepaccount.entity.Account;
-import com.qiu.keepaccount.entity.User;
 import com.qiu.keepaccount.model.account.IAccountModel;
 
 public class AccountInfoPresenterImpl implements AccountInfoContract.IAccountInfoPresenter{
@@ -17,23 +16,21 @@ public class AccountInfoPresenterImpl implements AccountInfoContract.IAccountInf
     /**
      * 保存账目
      *
-     * @param user    用户
      * @param account 账目
      */
     @Override
-    public void saveAccount(User user, Account account) {
-      mAccountModel.saveAccount(user,account);
+    public void saveAccount(Account account) {
+      mAccountModel.saveAccount(account);
     }
 
     /**
      * 更改账目
      *
-     * @param user    用户
      * @param account 账目
      */
     @Override
-    public void updateAccount(User user, Account account) {
-     mAccountModel.updateAccount(user,account);
+    public void updateAccount(Account account) {
+     mAccountModel.updateAccount(account);
     }
 
     /**

@@ -19,6 +19,7 @@ import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.base.BaseFragment;
 import com.qiu.keepaccount.entity.LinearPointData;
 import com.qiu.keepaccount.entity.PiePointData;
+import com.qiu.keepaccount.model.account.AccountModel;
 import com.qiu.keepaccount.util.DateUtils;
 
 import java.util.ArrayList;
@@ -311,6 +312,7 @@ public class ChartFragment extends BaseFragment implements ChartContract.ChartVi
     @SuppressLint("HandlerLeak")
     @Override
     public void onCreateFragment(@Nullable Bundle savedInstanceState) {
+        new ChartPresenterImpl(this,new AccountModel());
         initColor();
         //初始化日期
         mTitles = new String[12];

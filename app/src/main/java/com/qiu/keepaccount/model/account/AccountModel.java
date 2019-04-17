@@ -4,7 +4,7 @@ import android.database.Cursor;
 
 import com.qiu.keepaccount.entity.Account;
 import com.qiu.keepaccount.entity.LinearPointData;
-import com.qiu.keepaccount.entity.User;
+import com.qiu.keepaccount.entity.PiePointData;
 
 import org.litepal.LitePal;
 
@@ -20,13 +20,10 @@ public class AccountModel implements IAccountModel {
 
     /**
      * 用户已登录时 保存账目信息
-     *
-     * @param user
      * @param account
      */
     @Override
-    public void saveAccount(User user, Account account) {
-        account.setUserId(user.getId());
+    public void saveAccount(Account account) {
         account.save();
     }
 
@@ -34,12 +31,10 @@ public class AccountModel implements IAccountModel {
     /**
      * 用户已登录时 更新账目信息
      *
-     * @param user
      * @param account
      */
     @Override
-    public void updateAccount(User user, Account account) {
-        account.setUserId(user.getId());
+    public void updateAccount( Account account) {
         account.update(account.getId());
     }
 
@@ -68,23 +63,21 @@ public class AccountModel implements IAccountModel {
     /**
      * 查找指定用户指定日期内所有的账目信息
      *
-     * @param user      用户
      * @param startDate 开始时间
      * @param type      类型 1、支出 2、收入 （-1 不分类型查找）
      */
     @Override
-    public List<Account> queryAccounts(User user, String startDate, int type) {
+    public List<Account> queryAccounts(String startDate, int type) {
         List<Account> accountList = null;
 
-        //用户未登录时用户id设置为-1 用户已登录
         if(type == -1){
-            accountList= LitePal.where("userId = ? and createTime = ?",
-                     user.getId().toString(),startDate)
+            accountList= LitePal.where("createTime = ?",
+                     startDate)
                     .order("createTime desc")
                     .find(Account.class);
         }else {
-            accountList= LitePal.where("userId = ? and createTime = ? and accountType = ?",
-                    user.getId().toString(),startDate,String.valueOf(type))
+            accountList= LitePal.where("createTime = ? and accountType = ?",
+                    startDate,String.valueOf(type))
                     .order("createTime desc")
                     .find(Account.class);
         }
@@ -95,13 +88,12 @@ public class AccountModel implements IAccountModel {
     /**
      * 查找指定用户指定日期内所有的账目信息
      *
-     * @param user      用户
      * @param startDate 开始时间
      * @param endDate   结束时间
      * @param type      类型 1、支出 2、收入 （-1 不分类型查找）
      */
     @Override
-    public List<Account> queryAccounts(User user, String startDate, String endDate, int type) {
+    public List<Account> queryAccounts(String startDate, String endDate, int type) {
         List<Account> accountList = null;
 
         if(type == -1){
@@ -122,30 +114,29 @@ public class AccountModel implements IAccountModel {
     /**
      * 查找指定日期内所有账本中账目总支出，收入
      *
-     * @param user      用户
      * @param startDate 开始时间
      * @param endDate   结束时间
      * @param type      类型 1、支出 2、收入 -1 支出加收入
      */
     @Override
-    public double queryTotalCostOrIncome(User user, String startDate, String endDate, int type) {
+    public double queryTotalCostOrIncome(String startDate, String endDate, int type) {
         double amount = 0.00;
 
         if(type == -1){
-            double income = LitePal.where(" userId = ? and type = ? and createTime >= ? and createTime <= ?",
-                     user.getId().toString(),String.valueOf(2),startDate,endDate)
+            double income = LitePal.where(" type = ? and createTime >= ? and createTime <= ?",
+                     String.valueOf(2),startDate,endDate)
                     .sum(Account.class," amount",Double.class);
-            double cost =  LitePal.where(" userId = ? and type = ? and createTime >= ? and createTime <= ?",
-                    user.getId().toString(),String.valueOf(1),startDate,endDate)
+            double cost =  LitePal.where("type = ? and createTime >= ? and createTime <= ?",
+                    String.valueOf(1),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
             amount = income + cost;
         }else if(type == 2){
-            amount =  LitePal.where(" userId = ? and type = ? and createTime >= ? and createTime <= ?",
-                    user.getId().toString(),String.valueOf(2),startDate,endDate)
+            amount =  LitePal.where("type = ? and createTime >= ? and createTime <= ?",
+                    String.valueOf(2),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
         }else{
-            amount =  LitePal.where(" userId = ? and type = ? and createTime >= ? and createTime <= ?",
-                    user.getId().toString(),String.valueOf(1),startDate,endDate)
+            amount =  LitePal.where("type = ? and createTime >= ? and createTime <= ?",
+                    String.valueOf(1),startDate,endDate)
                     .sum(Account.class,"amount",Double.class);
         }
         return amount;
@@ -154,19 +145,49 @@ public class AccountModel implements IAccountModel {
     /**
      * 返回图表需要的数据
      *
-     * @param user
      * @param startDate
      * @param endDate
      * @return
      */
     @Override
-    public List<LinearPointData> queryChartData(User user, String startDate, String endDate) {
-        Cursor cursor = LitePal.findBySQL("select createDate,sum(Amount) from Account where " +
-                " createTime >= ? and createTime <= ? group by createDate",startDate,endDate);
+    public List<LinearPointData> queryChartData(String startDate, String endDate,int type) {
+        Cursor cursor = null;
+        if(type == -1 ){
+            cursor = LitePal.findBySQL("select createDate,sum(Amount) from Account where " +
+                    " createDate >= ? and createDate <= ? group by createDate",startDate,endDate);
+        }else{
+            cursor = LitePal.findBySQL("select createDate,sum(Amount) from Account where " +
+                    " createDate >= ? and createDate <= ? and type = ? group by createDate",
+                    startDate,endDate,String.valueOf(type));
+        }
         cursor.moveToFirst();
         List<LinearPointData> pointDataList = new ArrayList<>();
         for(int i=0;i<cursor.getCount();i++){
             LinearPointData pointData = new LinearPointData(cursor);
+            pointDataList.add(pointData);
+            cursor.moveToNext();
+        }
+        return pointDataList;
+    }
+
+    /**
+     * 返回饼图需要的数据
+     *
+     * @param startDate
+     * @param endDate
+     * @param type
+     * @return
+     */
+    @Override
+    public List<PiePointData> queryPieData(String startDate, String endDate, int type) {
+        Cursor cursor = LitePal.findBySQL("select typeId,sum(Amount) from Account where " +
+                        " createDate >= ? and createDate <= ? and type = ? group by typeId",
+                startDate,endDate,String.valueOf(type));
+
+        cursor.moveToFirst();
+        List<PiePointData> pointDataList = new ArrayList<>();
+        for(int i=0;i<cursor.getCount();i++){
+            PiePointData pointData = new PiePointData(cursor);
             pointDataList.add(pointData);
             cursor.moveToNext();
         }

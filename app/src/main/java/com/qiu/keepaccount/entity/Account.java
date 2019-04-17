@@ -20,7 +20,7 @@ public class Account extends LitePalSupport implements Serializable {
 
     public Date getCreateDate() {
         return createDate;
-    }
+    }//存储年月日格式的日期
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
@@ -29,8 +29,6 @@ public class Account extends LitePalSupport implements Serializable {
     private Date createDate; // 创建时间年月日格式
 
     private double amount;//金额数
-
-    private int userId; //创建人
 
     private int bookId;//所属账本id
 
@@ -89,13 +87,6 @@ public class Account extends LitePalSupport implements Serializable {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     public int getBookId() {
         return bookId;

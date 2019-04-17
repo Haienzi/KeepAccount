@@ -25,12 +25,10 @@ public class AccountTypeModel implements IAccountTypeModel {
     /**
      * 添加账目类型  用户只有登录后才有权限操作
      *
-     * @param user
      * @param accountType
      */
     @Override
-    public void addAccountType(User user, AccountType accountType) {
-        accountType.setUserId(user.getId());
+    public void addAccountType(AccountType accountType) {
         accountType.saveAsync();
     }
 }

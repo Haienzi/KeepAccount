@@ -14,12 +14,9 @@ public class Book extends LitePalSupport implements Serializable {
 
     private int id;
 
-    private int userId;
-
     private String bookName;
 
     private String sceneName; //场景名称
-
 
     private Date createTime;
 
@@ -51,14 +48,6 @@ public class Book extends LitePalSupport implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public double getTotalCost() {

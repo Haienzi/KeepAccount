@@ -2,7 +2,7 @@ package com.qiu.keepaccount.model.book;
 
 import com.qiu.keepaccount.entity.Account;
 import com.qiu.keepaccount.entity.Book;
-import com.qiu.keepaccount.entity.User;
+
 import org.litepal.LitePal;
 
 import java.util.List;
@@ -56,45 +56,30 @@ public class BookModel implements IBookModel{
 
     /**
      * 查询用户下的所有账本
-     *
-     * @param user 指定的用户
      * @return
      */
     @Override
-    public List<Book> queryBooks(User user) {
+    public List<Book> queryBooks() {
         List<Book> bookList = null;
-        if(user != null){
-            bookList= LitePal.findAll(Book.class);
-        }else{
-            bookList= LitePal.where("userId = ?",
-                        user.getId().toString())
-                        .order("createDate desc")
-                        .find(Book.class);
-        }
+
+        bookList= LitePal.findAll(Book.class);
+
         return bookList;
     }
 
     /**
      * 查询用户指定场景下的所有账本
-     *
-     * @param user      指定的用户
      * @param sceneName 账本场景
      * @return
      */
     @Override
-    public List<Book> queryBooks(User user, String sceneName) {
+    public List<Book> queryBooks(String sceneName) {
         List<Book> bookList = null;
-        if(user != null){
+
             bookList= LitePal.where("sceneName = ?",
                     sceneName)
                     .order("createDate desc")
                     .find(Book.class);
-        }else{
-            bookList= LitePal.where("userId = ? and sceneName = ?",
-                    user.getId().toString(),sceneName)
-                    .order("createDate desc")
-                    .find(Book.class);
-        }
         return bookList;
     }
 

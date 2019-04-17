@@ -23,7 +23,6 @@ import com.qiu.keepaccount.adapter.AccountTypeAdapter;
 import com.qiu.keepaccount.base.BaseFragment;
 import com.qiu.keepaccount.entity.Account;
 import com.qiu.keepaccount.entity.AccountType;
-import com.qiu.keepaccount.entity.User;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 import com.qiu.keepaccount.mvp.books.BookActivity;
 import com.qiu.keepaccount.util.AnimUtils;
@@ -290,9 +289,9 @@ public class AccountFragment extends BaseFragment implements AccountInfoContract
             mAccount.setAmount(Double.valueOf(money));
             mAccount.setRemark(note);
             if(!mIsEdit){
-                mPresenter.updateAccount(new User(), mAccount);
+                mPresenter.updateAccount(mAccount);
             }else{
-                mPresenter.saveAccount(new User(), mAccount);
+                mPresenter.saveAccount(mAccount);
             }
             ToastUtils.show(mContext,getString(R.string.toast_save_success));
             finish();

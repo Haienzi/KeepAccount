@@ -16,21 +16,12 @@ public class AccountType extends LitePalSupport {
 
     private Integer type; // 1 支出  2 收入
 
-    private int userId; //用户id
-
     private int typeIcon; //分类图片
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 
     public Integer getId() {
         return id;

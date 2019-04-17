@@ -2,7 +2,6 @@ package com.qiu.keepaccount.mvp.books;
 
 import com.qiu.keepaccount.base.BaseView;
 import com.qiu.keepaccount.entity.Book;
-import com.qiu.keepaccount.entity.User;
 
 import java.util.List;
 
@@ -27,7 +26,7 @@ public interface BookContract {
      * 账本数据
      */
     interface BookPresenter {
-         void queryBooks(User user);
+         void queryBooks();
          void saveBook(Book book);
          void deleteBook(Book book);
          void updateBook(Book book);

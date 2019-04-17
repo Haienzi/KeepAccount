@@ -1,8 +1,9 @@
 package com.qiu.keepaccount.mvp.books;
 
 import com.qiu.keepaccount.entity.Book;
-import com.qiu.keepaccount.entity.User;
 import com.qiu.keepaccount.model.book.IBookModel;
+
+import java.util.List;
 
 /**
  * @Author qiuhong.ma
@@ -27,9 +28,9 @@ public class BookPresenterImpl implements BookContract.BookPresenter {
     }
 
     @Override
-    public void queryBooks(User user) {
-        mBookModel.queryBooks(user);
-
+    public void queryBooks() {
+        List<Book> books = mBookModel.queryBooks();
+        mBookView.queryBooks(books);
     }
 
     @Override

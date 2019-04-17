@@ -73,7 +73,7 @@ public class BookActivity extends BaseActivity implements BookContract.BookView{
     void initAdapter(){
         User user = new User();
         user.setId(-1);
-        mBookPresenter.queryBooks(user);
+        mBookPresenter.queryBooks();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.
                 VERTICAL,false));
         mBookRecyclerAdapter = new BookRecyclerAdapter(getBaseContext(),mBooks);

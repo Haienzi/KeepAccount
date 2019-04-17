@@ -2,7 +2,6 @@ package com.qiu.keepaccount.model.book;
 
 import com.qiu.keepaccount.entity.Account;
 import com.qiu.keepaccount.entity.Book;
-import com.qiu.keepaccount.entity.User;
 
 import java.util.List;
 
@@ -40,18 +39,16 @@ public interface IBookModel {
 
     /**
      * 查询用户下的所有账本
-     * @param user 指定的用户
      * @return
      */
-    List<Book> queryBooks(User user);
+    List<Book> queryBooks();
 
     /**
      * 查询用户指定场景下的所有账本
-     * @param user 指定的用户
      * @param sceneName 账本场景
      * @return
      */
-    List<Book> queryBooks(User user,String sceneName);
+    List<Book> queryBooks(String sceneName);
 
     /**
      * 查找指定帐薄里所有账目信息

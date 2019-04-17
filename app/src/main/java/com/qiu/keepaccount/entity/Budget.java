@@ -17,8 +17,6 @@ public class Budget extends LitePalSupport {
 
     private String createDate;//创建日期
 
-    private int userId;
-
     private int updateTimes;//更新次数 一个月只可以修改两次
 
     private int sign; //超出预警
@@ -53,14 +51,6 @@ public class Budget extends LitePalSupport {
 
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public int getUpdateTimes() {
