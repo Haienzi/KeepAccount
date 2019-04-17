@@ -168,7 +168,7 @@ public class AccountFragment extends BaseFragment implements AccountInfoContract
     private void initData() {
         // 初始化账目对象
         mAccount = new Account();
-        mAccount.setAccountType(1);//默认支出分类
+        mAccount.setType(1);//默认支出分类
         // 初始化分类数据
         initCostList();
         initIncomeList();
@@ -212,7 +212,7 @@ public class AccountFragment extends BaseFragment implements AccountInfoContract
         int typeIcon = accountType.getTypeIcon();
 
         // 回显金额
-        mTxtMoney.setText(mAccount.getAmount().toString());
+        mTxtMoney.setText(String.valueOf(mAccount.getAmount()));
         // 回显日期
         mDate.setText(DateUtils.dateToString(mAccount.getCreateTime()));
         // 回显备注
@@ -308,6 +308,8 @@ public class AccountFragment extends BaseFragment implements AccountInfoContract
         Drawable drawable = getResources().getDrawable(R.drawable.ic_cost);
         drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
         mTxtType.setCompoundDrawables(drawable,null,null,null);
+        mTxtType.setTextColor(getContext().getResources().getColor(R.color.textPink));
+        mAccountTypeTxt.setTextColor(getContext().getResources().getColor(R.color.textPink));
         mTxtType.setText(getString(R.string.cost_txt));
         mAccount.setType(1);
         setTypeData();
@@ -323,6 +325,8 @@ public class AccountFragment extends BaseFragment implements AccountInfoContract
         drawable.setBounds(0,0,drawable.getMinimumWidth(),drawable.getMinimumHeight());
         mTxtType.setCompoundDrawables(drawable,null,null,null);
         mTxtType.setText(getString(R.string.income_txt));
+        mTxtType.setTextColor(getContext().getResources().getColor(R.color.textLightBlue));
+        mAccountTypeTxt.setTextColor(getContext().getResources().getColor(R.color.textLightBlue));
         mAccount.setType(2);
         setTypeData();
     }

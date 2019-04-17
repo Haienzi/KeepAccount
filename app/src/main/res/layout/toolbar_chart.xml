@@ -52,15 +52,6 @@
                 />
 
         </LinearLayout>
-        <ImageView
-            android:id="@+id/chart_choose_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-            app:srcCompat="@drawable/ic_date_white"
-            />
 
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>

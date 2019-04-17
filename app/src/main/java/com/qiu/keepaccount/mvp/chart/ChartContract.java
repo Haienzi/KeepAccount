@@ -2,40 +2,42 @@ package com.qiu.keepaccount.mvp.chart;
 
 import com.qiu.keepaccount.base.BasePresenter;
 import com.qiu.keepaccount.base.BaseView;
-import com.qiu.keepaccount.entity.Account;
-import com.qiu.keepaccount.entity.User;
+import com.qiu.keepaccount.entity.LinearPointData;
+import com.qiu.keepaccount.entity.PiePointData;
 
 import java.util.List;
 
 public interface ChartContract {
     interface ChartView extends BaseView<IChartPresenter> {
         /**
-         * 切换为线性
+         * 线性图
          * @param accountList
          */
-      void setLinerData(List<Account> accountList);
-
+      void setLinerData(List<LinearPointData> accountList);
         /**
-         * 切换为饼图
+         * 线性图
          * @param accountList
          */
-      void setCircleData(List<Account> accountList);
-
-      /**
-       * 导出为excel文件
-       */
-      void exportToExcel(List<Account> accountList);
-
+        void setCostLinerData(List<LinearPointData> accountList);
         /**
-         * 弹出选择时间对话框
-         */
-      void showDateDoubleDialog();
-
-        /**
-         * 填充List中的数据
+         * 线性图
          * @param accountList
          */
-      void setListData(List<Account> accountList);
+        void setIncomeLinerData(List<LinearPointData> accountList);
+
+        /**
+         * 支出分布饼图
+         * @param accountList
+         */
+        void setCostPieChart(List<PiePointData> accountList);
+
+        /**
+         * 收入分布饼图
+         * @param accountList
+         */
+        void setIncomePieChart(List<PiePointData> accountList);
+
+
     }
 
 
@@ -44,9 +46,9 @@ public interface ChartContract {
      */
     interface IChartPresenter extends BasePresenter {
 
-        void selectAccounts(User user,String startDate,String endDate,int type);
+        void selectLinearData(String startDate,String endDate);
 
-        void selectChartData(User user, String startDate, String endDate);
+        void selectPieData(String startDate, String endDate);
 
     }
 }

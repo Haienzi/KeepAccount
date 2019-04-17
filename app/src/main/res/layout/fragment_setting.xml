@@ -7,29 +7,7 @@
               android:orientation="vertical">
 
     <include layout="@layout/toolbar_setting"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:gravity="center"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical"
-        app:layout_collapseMode="parallax">
 
-        <ImageView
-            android:id="@+id/img_icon"
-            style="@style/AboutPage.Header.Icon"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/ic_me"
-            tools:ignore="ContentDescription"/>
-
-        <TextView
-            android:id="@+id/user_name_txt"
-            android:layout_marginTop="8dp"
-            style="@style/AboutPage.Header.Slogan"
-            android:text="用户昵称"/>
-
-    </LinearLayout>
-    <View style="@style/Divide.Default.Margin"/>
     <RelativeLayout
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
@@ -184,18 +162,5 @@
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/logout_btn"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text16"
-        android:gravity="center"
-        android:padding="@dimen/padding"
-        android:text="退出"/>
 
 </LinearLayout>

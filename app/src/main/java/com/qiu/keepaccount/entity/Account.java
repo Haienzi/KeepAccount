@@ -28,7 +28,7 @@ public class Account extends LitePalSupport implements Serializable {
 
     private Date createDate; // 创建时间年月日格式
 
-    private Double amount;//金额数
+    private double amount;//金额数
 
     private int userId; //创建人
 
@@ -42,9 +42,6 @@ public class Account extends LitePalSupport implements Serializable {
 
     private int typeId;//账目类型所属Id
 
-    public void setType(AccountType type) {
-        mAccountType = type;
-    }
 
     public AccountType getAccountType() {
         return mAccountType;
@@ -80,11 +77,11 @@ public class Account extends LitePalSupport implements Serializable {
         this.createTime = createTime;
     }
 
-    public Double getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -112,9 +109,6 @@ public class Account extends LitePalSupport implements Serializable {
         return type;
     }
 
-    public void setAccountType(int accountType) {
-        this.type = accountType;
-    }
 
     public int getTypeId() {
         return typeId;

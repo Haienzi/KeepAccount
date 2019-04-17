@@ -23,6 +23,7 @@ import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.adapter.AccountRecyclerAdapter;
 import com.qiu.keepaccount.base.BaseFragment;
 import com.qiu.keepaccount.entity.Account;
+import com.qiu.keepaccount.entity.AccountType;
 import com.qiu.keepaccount.entity.Budget;
 import com.qiu.keepaccount.entity.User;
 import com.qiu.keepaccount.ui.fragment.BudgetPickerFragment;
@@ -32,6 +33,7 @@ import com.qiu.keepaccount.mvp.account.AccountInfoActivity;
 import com.qiu.keepaccount.mvp.books.BookActivity;
 import com.qiu.keepaccount.util.DateUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -180,11 +182,26 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
         Log.d(TAG, "onCreateFragment: is called");
         updateDate(new Date());//初始化日期
         new EditAccountPresenterImpl(this);
-        initData();
         setRecyclerData();
+        initData();
     }
 
     public void initData(){
+        mAccountList = new ArrayList<>();
+        String date= mDateText.getText().toString();
+        Account account1 = new Account();
+        account1.setAmount(50.00);
+        account1.setRemark("摇滚炒鸡");
+        account1.setTypeId(1);
+        account1.setType(1);
+        account1.setCreateTime(new Date());
+        AccountType accountType1 = new AccountType();
+        accountType1.setId(1);
+        accountType1.setName("餐饮");
+        account1.setAccountType(accountType1);
+        mAccountList.add(account1);
+        queryAccount(mAccountList);
+        //mPresenter.queryAccount(new User(),date);
         showDateDialog();
         showEditBudgetDialog();
         jumpToBookActivity();
@@ -209,7 +226,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             mTipText.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
         }
-        mAccountRecyclerAdapter.setData(list);
+        mAccountRecyclerAdapter.setData(mAccountList);
         mAccountRecyclerAdapter.notifyDataSetChanged();
         mRecyclerView.setAdapter(mAccountRecyclerAdapter);
     }

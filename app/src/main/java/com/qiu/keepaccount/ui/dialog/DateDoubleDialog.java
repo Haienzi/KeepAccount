@@ -36,8 +36,10 @@ public class DateDoubleDialog extends AlertDialog implements RadioGroup.OnChecke
     private ViewPager mViewPager;
     private View mStartPickerView;
     private View mEndPickerView;
-    private Date mDate;
-    private Calendar mCalendar;
+    private Date mStartDate;
+    private Date mEndDate;
+    private Calendar mStartCalendar;
+    private Calendar mEndCalendar;
     //自定义监听器
     private MyOnDateSetListener mMyOnDateSetListener;
     //格式化工具
@@ -50,17 +52,18 @@ public class DateDoubleDialog extends AlertDialog implements RadioGroup.OnChecke
      * @param myOnDateSetListener 监听器
      */
     public DateDoubleDialog(Context context, MyOnDateSetListener myOnDateSetListener) {
-        this(context, null, myOnDateSetListener);
+        this(context, null,null, myOnDateSetListener);
     }
 
     /**
      * @param context
-     * @param date                默认显示的时间
+     * @param startDate                默认显示的时间
      * @param myOnDateSetListener 监听器
      */
-    public DateDoubleDialog(Context context, Date date, MyOnDateSetListener myOnDateSetListener) {
+    public DateDoubleDialog(Context context, Date startDate,Date endDate, MyOnDateSetListener myOnDateSetListener) {
         super(context);
-        this.mDate = date;
+        this.mStartDate = startDate;
+        this.mEndDate = endDate;
         this.mMyOnDateSetListener = myOnDateSetListener;
         init();
     }
@@ -83,17 +86,26 @@ public class DateDoubleDialog extends AlertDialog implements RadioGroup.OnChecke
         mStartDatePicker.setTag(TAG_START);
         mEndDatePicker.setTag(TAG_END);
         // 初始化 状态
-        if (mDate == null) {
-            mCalendar = Calendar.getInstance();
-            mDate = mCalendar.getTime();
+        if (mStartDate == null) {
+            mStartCalendar = Calendar.getInstance();
+            mStartDate = mStartCalendar.getTime();
         } else {
-            mCalendar = Calendar.getInstance();
-            mCalendar.setTime(mDate);
+            mStartCalendar = Calendar.getInstance();
+            mStartCalendar.setTime(mStartDate);
+        }
+        // 初始化 状态
+        if (mEndDate == null) {
+            mEndCalendar = Calendar.getInstance();
+            mEndDate = mEndCalendar.getTime();
+        } else {
+            mEndCalendar = Calendar.getInstance();
+            mEndCalendar.setTime(mEndDate);
         }
 
 
-        mStartButton.setText(mSimpleDateFormat.format(mDate));
-        mEndButton.setText(mSimpleDateFormat.format(mDate));
+
+        mStartButton.setText(mSimpleDateFormat.format(mStartDate));
+        mEndButton.setText(mSimpleDateFormat.format(mStartDate));
 
         // 设置 显示 宽高
         int width = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
@@ -123,10 +135,10 @@ public class DateDoubleDialog extends AlertDialog implements RadioGroup.OnChecke
         mOkButton.setOnClickListener(this);
 
         //初始化 显示 时间
-        mStartDatePicker.init(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
-                mCalendar.get(Calendar.DAY_OF_MONTH), this);
-        mEndDatePicker.init(mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
-                mCalendar.get(Calendar.DAY_OF_MONTH), this);
+        mStartDatePicker.init(mStartCalendar.get(Calendar.YEAR), mStartCalendar.get(Calendar.MONTH),
+                mStartCalendar.get(Calendar.DAY_OF_MONTH), this);
+        mEndDatePicker.init(mStartCalendar.get(Calendar.YEAR), mStartCalendar.get(Calendar.MONTH),
+                mStartCalendar.get(Calendar.DAY_OF_MONTH), this);
 
 
     }
@@ -201,17 +213,17 @@ public class DateDoubleDialog extends AlertDialog implements RadioGroup.OnChecke
      */
     @Override
     public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-        mCalendar.set(Calendar.YEAR, datePicker.getYear());
-        mCalendar.set(Calendar.MONTH, datePicker.getMonth());
-        mCalendar.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
-        mCalendar.set(Calendar.HOUR_OF_DAY, mCalendar.get(Calendar.HOUR));
-        mCalendar.set(Calendar.MINUTE, mCalendar.get(Calendar.MINUTE));
+        mStartCalendar.set(Calendar.YEAR, datePicker.getYear());
+        mStartCalendar.set(Calendar.MONTH, datePicker.getMonth());
+        mStartCalendar.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+        mStartCalendar.set(Calendar.HOUR_OF_DAY, mStartCalendar.get(Calendar.HOUR));
+        mStartCalendar.set(Calendar.MINUTE, mStartCalendar.get(Calendar.MINUTE));
         switch ((int)datePicker.getTag()){
             case TAG_START:
-                mStartButton.setText(mSimpleDateFormat.format(mCalendar.getTime()));
+                mStartButton.setText(mSimpleDateFormat.format(mStartCalendar.getTime()));
                 break;
             case TAG_END:
-                mEndButton.setText(mSimpleDateFormat.format(mCalendar.getTime()));
+                mEndButton.setText(mSimpleDateFormat.format(mStartCalendar.getTime()));
                 break;
         }
 

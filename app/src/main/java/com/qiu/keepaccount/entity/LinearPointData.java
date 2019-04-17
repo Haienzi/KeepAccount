@@ -18,16 +18,16 @@ public class LinearPointData {
         this.time = time;
     }
 
-    public Double getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(Double money) {
+    public void setMoney(float money) {
         this.money = money;
     }
 
     private String time;
-    private Double money;
+    private double money;
 
     public LinearPointData(Cursor cursor){
         this.time = cursor.getString(0);

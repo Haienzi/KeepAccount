@@ -54,22 +54,22 @@
 
     <string-array name="scene_type">
         <item>日常账本</item>
-        <item>宝宝账本</item>
+        <item>校园账本</item>
         <item>生意账本</item>
+        <item>宝宝账本</item>
         <item>旅行账本</item>
         <item>装修账本</item>
         <item>结婚账本</item>
-        <item>校园账本</item>
     </string-array>
 
     <string-array name="scene_note">
         <item>记录生活点点滴滴</item>
-        <item>陪伴宝宝一起成长</item>
+        <item>学生党必备，生活支出精打细算</item>
         <item>流水实时掌握，轻松打理生意往来</item>
+        <item>陪伴宝宝一起成长</item>
         <item>说走就走的旅行究竟多大成本</item>
         <item>笔笔装修有究可查</item>
         <item>操办婚礼井井有条，要浪漫也要务实</item>
-        <item>学生党必备，生活支出精打细算</item>
     </string-array>
 
     <integer-array name="scene_icon">
@@ -81,4 +81,28 @@
         <item>@mipmap/book_list_scene6</item>
         <item>@mipmap/book_list_scene7</item>
     </integer-array>
+    <integer-array name="cost_color">
+        <item>@color/cost_1</item>
+        <item>@color/cost_2</item>
+        <item>@color/cost_3</item>
+        <item>@color/cost_4</item>
+        <item>@color/cost_5</item>
+        <item>@color/cost_6</item>
+        <item>@color/cost_7</item>
+        <item>@color/cost_8</item>
+        <item>@color/cost_9</item>
+        <item>@color/cost_10</item>
+        <item>@color/cost_11</item>
+    </integer-array>
+    <integer-array name="income_color">
+        <item>@color/cost_1</item>
+        <item>@color/cost_2</item>
+        <item>@color/cost_3</item>
+        <item>@color/cost_4</item>
+        <item>@color/cost_5</item>
+        <item>@color/cost_6</item>
+        <item>@color/cost_7</item>
+        <item>@color/cost_8</item>
+    </integer-array>
+
 </resources>

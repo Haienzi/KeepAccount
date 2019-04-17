@@ -53,6 +53,32 @@
     <color name="textGrayish">#999999</color>
     <color name="textGray">#666666</color>
 
+    <color name="cost_color">#f36c60</color>
+    <color name="income_color">#96D6EF</color>
+    <color name="total_color">#A33DF9</color>
+
+    <color name="cost_1">#F44336</color>
+    <color name="cost_2">#FF9150</color>
+    <color name="cost_3">#FFEB3B</color>
+    <color name="cost_4">#4CAF50</color>
+    <color name="cost_5">#8BC34A</color>
+    <color name="cost_6">#00BCD4</color>
+    <color name="cost_7">#9C27B0</color>
+    <color name="cost_8">#96D6EF</color>
+    <color name="cost_9">#E91E63</color>
+    <color name="cost_10">#3F51B5</color>
+    <color name="cost_11">#D859E4</color>
+    <color name="income_1">#F44336</color>
+    <color name="income_2">#FF9150</color>
+    <color name="income_3">#FFEB3B</color>
+    <color name="income_4">#4CAF50</color>
+    <color name="income_5">#8BC34A</color>
+    <color name="income_6">#00BCD4</color>
+    <color name="income_7">#9C27B0</color>
+    <color name="income_8">#E91E63</color>
+
+
+
     <color name="black">#333333</color>
     <color name="gray">#999999</color>
     <color name="grayish">#EFEFEF</color>

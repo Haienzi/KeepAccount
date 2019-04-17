@@ -68,7 +68,6 @@ public class DatePickerFragment extends DialogFragment {
         //注意使用的时v7.app中的
         return new AlertDialog.Builder(Objects.requireNonNull(getActivity()))
                 .setView(v)                           //添加DatePicker给AlertDialog
-                .setTitle(R.string.date_picker_title)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     //点击OK按钮将DatePicker中获取的日期传递给CrimeFragment
                     @Override

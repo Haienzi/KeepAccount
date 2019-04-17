@@ -12,7 +12,8 @@ import org.litepal.tablemanager.callback.DatabaseListener;
 public class KeepAccount extends Application {
     private static KeepAccount mInstance;
     private static Context mContext;
-
+    public static final String BACKUP_PATH = "backup_path";
+    public static final String RESTORE_PATH = "restore_path";
     @Override
     public void onCreate() {
         super.onCreate();

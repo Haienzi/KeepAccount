@@ -100,7 +100,7 @@
                             android:layout_marginTop="16dp"
                             android:layout_gravity="center_horizontal"
                             android:textSize="@dimen/text18"
-                            android:text="@string/zero"/>
+                            android:text="50.00"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -146,7 +146,7 @@
                             android:layout_marginTop="16dp"
                             android:layout_gravity="center_horizontal"
                             android:textSize="@dimen/text18"
-                            android:text="@string/zero"/>
+                            android:text="50.00"/>
 
                         <TextView
                             android:layout_width="wrap_content"

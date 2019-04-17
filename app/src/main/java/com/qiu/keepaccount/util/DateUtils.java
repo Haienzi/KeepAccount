@@ -41,6 +41,14 @@ public class DateUtils {
         return s;
     }
 
+    public static int getDays(String date){
+      Calendar calendar = Calendar.getInstance();
+      calendar.setTime(stringToYMDDate(date));
+      int days = calendar.get(Calendar.DAY_OF_MONTH);
+      return days;
+
+
+    }
     public static Date stringToYMDDate(String date){
         DateFormat dateFormat = new SimpleDateFormat(DATE_YMD_FORMAT);
         Date date1 = null;

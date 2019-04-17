@@ -112,13 +112,17 @@ public class AccountInfoActivity extends BaseActivity {
             case R.id.txt_title_cost:
                 if(mType != 1){
                     mType = 1;
-                    setCostType();
+                    mTxtTitleCost.setBackgroundResource(R.drawable.bg_tb_select);
+                    mTxtTitleIncome.setBackgroundResource(0);
+                    mAccountFragment.selectCost();
                 }
                 break;
             case R.id.txt_title_income:
                 if(mType != 2){
                     mType = 2;
-                    setCostType();
+                    mTxtTitleIncome.setBackgroundResource(R.drawable.bg_tb_select);
+                    mTxtTitleCost.setBackgroundResource(0);
+                    mAccountFragment.selectIncome();
                 }
                 break;
         }

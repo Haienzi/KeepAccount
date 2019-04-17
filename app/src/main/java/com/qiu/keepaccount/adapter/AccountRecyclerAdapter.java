@@ -105,7 +105,8 @@ public class AccountRecyclerAdapter extends RecyclerView.Adapter<AccountRecycler
         public void bindData(Account account){
             //获取支付类型
             int type = account.getType();
-            AccountType accountType = mAccountTypeModel.getAccountType(account.getTypeId());
+            AccountType  accountType= account.getAccountType();
+            //AccountType accountType = mAccountTypeModel.getAccountType(account.getTypeId());
             mTypeImg.setImageResource(type==1 ? R.mipmap.ic_type_cost : R.mipmap.ic_type_income);
             mMoneyText.setText(String.valueOf("¥"+account.getAmount()));
             mTypeText.setText(accountType.getName());

@@ -21,7 +21,7 @@ public class BookAccountActivity extends BaseActivity {
     TextView mTxtTitleCost;
     @BindView(R.id.ba_title_income)
     TextView mTxtTitleIncome;
-    @BindView(R.id.ba_title_income)
+    @BindView(R.id.ba_title_all)
     TextView mTxtTitleAll;
 
     public static final String EXTRA_BOOK = "com.qiu.keepaccount.bookaccount.book";
@@ -76,13 +76,20 @@ public class BookAccountActivity extends BaseActivity {
             case R.id.ba_title_all:
                 if(mType != -1){
                     mType = -1;
-                    updateDataByType();
+                    mTxtTitleAll.setBackgroundResource(R.drawable.bg_tb_select);
+                    mTxtTitleCost.setBackgroundResource(0);
+                    mTxtTitleIncome.setBackgroundResource(0);
+                    mBookAccountFragment.selectAll();
+                    break;
                 }
                 break;
             case R.id.ba_title_cost:
                 if(mType != 1){
                     mType = 1;
-                    updateDataByType();
+                    mTxtTitleCost.setBackgroundResource(R.drawable.bg_tb_select);
+                    mTxtTitleAll.setBackgroundResource(0);
+                    mTxtTitleIncome.setBackgroundResource(0);
+                    mBookAccountFragment.selectCost();
                 }
 
                 break;
@@ -90,6 +97,10 @@ public class BookAccountActivity extends BaseActivity {
                 if(mType != 2){
                     mType = 2;
                     updateDataByType();
+                    mTxtTitleIncome.setBackgroundResource(R.drawable.bg_tb_select);
+                    mTxtTitleCost.setBackgroundResource(0);
+                    mTxtTitleAll.setBackgroundResource(0);
+                    mBookAccountFragment.selectIncome();
                 }
                 break;
         }
