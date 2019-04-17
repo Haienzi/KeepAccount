@@ -3,7 +3,6 @@ package com.qiu.keepaccount.mvp.editaccount;
 import com.qiu.keepaccount.base.BaseView;
 import com.qiu.keepaccount.entity.Account;
 import com.qiu.keepaccount.entity.Budget;
-import com.qiu.keepaccount.entity.User;
 
 import java.util.List;
 
@@ -56,20 +55,18 @@ public interface EditAccountContract {
         /**
          * 保存预算
          */
-        void saveBudget(int userId,Budget budget);
+        void saveBudget(Budget budget);
 
         /**
          * 检索预算信息
-         * @param userId
          * @param date
          */
-        void queryBudget(int userId,String date);
+        void queryBudget(String date);
         /**
          * 检索记账记录
-         * @param user
          * @param queryDate
          */
-        void queryAccount(User user, String queryDate);
+        void queryAccount( String queryDate);
 
         /**
          * 删除记账记录

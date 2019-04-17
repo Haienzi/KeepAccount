@@ -2,7 +2,6 @@ package com.qiu.keepaccount.mvp.editaccount;
 
 import com.qiu.keepaccount.entity.Account;
 import com.qiu.keepaccount.entity.Budget;
-import com.qiu.keepaccount.entity.User;
 import com.qiu.keepaccount.model.account.AccountModel;
 import com.qiu.keepaccount.model.account.IAccountModel;
 import com.qiu.keepaccount.model.budget.BudgetModel;
@@ -32,20 +31,19 @@ public class EditAccountPresenterImpl implements EditAccountContract.IEditAccoun
      * 保存预算
      */
     @Override
-    public void saveBudget(int userId,Budget budget) {
-        mBudgetModel.addBudget(userId,budget);
+    public void saveBudget(Budget budget) {
+        mBudgetModel.addBudget(budget);
 
     }
 
     /**
      * 检索预算信息
      *
-     * @param userId
      * @param date
      */
     @Override
-    public void queryBudget(int userId, String date) {
-        List<Budget> budgets = mBudgetModel.queryBudget(userId,date);
+    public void queryBudget( String date) {
+        List<Budget> budgets = mBudgetModel.queryBudget(date);
         if(budgets.size() != 0){
             mView.setBudget(budgets.get(0));
         }
@@ -55,12 +53,11 @@ public class EditAccountPresenterImpl implements EditAccountContract.IEditAccoun
     /**
      * 检索记账记录
      *
-     * @param user
      * @param queryDate
      */
     @Override
-    public void queryAccount(User user, String queryDate) {
-        List<Account> accounts = mAccountModel.queryAccounts(user,queryDate,null,-1);
+    public void queryAccount(String queryDate) {
+        List<Account> accounts = mAccountModel.queryAccounts(queryDate,null,-1);
         mView.queryAccount(accounts);
     }
 

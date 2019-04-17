@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
@@ -16,7 +15,6 @@
         android:padding="10dp"
         android:elevation="1dp">
         <TextView
-            style="@style/Text.Maple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -33,6 +31,7 @@
     </RelativeLayout>
     <View style="@style/Divide.Default.Margin"/>
     <RelativeLayout
+        android:id="@+id/set_budget_layout"
         android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +40,6 @@
         android:paddingRight="10dp"
         android:elevation="1dp">
         <TextView
-            style="@style/Text.Maple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -69,7 +67,6 @@
         android:padding="10dp"
         android:elevation="1dp">
         <TextView
-            style="@style/Text.Maple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -94,7 +91,7 @@
         android:padding="10dp"
         android:elevation="1dp">
         <TextView
-            style="@style/Text.Maple"
+            android:id="@+id/set_reminder_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -119,48 +116,20 @@
         android:padding="10dp"
         android:elevation="1dp">
         <TextView
-            style="@style/Text.Maple"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:textSize="@dimen/text16"
-            android:layout_alignBaseline="@id/data_back"
-            android:text="数据备份"/>
+            android:layout_alignBaseline="@id/data_back_restore"
+            android:text="数据备份与还原"/>
         <ImageView
-            android:id="@+id/data_back"
+            android:id="@+id/data_back_restore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:background="@drawable/ic_right"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
-    <View style="@style/Divide.Default.Margin"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="10dp"
-        android:background="?attr/selectableItemBackground"
-        android:elevation="1dp">
-        <TextView
-            style="@style/Text.Maple"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignBaseline="@id/data_recover"
-            android:textSize="@dimen/text16"
-            android:text="数据还原"/>
-        <ImageView
-            android:id="@+id/data_recover"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/ic_right"
-            android:textSize="@dimen/text16"
-            android:layout_alignParentRight="true"/>
-    </RelativeLayout>
-
 
 </LinearLayout>

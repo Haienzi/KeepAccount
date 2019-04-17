@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".mvp.databackup.recover.RecoverActivity">
         </activity>
-        <activity android:name=".mvp.databackup.backup.BackUpActivity">
+        <activity android:name=".ui.activity.BackUpActivity">
         </activity>
         <activity android:name=".mvp.bookaccount.BookAccountActivity">
         </activity>

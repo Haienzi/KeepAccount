@@ -2,37 +2,73 @@ package com.qiu.keepaccount.mvp.settings;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatEditText;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.base.BaseFragment;
+import com.qiu.keepaccount.ui.activity.BackUpActivity;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SettingFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SettingFragment#newInstance} factory method to
- * create an instance of this fragment.
+ *
  */
-public class SettingFragment extends BaseFragment {
-    /**
-     * 标志位，标志已经初始化完成
-     */
-    private boolean isPrepared;
-    /**
-     * 是否已被加载过一次，第二次就不再去请求数据了
-     */
-    private boolean mHasLoadedOnce;
+public class SettingFragment extends BaseFragment implements SettingContract.ISettingView {
+    @BindView(R.id.budget_notify_switch)
+    Switch mBudgetSwitch;
+    @BindView(R.id.account_notify_switch)
+    Switch mAccountSwitch;
+    @BindView(R.id.set_budget_layout)
+    RelativeLayout mBudgetLayout;
+    @BindView(R.id.account_time_layout)
+    RelativeLayout mAccountLayout;
+    @BindView(R.id.budget_min_set)
+    AppCompatEditText mBudgetEdit;
+    @BindView(R.id.account_time_img)
+    ImageView mTimeImg;
+    @BindView(R.id.set_reminder_time)
+    TextView mTimeText;
+    @BindView(R.id.data_back_restore)
+    ImageView mBackRestore;
 
+    private SettingContract.ISettingPresenter mPresenter;
 
-    private OnFragmentInteractionListener mListener;
+    @OnClick({R.id.data_back_restore,R.id.account_time_img})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.data_back_restore:
+                jumpToBackActivity();
+                break;
+            case R.id.account_time_img:
+                showTimeDialog();
+                break;
+        }
+    }
+
+    /**
+     * 跳转到数据备份的页面
+     */
+    private void jumpToBackActivity(){
+        Intent intent = BackUpActivity.newIntent(getContext());
+        startActivity(intent);
+    }
+    /**
+     * 打开选择时间的对话框
+     */
+    private void showTimeDialog(){
+
+    }
 
     @SuppressLint("ValidFragment")
     private SettingFragment() {
@@ -53,27 +89,6 @@ public class SettingFragment extends BaseFragment {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        if (mView == null) {
-            //需要inflate一个布局文件 填充Fragment
-            mView = inflater.inflate(R.layout.fragment_setting, container, false);
-            initView();
-            isPrepared = true;
-            //实现懒加载
-            lazyLoad();
-        }
-        //缓存的mView需要判断是否已经被加过parent， 如果有parent需要从parent删除，要不然会发生这个mView已经有parent的错误。
-        ViewGroup parent = (ViewGroup) mView.getParent();
-        if (parent != null) {
-            parent.removeView(mView);
-        }
-
-        return mView;
-
-    }
 
     /**
      * 获取 Layout 布局
@@ -84,19 +99,14 @@ public class SettingFragment extends BaseFragment {
      */
     @Override
     public View getLayout(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return null;
+        return inflater.inflate(R.layout.fragment_setting,null);
     }
 
     public void initView(){
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -107,7 +117,6 @@ public class SettingFragment extends BaseFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     /**
@@ -116,11 +125,7 @@ public class SettingFragment extends BaseFragment {
      */
     @Override
     public void lazyLoad() {
-        if (!isPrepared || !isVisible || mHasLoadedOnce) {
-            return;
-        }
-        //填充各控件的数据
-        mHasLoadedOnce = true;
+
 
     }
 
@@ -129,19 +134,14 @@ public class SettingFragment extends BaseFragment {
 
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 
+    /**
+     * 在view层获取相应的Presenter实例进行交互
+     *
+     * @param presenter
+     */
+    @Override
+    public void setPresenter(SettingContract.ISettingPresenter presenter) {
+        mPresenter = presenter;
+    }
 }

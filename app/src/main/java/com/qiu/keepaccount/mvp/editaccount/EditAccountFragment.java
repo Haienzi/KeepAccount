@@ -236,11 +236,10 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
      */
     @Override
     public void deleteAccount() {
-        User user = new User();
-        user.setId(-1);
+
         String queryDate = mDateText.getText().toString();
-        mPresenter.queryAccount(user,queryDate);
-        mPresenter.queryBudget(user.getId(),queryDate);
+        mPresenter.queryAccount(queryDate);
+        mPresenter.queryBudget(queryDate);
     }
 
     /**
@@ -333,7 +332,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             updateDate(date);
             User user = new User();
             user.setId(-1);
-            mPresenter.queryAccount(user, DateUtils.dateToString(date));
+            mPresenter.queryAccount(DateUtils.dateToString(date));
         }
         if(requestCode == REQUEST_BUDGET)
         {
@@ -342,7 +341,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             Budget budgetObject = new Budget();
             budgetObject.setBudget((double)budget);
             budgetObject.setCreateDate(mDateText.getText().toString());
-            mPresenter.saveBudget(-1,budgetObject);
+            mPresenter.saveBudget(budgetObject);
         }
     }
 
