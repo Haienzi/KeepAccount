@@ -97,12 +97,12 @@ public class AccountModel implements IAccountModel {
         List<Account> accountList = null;
 
         if(type == -1){
-            accountList= LitePal.where("userId = ? and  createTime >= ? and createTime <= ?",
+            accountList= LitePal.where("createTime >= ? and createTime <= ?",
                     startDate,endDate)
                     .order("createTime desc")
                     .find(Account.class);
         }else{
-            accountList= LitePal.where("userId = ? and  createTime >= ? and createTime <= ? and type = ?",
+            accountList= LitePal.where("createTime >= ? and createTime <= ? and type = ?",
                     startDate,endDate,String.valueOf(type))
                     .order("createTime desc")
                     .find(Account.class);

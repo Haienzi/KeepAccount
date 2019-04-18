@@ -13,6 +13,7 @@ public class SettingPrensterImpl implements SettingContract.ISettingPresenter {
     public SettingPrensterImpl(SettingContract.ISettingView view,IBudgetModel budgetModel){
         mView =view;
         mModel = budgetModel;
+        mView.setPresenter(this);
     }
     /**
      * 保存预算
@@ -32,6 +33,8 @@ public class SettingPrensterImpl implements SettingContract.ISettingPresenter {
     @Override
     public void queryBudget(String date) {
         List<Budget> budget = mModel.queryBudget(date);
-
+        if(budget.size() != 0){
+            mView.setBudget(budget.get(0));
+        }
     }
 }

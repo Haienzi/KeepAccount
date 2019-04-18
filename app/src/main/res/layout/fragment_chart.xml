@@ -6,7 +6,7 @@
               android:orientation="vertical"
              tools:context=".mvp.chart.ChartFragment">
 
-    <include layout="@layout/ "/>
+    <include layout="@layout/toolbar_chart"/>
     <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
@@ -29,37 +29,52 @@
                     android:backgroundTint="@color/colorAccent"
                     android:textColor="@color/white"
                     android:text="折线图"/>
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="8dp"
-                        android:id="@+id/imageView"
-                        android:layout_centerVertical="true"
-                        android:background="@color/total_color" />
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="结余"/>
-                    <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="8dp"
-                        android:background="@color/cost_color" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="支出"/>
-                    <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="8dp"
-                        android:background="@color/income_color" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="收入"/>
-                </LinearLayout>
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:id="@+id/imageView"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/total_color" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="4dp"
+                            android:text="结余"/>
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/cost_color" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="4dp"
+                            android:text="支出"/>
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/income_color" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="4dp"
+                            android:text="收入"/>
+                    </LinearLayout>
+                </RelativeLayout>
                 <lecho.lib.hellocharts.view.LineChartView
                     android:id="@+id/chart_frame"
                     android:layout_marginTop="8dp"

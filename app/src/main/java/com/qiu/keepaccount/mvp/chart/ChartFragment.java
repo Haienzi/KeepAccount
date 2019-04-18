@@ -76,7 +76,7 @@ public class ChartFragment extends BaseFragment implements ChartContract.ChartVi
     private List<SliceValue> mIncomeSliceValues = new ArrayList<>();
     private List<String> mCostType = new ArrayList<>();
     private List<String> mIncomeTypes = new ArrayList<>();
-    private int[] mColors;
+    private int[] mColors = new int[12];
     private List mPointValues = new ArrayList();
     // 定义格式，小数点等等信息
     LineChartValueFormatter chartValueFormatter = new SimpleLineChartValueFormatter(2);
@@ -352,7 +352,7 @@ public class ChartFragment extends BaseFragment implements ChartContract.ChartVi
         drawPieChart(mCostPieView,mCostSliceValues,mCostType,1);
         drawPieChart(mIncomePieView,mCostSliceValues,mCostType,2);
     }
-    @OnClick({R.id.date_last,R.id.date_next,R.id.back_img})
+    @OnClick({R.id.date_last,R.id.date_next,R.id.chart_back_img})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.date_last:

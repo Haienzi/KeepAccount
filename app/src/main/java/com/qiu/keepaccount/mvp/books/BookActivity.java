@@ -14,7 +14,6 @@ import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.adapter.BookRecyclerAdapter;
 import com.qiu.keepaccount.base.BaseActivity;
 import com.qiu.keepaccount.entity.Book;
-import com.qiu.keepaccount.entity.User;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 import com.qiu.keepaccount.model.book.BookModel;
 
@@ -68,15 +67,13 @@ public class BookActivity extends BaseActivity implements BookContract.BookView{
     public void onCreateActivity(@Nullable Bundle savedInstanceState) {
         mBookPresenter = new BookPresenterImpl(this,new BookModel());
         initAdapter();
+        mBookPresenter.queryBooks();
     }
 
     void initAdapter(){
-        User user = new User();
-        user.setId(-1);
-        mBookPresenter.queryBooks();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.
                 VERTICAL,false));
-        mBookRecyclerAdapter = new BookRecyclerAdapter(getBaseContext(),mBooks);
+        mBookRecyclerAdapter = new BookRecyclerAdapter(getBaseContext());
         mRecyclerView.setAdapter(mBookRecyclerAdapter);
         mBookRecyclerAdapter.setOnItemClickListener(new RecyclerItemClickListener() {
             @Override

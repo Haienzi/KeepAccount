@@ -25,10 +25,9 @@ public class BookRecyclerAdapter extends RecyclerView.Adapter<BookRecyclerAdapte
     private LayoutInflater mInflater;
     private List<Book> mBookList;
 
-    public BookRecyclerAdapter(Context context, List<Book> bookList){
+    public BookRecyclerAdapter(Context context){
         this.mContext = context;
         this.mInflater = LayoutInflater.from(mContext);
-        this.mBookList = bookList;
     }
 
     public void setData(List<Book> books){

@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.qiu.keepaccount.KeepAccount;
 import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.adapter.AccountTypeAdapter;
 import com.qiu.keepaccount.base.BaseFragment;
@@ -213,7 +214,7 @@ public class AccountFragment extends BaseFragment implements AccountInfoContract
         // 回显金额
         mTxtMoney.setText(String.valueOf(mAccount.getAmount()));
         // 回显日期
-        mDate.setText(DateUtils.dateToString(mAccount.getCreateTime()));
+        mDate.setText(DateUtils.dateToString(mAccount.getCreateTime(),DateUtils.FORMAT));
         // 回显备注
         mEditNote.setText(mAccount.getRemark());
         mIsEcho = false;
@@ -394,7 +395,7 @@ public class AccountFragment extends BaseFragment implements AccountInfoContract
                 showSelectDateDialog();
                 break;
             case R.id.book_name:
-                Intent intent = BookActivity.newIntent(getActivity());
+                Intent intent = BookActivity.newIntent(KeepAccount.getContext());
                 startActivityForResult(intent,REQUEST_CODE_BOOK);
                 break;
         }

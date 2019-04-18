@@ -46,6 +46,7 @@
     <string name="dialog_book_delete">确定要删除此记账本吗？</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_sure">确定</string>
+    <string name="reminder_time">提醒时间: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

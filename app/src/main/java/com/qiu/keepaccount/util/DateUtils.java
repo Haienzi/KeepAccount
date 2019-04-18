@@ -15,6 +15,7 @@ public class DateUtils {
     public static String DATE_YM_FORMAT = "yyyy-MM";
     public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String FORMAT = "yyyy-MM-dd HH:mm";
+    public static String TIME_FORMAT = "hh:mm a";
     /**  */
     public static final String FORMAT_MAIN_TAB = "yyyy年MM月";
     /** 月和日格式 */
@@ -35,8 +36,8 @@ public class DateUtils {
         return s;
     }
 
-    public static String dateToString(Date date){
-        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+    public static String dateToString(Date date,String format){
+        DateFormat dateFormat = new SimpleDateFormat(format);
         String s = dateFormat.format(date);
         return s;
     }

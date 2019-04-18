@@ -57,7 +57,7 @@ public class EditAccountPresenterImpl implements EditAccountContract.IEditAccoun
      */
     @Override
     public void queryAccount(String queryDate) {
-        List<Account> accounts = mAccountModel.queryAccounts(queryDate,null,-1);
+        List<Account> accounts = mAccountModel.queryAccounts(queryDate,queryDate,-1);
         mView.queryAccount(accounts);
     }
 

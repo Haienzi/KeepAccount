@@ -2,7 +2,7 @@
 <litepal>
     <dbname value="keepaccount"/> //数据库名称
 
-    <version value="1"/> //数据库版本
+    <version value="2"/> //数据库版本
     <cases value="keep" />
     <list>   //指定的映射模型
         <mapping class="com.qiu.keepaccount.entity.AccountType"></mapping>

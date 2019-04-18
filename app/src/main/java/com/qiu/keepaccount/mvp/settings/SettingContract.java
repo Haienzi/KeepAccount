@@ -5,7 +5,7 @@ import com.qiu.keepaccount.entity.Budget;
 
 public interface SettingContract {
     interface ISettingView extends BaseView<SettingContract.ISettingPresenter> {
-
+        void setBudget(Budget budget);
     }
 
     interface ISettingPresenter{

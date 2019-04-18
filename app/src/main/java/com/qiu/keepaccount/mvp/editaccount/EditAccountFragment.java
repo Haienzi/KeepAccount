@@ -23,14 +23,13 @@ import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.adapter.AccountRecyclerAdapter;
 import com.qiu.keepaccount.base.BaseFragment;
 import com.qiu.keepaccount.entity.Account;
-import com.qiu.keepaccount.entity.AccountType;
 import com.qiu.keepaccount.entity.Budget;
 import com.qiu.keepaccount.entity.User;
-import com.qiu.keepaccount.ui.fragment.BudgetPickerFragment;
-import com.qiu.keepaccount.ui.fragment.DatePickerFragment;
 import com.qiu.keepaccount.listener.RecyclerItemClickListener;
 import com.qiu.keepaccount.mvp.account.AccountInfoActivity;
 import com.qiu.keepaccount.mvp.books.BookActivity;
+import com.qiu.keepaccount.ui.fragment.BudgetPickerFragment;
+import com.qiu.keepaccount.ui.fragment.DatePickerFragment;
 import com.qiu.keepaccount.util.DateUtils;
 
 import java.util.ArrayList;
@@ -189,7 +188,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
     public void initData(){
         mAccountList = new ArrayList<>();
         String date= mDateText.getText().toString();
-        Account account1 = new Account();
+       /* Account account1 = new Account();
         account1.setAmount(50.00);
         account1.setRemark("摇滚炒鸡");
         account1.setTypeId(1);
@@ -199,9 +198,9 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
         accountType1.setId(1);
         accountType1.setName("餐饮");
         account1.setAccountType(accountType1);
-        mAccountList.add(account1);
+        mAccountList.add(account1);*/
         queryAccount(mAccountList);
-        //mPresenter.queryAccount(new User(),date);
+        mPresenter.queryAccount(date);
         showDateDialog();
         showEditBudgetDialog();
         jumpToBookActivity();
@@ -332,7 +331,7 @@ public class EditAccountFragment extends BaseFragment implements EditAccountCont
             updateDate(date);
             User user = new User();
             user.setId(-1);
-            mPresenter.queryAccount(DateUtils.dateToString(date));
+            mPresenter.queryAccount(DateUtils.dateToString(date,DateUtils.FORMAT));
         }
         if(requestCode == REQUEST_BUDGET)
         {

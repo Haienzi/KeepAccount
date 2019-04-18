@@ -5,10 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -16,7 +21,14 @@ import android.widget.TextView;
 
 import com.qiu.keepaccount.R;
 import com.qiu.keepaccount.base.BaseFragment;
+import com.qiu.keepaccount.entity.Budget;
+import com.qiu.keepaccount.model.budget.BudgetModel;
 import com.qiu.keepaccount.ui.activity.BackUpActivity;
+import com.qiu.keepaccount.ui.fragment.TimePickerFragment;
+import com.qiu.keepaccount.util.DateUtils;
+import com.qiu.keepaccount.util.ToastUtils;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,6 +53,12 @@ public class SettingFragment extends BaseFragment implements SettingContract.ISe
     TextView mTimeText;
     @BindView(R.id.data_back_restore)
     ImageView mBackRestore;
+
+    private Date mReminderTime;//设置的提醒时键
+    private double mBudget;
+    private static final String DIALOG_TIME = "DialogTime";//TimePickerFragment的tag
+    private static final int REQUEST_TIME = 1;//TimePickerFragment的请求代码
+
 
     private SettingContract.ISettingPresenter mPresenter;
 
@@ -67,7 +85,10 @@ public class SettingFragment extends BaseFragment implements SettingContract.ISe
      * 打开选择时间的对话框
      */
     private void showTimeDialog(){
-
+        FragmentManager manager = getFragmentManager();
+        TimePickerFragment dialog = TimePickerFragment.newInstance(mReminderTime);
+        dialog.setTargetFragment(SettingFragment.this,REQUEST_TIME);
+        dialog.show(manager,DIALOG_TIME);
     }
 
     @SuppressLint("ValidFragment")
@@ -102,8 +123,49 @@ public class SettingFragment extends BaseFragment implements SettingContract.ISe
         return inflater.inflate(R.layout.fragment_setting,null);
     }
 
-    public void initView(){
+    public void setListeners(){
+        mBudgetSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    mBudgetLayout.setVisibility(View.VISIBLE);
+                    mPresenter.queryBudget(DateUtils.dateYMDToString(new Date()));
+                    mBudgetEdit.setHint(String.valueOf(mBudget/2));
+                    mBudgetEdit.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            Log.d(TAG, "afterTextChanged: budget" + s.toString());
+                            if(Double.valueOf(s.toString()) > mBudget){
+                                ToastUtils.show(getContext(),"超出预算值，请重新设置");
+                            }
+                            s.clear();
+                        }
+                    });
+                }else {
+                    mBudgetLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+        mAccountSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    mAccountLayout.setVisibility(View.VISIBLE);
+                }else {
+                    mAccountLayout.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
 
@@ -131,8 +193,14 @@ public class SettingFragment extends BaseFragment implements SettingContract.ISe
 
     @Override
     public void onCreateFragment(@Nullable Bundle savedInstanceState) {
+        new SettingPrensterImpl(this,new BudgetModel());
+        mReminderTime = new Date();
+        mTimeText.setText(String.format(getString(R.string.reminder_time),
+                DateUtils.dateToString(mReminderTime,DateUtils.TIME_FORMAT)));
 
+        setListeners();
     }
+
 
 
     /**
@@ -143,5 +211,22 @@ public class SettingFragment extends BaseFragment implements SettingContract.ISe
     @Override
     public void setPresenter(SettingContract.ISettingPresenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_TIME)
+        {
+            Date time = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+            mReminderTime = time;
+            mTimeText.setText(String.format(getString(R.string.reminder_time),
+                    DateUtils.dateToString(time,DateUtils.TIME_FORMAT)));
+        }
+
+    }
+
+    @Override
+    public void setBudget(Budget budget) {
+        mBudget = budget.getBudget();
     }
 }
